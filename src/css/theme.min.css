@@ -1921,21 +1921,21 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 }
 
 .app-store-btn {
-    background-image: url(../img/market-btns/app-store.png);
+    /*background-image: url(img/market-btns/app-store.png);*/
 }
 
 .google-play-btn {
-    background-image: url(../img/market-btns/google-play.png);
+    /*background-image: url(img/market-btns/google-play.png);*/
 }
 
 .amazon-btn {
-    background-image: url(../img/market-btns/amazon.png);
+  /*  background-image: url(img/market-btns/amazon.png);*/
 }
 
 .windows-btn {
     width: 157px;
     height: 40px;
-    background-image: url(../img/market-btns/windows.png);
+  /*  background-image: url(img/market-btns/windows.png);*/
 }
 
 .text-center .app-store-btn, .text-center .google-play-btn, .text-center .amazon-btn, .text-center .windows-btn {
