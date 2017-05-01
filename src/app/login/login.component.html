@@ -24,18 +24,18 @@
         </form>
             <!-- .login-form -->
 
-            <p class="text-sm space-top">Don’t have an account? <a href="~/Account/Register" class="toggle-section">Signup here</a> or with social account:</p>
-            <a href="#" class="social-signup-btn ssb-facebook">
+            <p class="text-sm space-top">Don’t have an account? <a href="/register" class="toggle-section">Signup here</a> or with social account:</p>
+            <!-- <a href="#" class="social-signup-btn ssb-facebook">
                 <i class="socicon-facebook"></i>
                 <span>Signup with Facebook</span>
-            </a>
-            <a href="#" class="social-signup-btn ssb-google">
+            </a> -->
+            <button (click)="loginWithGoogle()" class="btn social-signup-btn ssb-google">
                 <i class="socicon-googleplus"></i>
                 <span>Signup with Google+</span>
-            </a>
-            <a href="#" class="social-signup-btn ssb-twitter">
+            </button>
+            <!-- <a href="#" class="social-signup-btn ssb-twitter">
                 <i class="socicon-twitter"></i>
                 <span>Signup with Twitter</span>
-            </a>
+            </a> -->
 </div><!-- .inner -->
 </div><!-- .toolbar-section#account -->
