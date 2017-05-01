@@ -2761,8 +2761,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
         .toolbar .toolbar-toggle:after {
             display: block;
-            font-family: 'Material Icons';
-            content: "\e5cd";
+            font-family: 'Ionicons';
+            content: "\f12a";
             margin-top: -24px;
             opacity: 0;
             -webkit-transform: translateY(20px) scale(0.7);
