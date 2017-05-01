@@ -11,6 +11,8 @@ import { CartComponent } from './cart/cart.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { StoreComponent } from './store/store.component';
+import { NavComponent } from './nav/nav.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 const appRoutes: Routes = [
@@ -28,7 +30,9 @@ const appRoutes: Routes = [
     CartComponent,
     LoginComponent,
     RegisterComponent,
-    StoreComponent
+    StoreComponent,
+    NavComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
