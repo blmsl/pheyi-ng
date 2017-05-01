@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { AngularFireModule } from 'angularfire2'
 
 import { Routes, RouterModule } from '@angular/router'
 
@@ -23,6 +24,15 @@ const appRoutes: Routes = [
   { path: 'store', component: StoreComponent},
 ]
 
+ export const firebaseConfig = {
+    apiKey: "AIzaSyBKiBU8NnUOzbv1tEj3B0axhkp9s6tnS-A",
+    authDomain: "pheyi-161501.firebaseapp.com",
+    databaseURL: "https://pheyi-161501.firebaseio.com",
+    projectId: "pheyi-161501",
+    storageBucket: "pheyi-161501.appspot.com",
+    messagingSenderId: "465238772491"
+  };
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +49,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]
