@@ -19,9 +19,29 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "Content/home-mobile/index-mobile.css",
+        "css/vendor/material-icons.min.css",
+        "css/ionicons-2.0.1/css/ionicons.css",
+        "css/vendor/socicon.min.css",
+        "css/vendor/bootstrap.min.css",
+        "css/theme.min.css",
+        "Content/animate.min.css",
+        "Content/Site.css"
+
       ],
-      "scripts": [],
+      "scripts": [
+        "js/vendor/jquery-2.1.4.min.js",
+        "js/vendor/bootstrap.min.js",
+        "js/vendor/smoothscroll.js",
+        "js/vendor/velocity.min.js",
+        "js/vendor/waves.min.js",
+        "js/vendor/icheck.min.js",
+        "js/vendor/owl.carousel.min.js",
+        "js/vendor/jquery.downCount.js",
+        "js/vendor/magnific-popup.min.js",
+        "js/scripts.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

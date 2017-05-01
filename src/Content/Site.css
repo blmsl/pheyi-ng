@@ -1,0 +1,122 @@
+﻿.owl-carousel .owl-controls .owl-nav .owl-prev, .owl-carousel .owl-controls .owl-nav .owl-next {
+    position: absolute;
+    display: block;
+    top: 50%;
+    margin-top: -20px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 18px;
+    color: white !important;
+    background-color: gray !important;
+    opacity: 0.6;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: opacity 0.3s ease-out;
+    -o-transition: opacity 0.3s ease-out;
+    transition: opacity 0.3s ease-out;
+}
+
+.btn {
+    border-radius: 0 !important;
+}
+
+.btn-primary {
+    background: #5c5757 !important;
+}
+
+    .btn-primary:hover {
+        background: #000000 !important;
+    }
+
+.add-to-cart {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 114px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 12px;
+    font-weight: normal;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    background-color: #5c5757 !important;
+    border-radius: 0 !important;
+    overflow: hidden;
+    -webkit-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
+
+    .add-to-cart:hover {
+        color: #fff;
+        background-color: black;
+    }
+
+    .add-to-cart:focus, .add-to-cart:active {
+        color: #fff;
+    }
+
+    .add-to-cart em {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        font-style: normal;
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        -o-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transition: transform 0.3s;
+        -o-transition: transform 0.3s;
+        transition: transform 0.3s;
+    }
+
+    .add-to-cart svg {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 100%;
+        -webkit-transform: translateX(50%) translateY(-50%);
+        -moz-transform: translateX(50%) translateY(-50%);
+        -ms-transform: translateX(50%) translateY(-50%);
+        -o-transform: translateX(50%) translateY(-50%);
+        transform: translateX(50%) translateY(-50%);
+        -webkit-transition: transform 0.3s;
+        -o-transition: transform 0.3s;
+        transition: transform 0.3s;
+    }
+
+    .add-to-cart.is-added em {
+        color: transparent;
+        -webkit-transform: translateX(-100%);
+        -moz-transform: translateX(-100%);
+        -ms-transform: translateX(-100%);
+        -o-transform: translateX(-100%);
+        transform: translateX(-100%);
+        -webkit-transition: transform 0s;
+        -o-transition: transform 0s;
+        transition: transform 0s;
+    }
+
+    .add-to-cart.is-added svg {
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -o-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        -webkit-transition: transform 0s;
+        -o-transition: transform 0s;
+        transition: transform 0s;
+    }
+
+
+   

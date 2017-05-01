@@ -1,0 +1,41 @@
+<!-- Account (Login) -->
+<div class="login-section-plain animated fadeInDown" id="account">
+    <div class="inner">
+        <h3 id="login-title" class="toolbar-title space-bottom">You are not logged in.</h3>
+
+        <form id="login-form">
+            <p id="login-message"></p>
+            <input type="text" id="Email" placeholder="username" class="form-control" required />
+
+            <input type="password" class="form-control" placeholder="Password" required id="Password">
+
+            <div class="form-footer">
+                <div class="rememberme">
+                    <label class="checkbox">
+                         <input type="checkbox" checked name="RememberMe"> Remember me
+                    </label>
+                </div>
+                <div class="form-submit">
+                    <button id="login-submit" type="submit" class="btn btn-primary btn-block waves-effect waves-light">Login</button>
+                </div>
+            </div>
+
+
+        </form>
+            <!-- .login-form -->
+
+            <p class="text-sm space-top">Don’t have an account? <a href="~/Account/Register" class="toggle-section">Signup here</a> or with social account:</p>
+            <a href="#" class="social-signup-btn ssb-facebook">
+                <i class="socicon-facebook"></i>
+                <span>Signup with Facebook</span>
+            </a>
+            <a href="#" class="social-signup-btn ssb-google">
+                <i class="socicon-googleplus"></i>
+                <span>Signup with Google+</span>
+            </a>
+            <a href="#" class="social-signup-btn ssb-twitter">
+                <i class="socicon-twitter"></i>
+                <span>Signup with Twitter</span>
+            </a>
+</div><!-- .inner -->
+</div><!-- .toolbar-section#account -->
