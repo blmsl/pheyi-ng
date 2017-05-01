@@ -1,0 +1,25 @@
+.login-section-plain {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5em;
+    padding-left: 10em;
+    padding-right: 10em;
+    border-radius: 0px 0px 0px 0px;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid solid solid solid;
+    border-color: rgba(179,102,179,1) rgba(179,102,179,1) rgba(179,102,179,1) rgba(179,102,179,1);
+    -webkit-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    -moz-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    -ms-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    -o-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    padding: 1px;
+}
+
+    .login-section-plain > div {
+        padding: 5em !important;
+        padding-left: 10em;
+        padding-right: 10em;
+        margin-top:4em;
+    }
