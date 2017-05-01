@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Work+Sans:400,300,500,600);
 
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -3215,8 +3216,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
         }
 
             .owl-carousel .owl-controls .owl-nav .owl-prev:before, .owl-carousel .owl-controls .owl-nav .owl-next:before {
-                font-family: "Material Icons";
-                content: "\e8e4";
+                font-family: "Ionicons";
+                content: "\f125";
                 line-height: 40px;
             }
 

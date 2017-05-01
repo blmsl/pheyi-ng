@@ -22,7 +22,7 @@
         "styles.css",
         "Content/home-mobile/index-mobile.css",
         "css/vendor/material-icons.min.css",
-        "css/vendor/ionicons.css",
+        "css/ionicons-2.0.1/css/ionicons.css",
         "css/vendor/socicon.min.css",
         "css/vendor/bootstrap.min.css",
         "css/theme.min.css",
