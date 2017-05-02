@@ -1,17 +1,28 @@
 <div class="login-section-plain animated fadeInDown">
     <div class="inner">
 
-        <form id="sign-up-form">
+        <form id="sign-up-form" [formGroup] = "registerForm" (ngSubmit)="register()">
 
             <h3 class="toolbar-title space-bottom">Sign up, it's free</h3>
+            <span *ngIf="isRegisterError">{{registerErrorMessage}}</span>
             <p id="sign-up-message"></p>
-            <input type="email" id="Email" placeholder="please enter your prefered email address" class="form-control" required />
-            <input type="password" Id="Password" placeholder="your password" class="form-control" required />
-            <input type="password" Id="ConfirmPassword" placeholder="confirm your password" class="form-control" required />
+            <span class="help-block" *ngIf="!registerForm.get('email').valid && registerForm.get('email').touched">
+              Please enter a valid email
+            </span>
+            <input formControlName="email" type="email" id="Email" placeholder="please enter your prefered email address" class="form-control" required />
+
+            <input formControlName="password" type="password" Id="Password" placeholder="your password" class="form-control" required />
+            <input formControlName="confirmPassword" type="password" Id="ConfirmPassword" placeholder="confirm your password" class="form-control" required />
+            <span class="help-block" *ngIf="registerForm.get('password').value !== registerForm.get('confirmPassword').value">
+              your password and confirmPassword fields must match!
+            </span>
             <div class="form-submit">
-                <button id="sign-up" type="submit" class="btn btn-primary btn-block waves-effect waves-light">Sign up</button>
+                <button id="sign-up" type="submit" class="btn btn-primary
+                btn-block waves-effect waves-light"
+                [disabled]="(registerForm.get('password').value !== registerForm.get('confirmPassword').value) || !registerForm.valid">
+                {{registerState}}</button>
             </div>
-            You already have an account? <a href="~/Account/login" class="toggle-section">login here</a>
+            You already have an account? <a href="/login" class="toggle-section">login here</a>
         </form>
     </div>
 </div>

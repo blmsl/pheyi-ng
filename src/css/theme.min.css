@@ -1182,8 +1182,8 @@ label.hover {
     .icheckbox:before {
         position: absolute;
         display: block;
-        font-family: 'Material Icons';
-        content: "\e5ca";
+        font-family: 'Ionicons';
+        content: "\f122";
         color: #fff;
         line-height: 1;
         top: -2px;

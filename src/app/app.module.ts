@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2'
+import { ReactiveFormsModule } from '@angular/forms'
 
 import { Routes, RouterModule } from '@angular/router'
 
@@ -14,6 +15,8 @@ import { RegisterComponent } from './register/register.component';
 import { StoreComponent } from './store/store.component';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
+
+
 
 
 const appRoutes: Routes = [
@@ -49,7 +52,8 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
