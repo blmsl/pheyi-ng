@@ -84,10 +84,5 @@ export class LoginComponent implements OnInit{
        });
  }
 
-  register(){
-    // this.af.auth.createUser({email: this.username, password : this.password});
-  }
-
-
 
 }

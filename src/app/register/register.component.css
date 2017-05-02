@@ -29,3 +29,6 @@
     .form-group {
         padding-bottom: 2em;
     }
+    input.ng-invalid.ng-touched{
+      border:2px solid #5c5757;
+    }
