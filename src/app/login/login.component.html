@@ -3,10 +3,10 @@
     <div class="inner">
         <h3 id="login-title"
           class="toolbar-title space-bottom">
-          You are not logged in.
+          {{loggedInStatus}}
         </h3>
         <span *ngIf="!loginError">{{loginErrorMessage}}</span>
-        <form id="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+        <form *ngIf="!isLoggedIn" id="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
             <p id="login-message"></p>
             <span class="help-block" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">
               Please enter a valid username
@@ -53,11 +53,12 @@
                 <i class="socicon-facebook"></i>
                 <span>Signup with Facebook</span>
             </a> -->
-            <button (click)="loginWithGoogle()"
-                class="btn social-signup-btn ssb-google">
-                <i class="socicon-googleplus"></i>
-                <span>Signup with Google+</span>
-            </button>
+              <button  (click)="loginWithGoogle()"
+                  class="btn social-signup-btn ssb-google">
+                  <i class="socicon-googleplus"></i>
+                  <span>Sign in with Google+</span>
+              </button>
+
             <!-- <a href="#" class="social-signup-btn ssb-twitter">
                 <i class="socicon-twitter"></i>
                 <span>Signup with Twitter</span>

@@ -82,19 +82,19 @@
                <div class="toolbar-section" id="account">
                    <div class="inner">
 
-                       <div id="loggedIn">
+                       <div *ngIf="isLoggedIn" id="loggedIn">
                            <h3 class="space-bottom">You are currently logged in </h3>
                            <!-- @Html.ActionLink("Manage your account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "btn btn-primary" }) -->
 
-                           <button id="loggOff" class="btn btn-primary">Log off</button>
+                           <button id="loggOff" class="btn btn-primary" (click)="logOff()">Log off</button>
 
                        </div>
-                       <div id="loggedOut">
+                       <div *ngIf="!isLoggedIn" id="loggedOut">
                            <h3 class="space-bottom">You are not logged in </h3>
                            <p>
-                               <button id="start-login" class="btn btn-primary">
+                               <a href="/login" id="start-login" class="btn btn-primary">
                                    Sign in to start shopping
-                               </button>
+                               </a>
                            </p>
                            <p class="text-sm space-top">
                                Don’t have an account?
