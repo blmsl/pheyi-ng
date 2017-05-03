@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { StoreComponent } from './store/store.component';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 
@@ -45,7 +46,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     StoreComponent,
     NavComponent,
-    FooterComponent
+    FooterComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
