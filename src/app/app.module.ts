@@ -15,17 +15,23 @@ import { RegisterComponent } from './register/register.component';
 import { StoreComponent } from './store/store.component';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
-import { AdminComponent } from './admin/admin.component';
+import { ItemsComponent } from './items/items.component';
+import { CartegoriesComponent } from './cartegories/cartegories.component';
+import { OrdersComponent } from './orders/orders.component';
+import { SalesComponent } from './sales/sales.component';
 
 
 
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
-  // { path: 'cart', component: CartComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'store', component: StoreComponent},
+  { path: 'items', component : ItemsComponent},
+  { path: 'cartegories', component : CartegoriesComponent },
+  { path: 'orders', component: OrdersComponent},
+  { path: 'sales', component: SalesComponent}
 ]
 
  export const firebaseConfig = {
@@ -47,7 +53,10 @@ const appRoutes: Routes = [
     StoreComponent,
     NavComponent,
     FooterComponent,
-    AdminComponent
+    ItemsComponent,
+    CartegoriesComponent,
+    OrdersComponent,
+    SalesComponent
   ],
   imports: [
     BrowserModule,

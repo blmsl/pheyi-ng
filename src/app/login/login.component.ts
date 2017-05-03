@@ -43,11 +43,6 @@ export class LoginComponent implements OnInit{
       'rememberMe' : new FormControl(true)
     });
 
-    //register Form
-    this.registerForm = new FormGroup({
-
-    });
-
   }
 
   loginWithGoogle(){

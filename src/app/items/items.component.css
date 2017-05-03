@@ -1,0 +1,41 @@
+#item-view{
+    padding : 15em;
+}
+
+.teammate-position{
+    max-width:400px;
+    text-align: left !important;
+    font-size:9pt;
+    padding: 3em;
+}
+.teammate-name{
+    text-align: center;
+}
+.teammate{
+    text-align:left;
+    /*line-height: 10pt;*/
+    font-style: italic; 
+    border-radius: 0px 0px 0px 0px;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid solid solid solid;
+    border-color: rgba(179,102,179,1) rgba(179,102,179,1) rgba(179,102,179,1) rgba(179,102,179,1);
+    -webkit-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    -moz-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    -ms-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    -o-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    padding: 5px;
+}
+
+.teammate blockquote {
+    position: relative;
+    padding: 12px 0 12px 15px;
+    margin: 0;
+    margin-bottom: 14px;
+    font-size: 12px;
+    text-transform: none;
+    font-style: normal;
+    color: #333;
+    font-weight: 300;
+    border-left: 5px solid #ededed;
+}

@@ -2,10 +2,10 @@
        <!-- Remove ".navbar-sticky" class to make navigation bar scrollable with the page. -->
        <header class="navbar navbar-sticky">
            <!-- Site Logo -->
-           <a href="~/" class="site-logo visible-desktop">
+           <a href="/" class="site-logo visible-desktop">
                <span>[</span> PHEYI <span>]</span>
            </a><!-- site-logo.visible-desktop -->
-           <a href="~/" class="site-logo visible-mobile">
+           <a href="s/" class="site-logo visible-mobile">
                <span>[</span> M <span>]</span>
            </a><!-- site-logo.visible-mobile -->
 
@@ -58,6 +58,15 @@
                                    <li><a href="~/">Summer wears</a></li>
                                </ul>
                            </li>
+                           <div *ngIf="isAdmin && isLoggedIn">
+                                 <br><br><li>Admin Management</li><hr>
+                                 <li ><a href="/items" style="font-size:12pt;">Items</a></li>
+                                 <li ><a href="/cartegories" style="font-size:12pt;">Cartegories</a></li>
+                                 <li ><a href="/orders" style="font-size:12pt;">Orders</a></li>
+                                 <li ><a href="/sales" style="font-size:12pt;">Sales</a></li>
+                           </div>
+                         
+                              
 
                        </ul><!-- .list-icon -->
                        <span class="text-sm display-inline" style="margin-bottom: 6px;">Connect with us: &nbsp;&nbsp;</span>
