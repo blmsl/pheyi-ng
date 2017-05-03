@@ -2,6 +2,11 @@
     padding : 15em;
 }
 
+#item-view .add-item{
+    font-size:12pt;
+    float:right;
+}
+
 .teammate-position{
     max-width:400px;
     text-align: left !important;

@@ -1,11 +1,16 @@
 <section id="item-view">
 
+<h2 style="padding-left:1.5em;">
+   items in store
+  <button style="float:right" class="btn btn-primary add-item">+ add new item</button>
+</h2><br>
 <!--a list of all items-->
  <!-- Team -->
-      <h5 class="text-uppercase text-gray text-thin space-bottom">Items</h5>
+      <!--<h5 class="text-uppercase text-gray text-thin space-bottom">Items</h5>-->
       <div class="row padding-top">
         <!-- Teammate -->
-        <div class="col-xs-6 col-md-3">
+        <!--<span *ngIf="items"><i>you have no items in store</i></span>-->
+        <div *ngFor="let item of items | async" class="col-xs-12 col-md-6 col-lg-6">
           <div class="teammate">
             <div class="teammate-thumb">
               <div class="social-bar text-center space-bottom">
@@ -43,11 +48,11 @@
 
           </div><!-- .teammate -->
         </div><!-- .col-xs-6.col-md-3 -->
-        
+       
       </div>
-<!--Button to fire dialog event-->
 
 <!--Show list is empty if no item-->
+<!-- Large modal -->
 
 <!--dialog to add new item-->
 
