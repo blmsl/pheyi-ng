@@ -2,14 +2,46 @@
 
 <h2 style="padding-left:1.5em;">
    items in store
-  <button style="float:right" class="btn btn-primary add-item">+ add new item</button>
+  <button style="float:right" class="btn btn-primary add-item" (click)="onAdding()">+ add new item</button>
 </h2><br>
 <!--a list of all items-->
- <!-- Team -->
-      <!--<h5 class="text-uppercase text-gray text-thin space-bottom">Items</h5>-->
+
+      <div *ngIf="isAdding" class="animated zoomIn">    
+        <form id="new-item-form" [formGroup]="createItemForm" (ngSubmit)="createItem()"> 
+          <span class="help-block" *ngIf="!createItemForm.get('title').valid && createItemForm.get('title').touched">
+              Please enter the name of this dress
+            </span>
+          <input formControlName="title" type="text" class="form-control" placeholder="Name of dress e.g. Drapped gown for evening">
+          
+          <span class="help-block" *ngIf="!createItemForm.get('imageURL').valid && createItemForm.get('imageURL').touched">
+              Please enter a valid URL of format 'https://...'
+            </span>
+          <input formControlName="imageURL" type="text" class="form-control" placeholder="Image URL">
+          
+          <span class="help-block" *ngIf="!createItemForm.get('description').valid && createItemForm.get('description').touched">
+              describe this dress please
+            </span>
+          <textarea formControlName="description" name="" id="" cols="30" rows="10" class="form-control" placeholder="Enter description here.."></textarea>
+          
+          <span class="help-block" *ngIf="!createItemForm.get('price').valid && createItemForm.get('price').touched">
+              enter price of dress please in Naira
+            </span>
+          <input formControlName="price" type="number" class="form-control" placeholder="price of dress in [NGN]">
+
+          <span class="help-block" *ngIf="!createItemForm.get('quantityInStock').valid && createItemForm.get('quantityInStock').touched">
+              enter quantity you adding to store please
+            </span>
+          <input formControlName="quantityInStock" type="number" class="form-control" placeholder="Quantity in stock">
+          <input formControlName="isBestSeller" type="checkbox"> add this dress to best sellers<br><br>
+          <input formControlName="isNewArrival" type="checkbox"> add this dress to new arrivals<br><br>
+          <button type="submit"  class="btn btn-primary"[disabled]="!createItemForm.valid">save</button>
+          <button (click)="onCloseAdding()" class="btn btn-default">close</button>       
+        </form>
+       
+      </div>
+
+
       <div class="row padding-top">
-        <!-- Teammate -->
-        <!--<span *ngIf="items"><i>you have no items in store</i></span>-->
         <div *ngFor="let item of items | async" class="col-xs-12 col-md-6 col-lg-6">
           <div class="teammate">
             <div class="teammate-thumb">
@@ -24,19 +56,19 @@
                   <i class="socicon-googleplus"></i>
                 </a>
               </div><!-- .social-bar -->
-              <img src="https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/img%2F10.jpg?alt=media&token=ca18f291-ec3f-4189-9962-bff1ab3c41cf" alt="Teammate">
+              <img src="{{item.imageURL}}" alt="Teammate">
             </div>
-            <h4 class="teammate-name">Adire designed dress for evening</h4>
+            <h4 class="teammate-name">{{ item.title }}</h4>
             <span class="teammate-position">
               <blockquote>
-                    <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem.</p>
+                    <p>{{ item.description }}</p>
                    <!--<cite>James Cameron</cite>-->
               </blockquote>
              
               </span>
-              <h4 class="teammate-name">#25,000</h4>
+              <h4 class="teammate-name">#{{ item.price }}</h4>
                <p style="text-align:center">
-               <i style="text-align:center">25Pcs in stock</i><br>
+               <i style="text-align:center">{{ item.quantityInStock }}Pcs in stock</i><br>
                  
                   <button class="btn btn-default">
                     <i class="ion ion-edit"></i>
@@ -47,7 +79,7 @@
                </p>
 
           </div><!-- .teammate -->
-        </div><!-- .col-xs-6.col-md-3 -->
+        </div>
        
       </div>
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFire, FirebaseAuthState, FirebaseListObservable } from "angularfire2";
 import { Router } from "@angular/router";
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-items',
@@ -13,8 +13,12 @@ export class ItemsComponent implements OnInit {
   createItemForm : FormGroup;
   user : FirebaseAuthState;
   items : FirebaseListObservable<any[]>;
+  isAdding : boolean;
+  itemIsEmpty : boolean;
 
   constructor(private af : AngularFire, private router : Router) {
+
+   this.isAdding = false;
 
     //check if user is authorized
     this.af.auth.subscribe(authState => {
@@ -27,35 +31,39 @@ export class ItemsComponent implements OnInit {
       }
     })
 
+   
+   }
+
+  ngOnInit() {
+
+    //item data store
+    this.items = this.af.database.list('/items');
+
+
     //create form
     this.createItemForm = new FormGroup({
-      'title' : new FormControl(null),
-      'imageURL' : new FormControl(null),
-      'description': new FormControl(null),
-      'price': new FormControl(null),
-      'quantityInStock':new FormControl(null),
+      'title' : new FormControl(null, Validators.required),
+      'imageURL' : new FormControl(null, [Validators.required, Validators.pattern('https?://.+')]),
+      'description': new FormControl(null, [Validators.required]),
+      'price': new FormControl(null, [Validators.required]),
+      'quantityInStock':new FormControl(null, Validators.required),
       'isBestSeller':new FormControl(null),
       'isNewArrival': new FormControl(null)
     })
 
-    //populate all items in db
-    this.items = this.af.database.list('/items');
-
-   }
-
-  ngOnInit() {
+   
   }
  
   createItem(){
-    this.itemAdding = this.createItemForm.value;
+   
     this.items.push({
-      title : this.itemAdding.title,
-      imageURL : this.itemAdding.imageURL,
-      description : this.itemAdding.description,
-      price : this.itemAdding.price,
-      quantityInStock : this.itemAdding.quantityInStock,
-      isBestSeller : this.itemAdding.isBestSeller,
-      isNewArrival : this.itemAdding.isNewArrival,
+      title : this.createItemForm.value.title,
+      imageURL : this.createItemForm.value.imageURL,
+      description : this.createItemForm.value.description,
+      price : this.createItemForm.value.price,
+      quantityInStock : this.createItemForm.value.quantityInStock,
+      isBestSeller : this.createItemForm.value.isBestSeller,
+      isNewArrival : this.createItemForm.value.isNewArrival,
       createdAt : (new Date()).toString(),
       addedBy : this.user.auth.email
     }).then( e=>{
@@ -78,5 +86,13 @@ export class ItemsComponent implements OnInit {
 
   saveUpdate(){
     //save update
+  }
+
+  onAdding(){
+    this.isAdding = true;
+  }
+
+  onCloseAdding(){
+    this.isAdding =false;
   }
 }

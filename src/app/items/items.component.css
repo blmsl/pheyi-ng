@@ -44,3 +44,16 @@
     font-weight: 300;
     border-left: 5px solid #ededed;
 }
+
+#new-item-form{
+    border-radius: 0px 0px 0px 0px;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid solid solid solid;
+    border-color: rgba(179,102,179,1) rgba(179,102,179,1) rgba(179,102,179,1) rgba(179,102,179,1);
+    -webkit-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    -moz-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    -ms-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    -o-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    padding: 5em;
+}
