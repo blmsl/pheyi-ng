@@ -8,7 +8,7 @@
 }
 
 .teammate-position{
-    max-width:400px;
+    /*max-width:400px;*/
     text-align: left !important;
     font-size:9pt;
     padding: 3em;
@@ -17,6 +17,7 @@
     text-align: center;
 }
 .teammate{
+    max-width: 100% !important;
     text-align:left;
     /*line-height: 10pt;*/
     font-style: italic; 
@@ -29,7 +30,7 @@
     -ms-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
     -o-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
     box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
-    padding: 5px;
+    /*padding: 5px;*/
 }
 
 .teammate blockquote {
@@ -56,4 +57,34 @@
     -o-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
     box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
     padding: 5em;
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+    .teammate{
+         max-width: 50% !important;
+         height:auto;
+        
+    }
+    #item-view > p{
+        margin-left:auto;
+        margin-right:auto;
+        padding-right:40%;
+        
+    }
+ }
+/*Small screens*/
+@media (min-width: 320px) and (max-width: 700px) { 
+    .teammate{
+         max-width: 100% !important;
+         height:auto;
+        
+    }
+
+    #item-view{
+        padding-top:10em;
+        padding-left : 0em !important;
+        padding-right : 0em !important;
+        padding-bottom : 0em !important;
+    }
 }

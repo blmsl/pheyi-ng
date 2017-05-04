@@ -1,11 +1,10 @@
 <section id="item-view">
 
-<h2 style="padding-left:1.5em;">
-   items in store
-  <button style="float:right" class="btn btn-primary add-item" (click)="onAdding()">+ add new item</button>
-</h2><br>
-<!--a list of all items-->
 
+<!--a list of all items-->
+    <p > 
+      <button class="btn btn-primary add-item" (click)="onAdding()">+ add new item</button>      
+    </p>      
       <div *ngIf="isAdding" class="animated zoomIn">    
         <form id="new-item-form" [formGroup]="createItemForm" (ngSubmit)="createItem()"> 
           <span class="help-block" *ngIf="!createItemForm.get('title').valid && createItemForm.get('title').touched">
@@ -42,7 +41,7 @@
 
 
       <div class="row padding-top">
-        <div *ngFor="let item of items | async" class="col-xs-12 col-md-6 col-lg-6">
+        <div *ngFor="let item of items | async" class="col-xs-12 col-md-12 col-lg-12">
           <div class="teammate">
             <div class="teammate-thumb">
               <div class="social-bar text-center space-bottom">
