@@ -11,8 +11,11 @@ export class HomeComponent{
     bestSellers : FirebaseListObservable<any[]>;
     newArrivals : FirebaseListObservable<any[]>;
     user : any;
+    sum;
 
     constructor(private af : AngularFire){
+        this.sum = 0;
+
         this.af.auth.subscribe(authState =>{
             this.user = authState.uid
         })
@@ -45,7 +48,9 @@ export class HomeComponent{
         this.af.database.object('/items/'+$key).subscribe(snapshot=>{
             item = snapshot
         })
-
+        
+        this.sum = this.sum + item.price
+        
          //add item to cart
           this.af.database.list('/shoppingCart/'+this.user)
                 .push({
@@ -55,8 +60,13 @@ export class HomeComponent{
                     price : item.price,
                     quantity : 1
                 })
-                .then(x=>{alert('added item to cart')})
+                .then(x=>{
+                   
+                    alert('added item to cart')
+                })
                 .catch(x=>{alert('unable to add item to cart')})
+         
+         
        
     }
 }

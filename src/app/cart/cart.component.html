@@ -8,13 +8,11 @@
             <h3 class="item-title"><a href="shop-single.html">{{item.name}}</a></h3>
             <h4 class="item-price">N{{item.price}}</h4>
             <div class="count-input">
-                <a class="incr-btn" data-action="decrease" href="#">–</a>
-                <input class="quantity" type="text" value="{{item.quantity}}">
-                <a class="incr-btn" data-action="increase" href="#">+</a>
+                <input class="quantity" type="number" value="{{item.quantity}}">
             </div>
         </div>
-        <a href="#" class="item-remove" data-toggle="tooltip" data-placement="top" title="Remove">
-            <i class="material-icons remove_shopping_cart"></i>
+        <a class="item-remove" data-toggle="tooltip" data-placement="top" title="Remove" (click)="removeItemFromCart(item.$key)">
+            <i class="ion ion-ios-close-empty"></i>
         </a>
     </div><!-- .item -->
     
@@ -24,7 +22,7 @@
             <h3 class="toolbar-title">Subtotal:</h3>
         </div>
         <div class="column">
-            <h3 class="amount">$161.90</h3>
+            <h3 class="amount">N{{sum}}</h3>
         </div>
     </div><!-- .subtotal -->
     <!-- Buttons -->
