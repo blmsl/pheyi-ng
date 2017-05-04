@@ -26,3 +26,22 @@
 input.ng-invalid.ng-touched{
   border:2px solid #5c5757;
 }
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+    
+ }
+/*Small screens*/
+@media (min-width: 320px) and (max-width: 700px) { 
+   .login-section-plain{
+       width:100%;
+   }
+
+    .login-section-plain > div {
+        padding: 2em !important; 
+        margin-top:7em;
+    }
+    h3#login-title{
+        font-size:13pt;
+    }
+}

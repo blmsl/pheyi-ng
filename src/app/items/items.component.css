@@ -87,4 +87,9 @@
         padding-right : 0em !important;
         padding-bottom : 0em !important;
     }
+
+    #new-item-form{
+        padding:2em;
+        padding-top:5em;
+    }
 }
