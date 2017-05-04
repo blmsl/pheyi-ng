@@ -1,0 +1,91 @@
+<section id="item-view">
+
+<h2 style="padding-left:1.5em;">
+   items in store
+  <button style="float:right" class="btn btn-primary add-item" (click)="onAdding()">+ add new item</button>
+</h2><br>
+<!--a list of all items-->
+
+      <div *ngIf="isAdding" class="animated zoomIn">    
+        <form id="new-item-form" [formGroup]="createItemForm" (ngSubmit)="createItem()"> 
+          <span class="help-block" *ngIf="!createItemForm.get('title').valid && createItemForm.get('title').touched">
+              Please enter the name of this dress
+            </span>
+          <input formControlName="title" type="text" class="form-control" placeholder="Name of dress e.g. Drapped gown for evening">
+          
+          <span class="help-block" *ngIf="!createItemForm.get('imageURL').valid && createItemForm.get('imageURL').touched">
+              Please enter a valid URL of format 'https://...'
+            </span>
+          <input formControlName="imageURL" type="text" class="form-control" placeholder="Image URL">
+          
+          <span class="help-block" *ngIf="!createItemForm.get('description').valid && createItemForm.get('description').touched">
+              describe this dress please
+            </span>
+          <textarea formControlName="description" name="" id="" cols="30" rows="10" class="form-control" placeholder="Enter description here.."></textarea>
+          
+          <span class="help-block" *ngIf="!createItemForm.get('price').valid && createItemForm.get('price').touched">
+              enter price of dress please in Naira
+            </span>
+          <input formControlName="price" type="number" class="form-control" placeholder="price of dress in [NGN]">
+
+          <span class="help-block" *ngIf="!createItemForm.get('quantityInStock').valid && createItemForm.get('quantityInStock').touched">
+              enter quantity you adding to store please
+            </span>
+          <input formControlName="quantityInStock" type="number" class="form-control" placeholder="Quantity in stock">
+          <input formControlName="isBestSeller" type="checkbox"> add this dress to best sellers<br><br>
+          <input formControlName="isNewArrival" type="checkbox"> add this dress to new arrivals<br><br>
+          <button type="submit"  class="btn btn-primary"[disabled]="!createItemForm.valid">save</button>
+          <button (click)="onCloseAdding()" class="btn btn-default">close</button>       
+        </form>
+       
+      </div>
+
+
+      <div class="row padding-top">
+        <div *ngFor="let item of items | async" class="col-xs-12 col-md-6 col-lg-6">
+          <div class="teammate">
+            <div class="teammate-thumb">
+              <div class="social-bar text-center space-bottom">
+                <a href="#" class="sb-skype" data-toggle="tooltip" data-placement="top" title="Skype">
+                  <i class="socicon-skype"></i>
+                </a>
+                <a href="#" class="sb-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
+                  <i class="socicon-facebook"></i>
+                </a>
+                <a href="#" class="sb-google-plus" data-toggle="tooltip" data-placement="top" title="" data-original-title="Google+">
+                  <i class="socicon-googleplus"></i>
+                </a>
+              </div><!-- .social-bar -->
+              <img src="{{item.imageURL}}" alt="Teammate">
+            </div>
+            <h4 class="teammate-name">{{ item.title }}</h4>
+            <span class="teammate-position">
+              <blockquote>
+                    <p>{{ item.description }}</p>
+                   <!--<cite>James Cameron</cite>-->
+              </blockquote>
+             
+              </span>
+              <h4 class="teammate-name">#{{ item.price }}</h4>
+               <p style="text-align:center">
+               <i style="text-align:center">{{ item.quantityInStock }}Pcs in stock</i><br>
+                 
+                  <button class="btn btn-default">
+                    <i class="ion ion-edit"></i>
+                  </button>
+                  <button class="btn btn-primary">
+                    <i class="ion ion-close"></i>
+                  </button>
+               </p>
+
+          </div><!-- .teammate -->
+        </div>
+       
+      </div>
+
+<!--Show list is empty if no item-->
+<!-- Large modal -->
+
+<!--dialog to add new item-->
+
+</section>

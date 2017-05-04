@@ -2893,10 +2893,10 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
         .main-navigation > li.menu-item-has-children > a:after {
             display: inline-block;
             vertical-align: middle;
-            font-family: 'Material Icons';
-            content: "\e5c5";
+            font-family: 'Ionicons';
+            content: "\f35f";
             font-size: .9em;
-            margin-left: 1px;
+            margin-left: 10px;
             -webkit-transform: rotate(0);
             -moz-transform: rotate(0);
             -ms-transform: rotate(0);
