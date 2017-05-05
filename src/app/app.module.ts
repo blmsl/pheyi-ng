@@ -19,6 +19,7 @@ import { ItemsComponent } from './items/items.component';
 import { CartegoriesComponent } from './cartegories/cartegories.component';
 import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
+// import { CartService } from "app/cart.service";
 
 
 
@@ -56,7 +57,8 @@ const appRoutes: Routes = [
     ItemsComponent,
     CartegoriesComponent,
     OrdersComponent,
-    SalesComponent
+    SalesComponent,
+    // CartService,
   ],
   imports: [
     BrowserModule,
