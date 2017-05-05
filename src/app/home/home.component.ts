@@ -66,6 +66,10 @@ export class HomeComponent{
                 })
                 .catch(x=>{alert('unable to add item to cart')})
          
+         //push to sum
+         this.af.database.object('/shoppingTotal/'+this.user).update({
+             total : this.sum
+         })
          
        
     }
