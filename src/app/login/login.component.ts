@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service'
 import { AngularFire, AuthProviders, AuthMethods, FirebaseListObservable } from 'angularfire2'
 import { FormGroup, FormControl, Validators } from '@angular/forms'
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -12,7 +13,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms'
 
 
 export class LoginComponent implements OnInit{
-  constructor(private af : AngularFire){ }
+  constructor(private af : AngularFire, private router : Router){ }
 
   //control group object for login
   loginForm : FormGroup;
@@ -50,6 +51,7 @@ export class LoginComponent implements OnInit{
       provider : AuthProviders.Google,
       method: AuthMethods.Popup
     }).then(authState=>{
+      this.router.navigate(['']);
       console.log('Logged in via Google');
     })
   }

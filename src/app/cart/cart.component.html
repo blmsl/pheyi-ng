@@ -19,7 +19,7 @@
         <!-- .item -->
 
         <!-- Subtotal -->
-        <div class="cart-subtotal space-bottom">
+        <div *ngIf="((subtotal | async)?.$value)" class="cart-subtotal space-bottom">
             <div class="column">
                 <h3 class="toolbar-title">Subtotal:</h3>
             </div>
@@ -106,10 +106,13 @@
         </form>
     </div>
 
-
+    <div *ngIf="!((subtotal | async)?.$value)">
+        <i>**You do not have any items in cart ** </i><br><br>
+          <a href="/login" class="btn btn-primary">Sign in to start shopping</a> 
+    </div>
 
     <!-- Buttons -->
-    <div *ngIf="!hasCompleteAdding" class="text-right">
+    <div *ngIf="!hasCompleteAdding && (subtotal | async)?.$value" class="text-right">
         <button class="btn btn-default btn-ghost close-dropdown">Continue Shopping</button>
         <button (click)="checkout()" class="btn btn-primary waves-effect waves-light ">Proceed to Checkout</button>
     </div>

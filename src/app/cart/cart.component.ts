@@ -26,7 +26,6 @@ export class CartComponent{
 
     constructor(private af : AngularFire, private ct : CartService){
     
-
          //get user and update cart if any
         this.af.auth.subscribe(authState => {
             if(authState){
