@@ -1,33 +1,117 @@
 <div class="shopping-cart">
-    <!-- Item -->
-    <div *ngFor = "let item of cartItems | async" class="item">
-        <a href="shop-single.html" class="item-thumb">
-            <img src="{{item.imageURL}}" alt="Item">
-        </a>
-        <div class="item-details">
-            <h3 class="item-title"><a href="shop-single.html">{{item.name}}</a></h3>
-            <h4 class="item-price">N{{item.price}}</h4>
-            <div class="count-input">
-                <input class="quantity" type="number" value="{{item.quantity}}">
+    <div *ngIf="!hasCompleteAdding">
+        <!-- Item -->
+        <div *ngFor="let item of cartItems | async" class="item">
+            <a href="shop-single.html" class="item-thumb">
+                <img src="{{item.imageURL}}" alt="Item">
+            </a>
+            <div class="item-details">
+                <h3 class="item-title"><a href="shop-single.html">{{item.name}}</a></h3>
+                <h4 class="item-price">N{{item.price}}</h4>
+                <div class="count-input">
+                    <input class="quantity" type="number" value="{{item.quantity}}">
+                </div>
+            </div>
+            <a class="item-remove" data-toggle="tooltip" data-placement="top" title="Remove" (click)="removeItemFromCart(item.$key)">
+                <i class="ion ion-ios-close-empty"></i>
+            </a>
+        </div>
+        <!-- .item -->
+
+        <!-- Subtotal -->
+        <div class="cart-subtotal space-bottom">
+            <div class="column">
+                <h3 class="toolbar-title">Subtotal:</h3>
+            </div>
+            <div class="column">
+                <h3 class="amount">N{{ (subtotal | async)?.total | json }}</h3>
             </div>
         </div>
-        <a class="item-remove" data-toggle="tooltip" data-placement="top" title="Remove" (click)="removeItemFromCart(item.$key)">
-            <i class="ion ion-ios-close-empty"></i>
-        </a>
-    </div><!-- .item -->
-    
-    <!-- Subtotal -->
-    <div class="cart-subtotal space-bottom">
-        <div class="column">
-            <h3 class="toolbar-title">Subtotal:</h3>
-        </div>
-        <div class="column">
-            <h3 class="amount">N{{ (subtotal | async)?.total | json }}</h3>
-        </div>
-    </div><!-- .subtotal -->
-    <!-- Buttons -->
-    <div class="text-right">
-        <a href="#" class="btn btn-default btn-ghost close-dropdown">Continue Shopping</a>
-        <a href="#checkout" class="btn btn-primary waves-effect waves-light toggle-section">Proceed to Checkout</a>
+        <!-- .subtotal -->
     </div>
-</div><!-- .shopping-cart -->
+
+    <div *ngIf="hasShippingAddress">
+        <form class="checkout-form container">
+            <div class="cart-subtotal space-bottom">
+                <div class="column">
+                    <h3 class="toolbar-title">Checkout</h3>
+                </div>
+                <div class="column">
+                    <h3 class="amount"><small class="hidden-xs">3 items&nbsp;&nbsp;&nbsp;</small>N{{ (subtotal | async)?.total | json }}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <input class="form-control" name="co_f_name" placeholder="First name" required="" type="text">
+                    <!--<input class="form-control" name="co_email" placeholder="Email" required="" type="email">-->
+                    <!--<input class="form-control" name="co_address1" placeholder="Address 1" required="" type="text">-->
+                </div>
+                <div class="col-sm-6">
+                    <input class="form-control" name="co_l_name" placeholder="Last name" required="" type="text">
+                    <!--<input class="form-control" name="co_address2" placeholder="Address 2" type="text">-->
+                </div>
+            </div>
+            <input class="form-control" name="co_phone" placeholder="Phone" required="" type="tel">            
+            <input class="form-control" name="co_company" placeholder="Shipping address" type="text">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-element form-select">
+                        <select class="form-control" name="co_country">
+                                       <option   value="" >Country</option>
+                                       <option   value="australia" >Australia</option>
+                                       <option   value="gb" >Great Britain</option>
+                                       <option   value="poland" >Poland</option>
+                                       <option   value="switzerland" >Switzerland</option>
+                                       <option   value="usa" >USA</option>
+                                   </select>
+                    </div>
+                    <div class="form-element form-select">
+                        <select class="form-control" name="co_city">
+                                       <option   value="" >City</option>
+                                       <option   value="bern">Bern</option>
+                                       <option   value="london">London</option>
+                                       <option   value="ny">New York</option>
+                                       <option   value="warsaw">Warsaw</option>
+                                   </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-element form-select">
+                        <select class="form-control" name="co_state">
+                                       <option   value="" ng-reflect-value="">State</option>
+                                       <option   value="1" ng-reflect-value="1">State 1</option>
+                                       <option   value="2" ng-reflect-value="2">State 2</option>
+                                       <option   value="3" ng-reflect-value="3">State 3</option>
+                                       <option   value="4" ng-reflect-value="4">State 4</option>
+                                       <option   value="5" ng-reflect-value="5">State 5</option>
+                                   </select>
+                    </div>
+                    <input class="form-control" name="co_zip" placeholder="ZIP code" required="" type="text">
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label class="radio radio-inline">
+                               <div class="iradio checked"><input   checked="" name="co_shipping" type="radio" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Ship to this address
+                           </label>
+                <label class="radio radio-inline">
+                               <div class="iradio"><input   name="co_shipping" type="radio" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Ship to different address
+                           </label>
+            </div>-->
+            <div class="text-right">
+                <a class="btn btn-default btn-ghost icon-left toggle-section" href="#cart">
+                    <i class="material-icons arrow_back"></i> Back To Cart
+                </a>
+                <button class="btn btn-primary waves-effect waves-light" type="submit">Checkout</button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <!-- Buttons -->
+    <div *ngIf="!hasCompleteAdding" class="text-right">
+        <button class="btn btn-default btn-ghost close-dropdown">Continue Shopping</button>
+        <button (click)="checkout()" class="btn btn-primary waves-effect waves-light ">Proceed to Checkout</button>
+    </div>
+</div>
+<!-- .shopping-cart -->

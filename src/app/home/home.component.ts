@@ -1,24 +1,29 @@
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from "angularfire2";
+import { CartService } from "app/cart.service";
 
 @Component({
     templateUrl : './home.component.html',
-    styleUrls:['./home.component.css']
+    styleUrls:['./home.component.css'],
+    providers : [CartService]
 })
 
 
-export class HomeComponent{
+export class HomeComponent {
+    cartItems: FirebaseListObservable<any[]>;
     bestSellers : FirebaseListObservable<any[]>;
     newArrivals : FirebaseListObservable<any[]>;
     user : any;
     sum;
 
-    constructor(private af : AngularFire){
+    constructor(private af : AngularFire, private ct : CartService){
         this.sum = 0;
 
         this.af.auth.subscribe(authState =>{
             this.user = authState.uid
         })
+
+        // this.cartItems =  this.ct.getCartItems();
     }
 
     ngOnInit(){
@@ -71,6 +76,8 @@ export class HomeComponent{
              total : this.sum
          })
          
+         //update cart count
+         this.ct.addCartCount(1);
        
     }
 }

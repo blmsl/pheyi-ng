@@ -1,22 +1,30 @@
 import { Component } from '@angular/core';
 import { FirebaseListObservable, AngularFire, FirebaseObjectObservable } from "angularfire2";
+import { CartService } from "app/cart.service";
 
 @Component({
    selector : 'app-cart',
-    templateUrl : './cart.component.html'
+    templateUrl : './cart.component.html',
+    providers : [CartService]
 })
 
 export class CartComponent{
 
     cartItems : FirebaseListObservable<any[]>;
     cartItemForSum : FirebaseListObservable<any[]>;
+    order : FirebaseListObservable<any[]>;
+
     user : any;
     sum;
     removingPrice;
     currentTotal;
     subtotal : FirebaseObjectObservable<any>;
+    shippingExisit;
+    hasShippingAddress;
+    hasCompleteAdding;
+    noOfItems;
 
-    constructor(private af : AngularFire){
+    constructor(private af : AngularFire, private ct : CartService){
     
 
          //get user and update cart if any
@@ -28,7 +36,10 @@ export class CartComponent{
               this.cartItems =  this.af.database.list('/shoppingCart/'+authState.uid);         
                
                //get subtotal
-               this.subtotal = this.af.database.object('/shoppingTotal/'+this.user)
+               this.subtotal = this.af.database.object('/shoppingTotal/'+this.user);
+
+               //order
+               this.order = this.af.database.list('/orders');
             }
         })
 
@@ -36,6 +47,8 @@ export class CartComponent{
     }
 
     ngOnInit(){
+     this.hasShippingAddress = false;
+     this.hasCompleteAdding = false;    
      
     }
 
@@ -61,6 +74,44 @@ export class CartComponent{
         })
 
        this.cartItems.remove($key);
+
+       //update cart count
+       this.ct.removeCartCount(1);
+   }
+
+   checkout(){
+
+       this.hasShippingAddress = true;
+       this.hasCompleteAdding =true;
+
+       //add item to order with isPayed=false
+       const pushKey = this.order.push({
+           uid: '',
+           isPayed : false,
+           amount : '',
+           shippingDetails :{},           
+           items : {},
+       }).key;
+
+       //check if user has shipping address
+       this.shippingExisit = this.af.database.object('/shipping/'+this.user);
+       this.shippingExisit.subscribe(x=>{
+           if(x && x.$value){
+               console.log('shipping  exists')
+           }else{
+               console.log('shipping does not exists')
+           }
+       })
+
+       //get order reference
+
+       //post to paystack with order_reference
+
+       //redirect to payment url from paystack promise
+
+       //redirect to callback url with reference as params
+       alert('proceeding to checkout')
+
    }
 
 }
