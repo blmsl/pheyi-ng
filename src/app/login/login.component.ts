@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit{
       provider : AuthProviders.Google,
       method: AuthMethods.Popup
     }).then(authState=>{
-      this.router.navigate(['']);
+      window.location.href = document.location.origin + '/';
       console.log('Logged in via Google');
     })
   }
@@ -68,8 +68,7 @@ export class LoginComponent implements OnInit{
        }).then(authState => {
 
          this.loginState = 'Login';
-
-         alert('you are logged in')
+         window.location.href = document.location.origin + '/'; 
          console.log("Login Success", authState)
 
        }).catch(error =>{

@@ -106,9 +106,11 @@
         </form>
     </div>
 
-    <div *ngIf="!((subtotal | async)?.$value)">
+    <div *ngIf="!((cartItems | async)?.$value)">
         <i>**You do not have any items in cart ** </i><br><br>
-          <a href="/login" class="btn btn-primary">Sign in to start shopping</a> 
+    </div>
+    <div *ngIf="!isLoggedIn">
+         <a  href="/login" class="btn btn-primary">Sign in to start shopping</a>      
     </div>
 
     <!-- Buttons -->

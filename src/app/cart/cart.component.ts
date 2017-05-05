@@ -23,13 +23,22 @@ export class CartComponent{
     hasShippingAddress;
     hasCompleteAdding;
     noOfItems;
+    isLoggedIn : boolean;
+    count : number;
 
-    constructor(private af : AngularFire, private ct : CartService){
-    
-         //get user and update cart if any
+    constructor(private af : AngularFire, private ct : CartService){       
+        
+    }
+
+    ngOnInit(){
+     this.hasShippingAddress = false;
+     this.hasCompleteAdding = false; 
+     this.count = this.ct.getCartCount();
+     
+     //get user and update cart if any
         this.af.auth.subscribe(authState => {
             if(authState){
-
+              this.isLoggedIn = true;
               this.user = authState.uid;
 
               this.cartItems =  this.af.database.list('/shoppingCart/'+authState.uid);         
@@ -39,16 +48,11 @@ export class CartComponent{
 
                //order
                this.order = this.af.database.list('/orders');
+            }else{
+                this.isLoggedIn = false;
             }
         })
-
-        
-    }
-
-    ngOnInit(){
-     this.hasShippingAddress = false;
-     this.hasCompleteAdding = false;    
-     
+   
     }
 
    removeItemFromCart($key : string){
