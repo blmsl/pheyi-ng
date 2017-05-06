@@ -42,8 +42,10 @@ export class NavComponent implements OnInit {
   }
 
   logOff(){
-    this.af.auth.logout();
-    this.isLoggedIn = false;
-    window.location.href = document.location.origin + '/'; 
+    this.af.auth.logout().then(e=>{
+      this.isLoggedIn = false;
+      window.location.href = document.location.origin + '/'; 
+    });
+    
   }
 }
