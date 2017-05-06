@@ -40,7 +40,7 @@ export class CartComponent{
             if(authState){
               this.isLoggedIn = true;
               this.user = authState.uid;
-
+             
               this.cartItems =  this.af.database.list('/shoppingCart/'+authState.uid);         
                
                //get subtotal
