@@ -73,3 +73,14 @@ exports.date = functions.https.onRequest((req, res) => {
     // [END sendResponse]
   });
 });
+
+exports.hello = functions.https.onRequest((req, res) => {
+  if(req.method === 'POST'){
+
+    const first_name = req.body.name;
+    const last_name = req.body.lastname;
+
+
+    res.json({message: `Welcome ${first_name} ${last_name} to cloud function API`});
+  }
+});
