@@ -19,6 +19,7 @@ import { ItemsComponent } from './items/items.component';
 import { CartegoriesComponent } from './cartegories/cartegories.component';
 import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
+import { DetailsComponent } from './details/details.component';
 // import { CartService } from "app/cart.service";
 
 
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
   { path: 'items', component : ItemsComponent},
   { path: 'cartegories', component : CartegoriesComponent },
   { path: 'orders', component: OrdersComponent},
-  { path: 'sales', component: SalesComponent}
+  { path: 'sales', component: SalesComponent},
+  { path: 'details/:key', component:DetailsComponent}
 ]
 
  export const firebaseConfig = {
@@ -58,6 +60,7 @@ const appRoutes: Routes = [
     CartegoriesComponent,
     OrdersComponent,
     SalesComponent,
+    DetailsComponent,
     // CartService,
   ],
   imports: [
