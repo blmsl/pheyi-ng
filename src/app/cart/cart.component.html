@@ -19,7 +19,7 @@
         <!-- .item -->
 
         <!-- Subtotal -->
-        <div *ngIf="((subtotal | async)?.$value)" class="cart-subtotal space-bottom">
+        <div class="cart-subtotal space-bottom">
             <div class="column">
                 <h3 class="toolbar-title">Subtotal:</h3>
             </div>
@@ -106,9 +106,9 @@
         </form>
     </div>
 
-    <div *ngIf="!((cartItems | async)?.$value)">
+    <!--<div *ngIf="!subtotal?.$exists">
         <i>**You do not have any items in cart ** </i><br><br>
-    </div>
+    </div>-->
     <div *ngIf="!isLoggedIn">
          <a  href="/login" class="btn btn-primary">Sign in to start shopping</a>      
     </div>
