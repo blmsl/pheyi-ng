@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from "angularfire2";
 import { CartService } from "app/cart.service";
+import { FormControl } from "@angular/forms/forms";
 
 @Component({
   selector: 'app-details',
@@ -16,13 +17,20 @@ export class DetailsComponent implements OnInit {
   item: FirebaseObjectObservable<any>;
   AlsoLike: FirebaseListObservable<any[]>;
   key: string;
+  sizeInInches;
+  sizeInCm;
+  ukSizes;
+  toggleState;
 
 
   constructor(private route: ActivatedRoute, private af: AngularFire, private ct: CartService) { }
 
   ngOnInit() {
     //  this.key  = this.route.snapshot.params['key'];
-
+    this.toggleState = "toggle size to see more size & Fit details"
+    this.af.database.list('/Sizes/women/inches').subscribe(snapshot =>{
+      this.ukSizes = snapshot;
+    })
     this.sum = 0;
 
     this.af.auth.subscribe(authState => {
@@ -98,6 +106,32 @@ export class DetailsComponent implements OnInit {
 
   }
 
+  toggleSize($uk_size){
+    this.toggleState = "loading ...."
+
+    //inches
+    this.af.database.list('/Sizes/women/inches', {
+      query: {
+        orderByChild : 'UK',
+        equalTo : parseInt($uk_size)
+      }
+    }).subscribe(snapshot => {
+      this.sizeInInches = snapshot;
+    }) 
+
+    //cm
+    this.af.database.list('/Sizes/women/cm', {
+      query:{
+        orderByChild : 'UK',
+        equalTo : parseInt($uk_size)
+      }
+    }).subscribe(snapshot => {
+      this.sizeInCm = snapshot;
+      this.toggleState = '';
+      
+    })
+   
+  }
 
 
 }

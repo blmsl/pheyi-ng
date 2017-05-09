@@ -48,21 +48,37 @@
           <h2>₦{{item?.price}}</h2>
           <!--<p class="text-sm text-gray">Quisque rutrum eu sapien in viverra. Quisque id consectetur tellus. Etiam in lacus ut lorem vehicula vehicula non et felis. Integer quis solis.</p>-->
           <div class="product-meta">
-            <div class="product-sku">
+            <!--<div class="product-sku">
               <strong>SKU: </strong>
               <span>146950023</span>
-            </div>
+            </div>-->
             <div class="product-category">
               <strong>Category: </strong>
               <a href="#">Furniture</a>
             </div>
-            <span class="product-rating text-warning">
+          <div>
+            {{toggleState}} <br>
+           
+            <span *ngFor = "let size of sizeInInches" style="display: block">
+               Size in Inches<br>
+                 <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
+                 <b>Burst: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
+            </span><br>
+            
+             <span *ngFor = "let size of sizeInCm">
+                Size in Centimeters(cm)<br>
+               
+                 <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
+                 <b>Burst: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
+            </span>
+          </div>
+            <!--<span class="product-rating text-warning">
               <i class="material-icons star"></i>
               <i class="material-icons star"></i>
               <i class="material-icons star"></i>
               <i class="material-icons star"></i>
               <i class="material-icons star_border"></i>
-            </span>
+            </span>-->
           </div><!-- .product-meta -->
           <div class="product-tools shop-item">
             <div class="count-input">
@@ -71,7 +87,15 @@
               <a class="incr-btn" data-action="increase" href="#">+</a>
             </div><!-- .count-input -->
             <div class="form-element">
+              <select #size (change) = "toggleSize(size.value)" class="form-control form-control-sm color-select">
+                <option disabled selected>Choose your size</option>
+                <option *ngFor="let size of ukSizes" value="{{size.UK}}" >{{size.UK}}</option>
+               
+              </select>
+            </div><!-- .form-element -->
+            <div class="form-element">
               <select class="form-control form-control-sm color-select">
+                <option disabled selected>Choose fabric</option>
                 <option value="blue" data-image="preview02">Blue</option>
                 <option value="creme" data-image="preview01">Creme</option>
                 <option value="red" data-image="preview03">Red</option>

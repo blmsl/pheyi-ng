@@ -34,6 +34,7 @@ export class CartComponent {
     ngOnInit() {
         this.hasShippingAddress = false;
         this.hasCompleteAdding = false;
+        
         this.count = this.ct.getCartCount();
 
         //get user and update cart if any
