@@ -15,6 +15,7 @@ export class CartComponent {
     order: FirebaseListObservable<any[]>;
 
     user: any;
+    order_reference : any;
     sum;
     removingPrice;
     currentTotal;
@@ -26,7 +27,7 @@ export class CartComponent {
     isLoggedIn: boolean;
     count: number;
 
-   
+
     constructor(private af: AngularFire, private ct: CartService) {
 
     }
@@ -34,7 +35,7 @@ export class CartComponent {
     ngOnInit() {
         this.hasShippingAddress = false;
         this.hasCompleteAdding = false;
-        
+
         this.count = this.ct.getCartCount();
 
         //get user and update cart if any
@@ -78,7 +79,7 @@ export class CartComponent {
                 () => {
                     subtotal_subscription.unsubscribe();
                      document.location.reload(); //reload page to clear cache
-                    
+
                 }
             );
 
@@ -98,25 +99,38 @@ export class CartComponent {
 
     checkout() {
 
-        this.hasShippingAddress = true;
         this.hasCompleteAdding = true;
 
         //add item to order with isPayed=false
-        const pushKey = this.order.push({
-            uid: '',
-            isPayed: false,
-            amount: '',
-            shippingDetails: {},
-            items: {},
-        }).key;
+        //check if order exists before pushKey
+        this.af.database.list('orders', {
+          query:{
+            orderByChild : 'uid',
+            equalTo : this.user
+          }
+        }).subscribe(x => {
+          if(x.length === 0){
+            this.order_reference = this.order.push({
+                uid: this.user,
+                isPayed: false,
+                amount: '',
+                shippingDetails: {},
+                items: {},
+            }).key;
+
+          }
+        })
 
         //check if user has shipping address
         this.shippingExisit = this.af.database.object('/shipping/' + this.user);
         this.shippingExisit.subscribe(x => {
             if (x && x.$value) {
-                console.log('shipping  exists')
+              this.checkOutWithShipping();
+
             } else {
-                console.log('shipping does not exists')
+
+                this.hasShippingAddress = true;
+                this.checkoutWithoutShipping();
             }
         })
 
@@ -127,8 +141,25 @@ export class CartComponent {
         //redirect to payment url from paystack promise
 
         //redirect to callback url with reference as params
-        alert('proceeding to checkout')
 
+    }
+
+    backToCart(){
+      this.hasShippingAddress = false;
+      this.hasCompleteAdding = false;
+    }
+
+    //customer has shipping address
+    checkOutWithShipping(){
+      alert('checkout and pay')
+      console.log('shipping  exists')
+    }
+
+    //customer does not have shipping address
+    checkoutWithoutShipping(){
+      alert('add shipping address before checkout')
+
+      console.log('shipping does not exists')
     }
 
 }
