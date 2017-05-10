@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FirebaseListObservable, AngularFire, FirebaseObjectObservable } from "angularfire2";
 import { CartService } from "app/cart.service";
+import { FormGroup, FormControl } from "@angular/forms"
 
 @Component({
     selector: 'app-cart',
@@ -15,6 +16,7 @@ export class CartComponent {
     order: FirebaseListObservable<any[]>;
 
     user: any;
+    authState : any;
     order_reference : any;
     sum;
     removingPrice;
@@ -25,7 +27,7 @@ export class CartComponent {
     hasCompleteAdding;
     noOfItems;
     isLoggedIn: boolean;
-    count: number;
+    shippingForm : FormGroup;
 
 
     constructor(private af: AngularFire, private ct: CartService) {
@@ -36,13 +38,14 @@ export class CartComponent {
         this.hasShippingAddress = false;
         this.hasCompleteAdding = false;
 
-        this.count = this.ct.getCartCount();
+        // this.count = this.ct.getCartCount();
 
         //get user and update cart if any
         this.af.auth.subscribe(authState => {
             if (authState) {
                 this.isLoggedIn = true;
                 this.user = authState.uid;
+                this.authState = authState;
 
                 this.cartItems = this.af.database.list('/shoppingCart/' + authState.uid);
 
@@ -54,6 +57,20 @@ export class CartComponent {
             } else {
                 this.isLoggedIn = false;
             }
+        })
+
+
+        //create shipping form
+        this.shippingForm = new FormGroup({
+          'firstname' : new FormControl(null),
+          'lastname' : new FormControl(null),
+           'phone' : new FormControl(null),
+           'address' : new FormControl(null),
+           'country': new FormControl(null),
+           'state': new FormControl(null),
+           'city': new FormControl(null),
+           'zipCode': new FormControl(null)
+          //  'email' : new FormControl(this.authState.email)
         })
 
     }
@@ -130,7 +147,7 @@ export class CartComponent {
             } else {
 
                 this.hasShippingAddress = true;
-                this.checkoutWithoutShipping();
+                //this.checkoutWithoutShipping();
             }
         })
 
@@ -157,7 +174,10 @@ export class CartComponent {
 
     //customer does not have shipping address
     checkoutWithoutShipping(){
-      alert('add shipping address before checkout')
+      this.af.database.list('/shipping/' + this.user)
+      .push(this.shippingForm.value);
+
+      alert('add shipping address Added')
 
       console.log('shipping does not exists')
     }

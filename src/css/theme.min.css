@@ -1006,7 +1006,8 @@ select option {
 }
 
 .form-element.form-select:before {
-    content: "\e5c5";
+    font-family: 'Ionicons';
+    content: "\f3d0";
     font-size: 22px;
     margin-top: -11px;
     color: #606060;
