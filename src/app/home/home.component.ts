@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from "angularfire2";
 import { CartService } from "app/cart.service";
+
 
 @Component({
     templateUrl : './home.component.html',
@@ -15,6 +16,7 @@ export class HomeComponent {
     newArrivals : FirebaseListObservable<any[]>;
     user : any;
     sum;
+    images : any[];
 
     constructor(private af : AngularFire, private ct : CartService){
         this.sum = 0;
@@ -37,9 +39,9 @@ export class HomeComponent {
             }
         })
 
-        //get all new arrivals 
+        //get all new arrivals
         this.newArrivals = this.af.database.list('/items',{
-           query:{ 
+           query:{
                orderByChild : 'isNewArrival',
                equalTo : true,
                limitToLast : 8
@@ -53,9 +55,9 @@ export class HomeComponent {
         this.af.database.object('/items/'+$key).subscribe(snapshot=>{
             item = snapshot
         })
-        
+
         this.sum = this.sum + item.price
-        
+
          //add item to cart
           this.af.database.list('/shoppingCart/'+this.user)
                 .push({
@@ -66,18 +68,18 @@ export class HomeComponent {
                     quantity : 1
                 })
                 .then(x=>{
-                   
+
                     alert('added item to cart')
                 })
                 .catch(x=>{alert('unable to add item to cart')})
-         
+
          //push to sum
          this.af.database.object('/shoppingTotal/'+this.user).update({
              total : this.sum
          })
-         
+
          //update cart count
          this.ct.addCartCount(1);
-       
+
     }
 }

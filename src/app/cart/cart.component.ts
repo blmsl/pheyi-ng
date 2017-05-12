@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { FirebaseListObservable, AngularFire, FirebaseObjectObservable } from "angularfire2";
 import { CartService } from "app/cart.service";
-import { FormGroup, FormControl } from "@angular/forms"
+import { FormGroup, FormControl } from "@angular/forms";
+import { Headers, Http } from "@angular/http";
 
 @Component({
     selector: 'app-cart',
     templateUrl: './cart.component.html',
+    styleUrls:['./cart.component.css'],
     providers: [CartService]
 })
 
@@ -16,6 +18,7 @@ export class CartComponent {
     order: FirebaseListObservable<any[]>;
 
     user: any;
+    email : any;
     authState : any;
     order_reference : any;
     sum;
@@ -30,9 +33,7 @@ export class CartComponent {
     shippingForm : FormGroup;
 
 
-    constructor(private af: AngularFire, private ct: CartService) {
-
-    }
+    constructor(private af: AngularFire, private ct: CartService, private http: Http) { }
 
     ngOnInit() {
         this.hasShippingAddress = false;
@@ -45,6 +46,7 @@ export class CartComponent {
             if (authState) {
                 this.isLoggedIn = true;
                 this.user = authState.uid;
+                
                 this.authState = authState;
 
                 this.cartItems = this.af.database.list('/shoppingCart/' + authState.uid);
@@ -174,12 +176,74 @@ export class CartComponent {
 
     //customer does not have shipping address
     checkoutWithoutShipping(){
+
+      var amount_paying;
+      this.subtotal.subscribe(snapshot=>{ amount_paying = snapshot })
+
       this.af.database.list('/shipping/' + this.user)
-      .push(this.shippingForm.value);
+            .push(this.shippingForm.value)
 
-      alert('add shipping address Added')
+            .then(x=>{
 
-      console.log('shipping does not exists')
+              //post to paystack and get the redirect url
+              let url = `https://api.paystack.co/transaction/initialize`;
+              const headers = new Headers({
+                  'Authorization': 'Bearer sk_test_d5bc45fd1e80406abf8d152f5d3c6ff2efe2bca3'
+              });
+  
+            //   headers.append('Authorization', 'Bearer sk_test_d5bc45fd1e80406abf8d152f5d3c6ff2efe2bca3');
+            //   headers.append('Content-Type', 'application/json; charset=utf-8');
+              var body = {
+
+                reference : this.order_reference,
+                email : this.authState.auth.email,
+                amount : parseFloat(amount_paying.total) * 100 ,
+                callback_url : document.location.origin+'/'
+
+              };
+
+              this.http.post(url, JSON.stringify(body), {headers : headers}).subscribe( response =>{
+
+                  console.log('Authorization URL: '+response.json().data.authorization_url)
+                  window.location.href = response.json().data.authorization_url;
+
+              }, error =>{
+                console.log(error);
+              })
+              // alert('proceeding to payment of ..'+ parseFloat(amount_paying.total) * 100 )
+
+            }).then(s=>{
+              //redirect user to payment url
+              alert('payment completed')
+              // console.log('shipping does not exists')
+
+            })
+
     }
+
+  // payWithPaystack(){
+  //   var handler = PaystackPop.setup({
+  //     key: 'pk_test_86d32aa1nV4l1da7120ce530f0b221c3cb97cbcc',
+  //     email: 'customer@email.com',
+  //     amount: 10000,
+  //     ref: "UNIQUE TRANSACTION REFERENCE HERE",
+  //     metadata: {
+  //        custom_fields: [
+  //           {
+  //               display_name: "Mobile Number",
+  //               variable_name: "mobile_number",
+  //               value: "+2348012345678"
+  //           }
+  //        ]
+  //     },
+  //     callback: function(response){
+  //         alert('success. transaction ref is ' + response.reference);
+  //     },
+  //     onClose: function(){
+  //         alert('window closed');
+  //     }
+  //   });
+  //   handler.openIframe();
+  // }
 
 }

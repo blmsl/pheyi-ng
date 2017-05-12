@@ -30,7 +30,7 @@
         "Content/Site.css"
 
       ],
-      "scripts": [
+      "scripts": [      
         "js/vendor/jquery-2.1.4.min.js",
         "js/vendor/bootstrap.min.js",
         "js/vendor/smoothscroll.js",
