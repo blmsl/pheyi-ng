@@ -16,6 +16,8 @@ export class CartComponent {
     cartItems: FirebaseListObservable<any[]>;
     cartItemForSum: FirebaseListObservable<any[]>;
     order: FirebaseListObservable<any[]>;
+    shipping : FirebaseObjectObservable<any>;
+    amount_paying : number;
 
     user: any;
     email: any;
@@ -53,9 +55,16 @@ export class CartComponent {
 
                 //get subtotal
                 this.subtotal = this.af.database.object('/shoppingTotal/' + this.user);
+                this.subtotal.subscribe(snapshot=>{
+                    this.amount_paying = snapshot.total
+                })
 
                 //order
                 this.order = this.af.database.list('/orders');
+
+                //get shipping 
+                this.shipping = this.af.database.object('/shipping/' + this.user);
+
             } else {
                 this.isLoggedIn = false;
             }
@@ -122,8 +131,8 @@ export class CartComponent {
 
         //add item to order with isPayed=false
         //check if order exists before pushKey
-         var amount_paying;
-        this.subtotal.subscribe(snapshot => { amount_paying = snapshot })
+        // var amount_paying;
+        // this.subtotal.subscribe(snapshot => { amount_paying = snapshot })
         
         //get items in cart
         var itemsInCart = {};
@@ -142,7 +151,7 @@ export class CartComponent {
                 this.order_reference = this.order.push({
                     uid: this.user,
                     isPayed: false,
-                    amount: parseFloat(amount_paying),
+                    amount: this.amount_paying,
                     shippingDetails: this.shippingForm.value,
                     items: itemsInCart,
                 }).key;
@@ -151,15 +160,13 @@ export class CartComponent {
         })
 
         //check if user has shipping address
-        this.shippingExisit = this.af.database.object('/shipping/' + this.user);
-        this.shippingExisit.subscribe(x => {
-            if (x && x.$value) {
+        this.shipping.subscribe(snapshot => {
+            if (snapshot.$value !== null) {
                 this.checkOutWithShipping();
 
             } else {
-
+                console.log('shipping dosent exist')
                 this.hasShippingAddress = true;
-                //this.checkoutWithoutShipping();
             }
         })
 
@@ -172,25 +179,24 @@ export class CartComponent {
 
     //customer has shipping address
     checkOutWithShipping() {
-        this.payWithPayStack();
+      
+        this.payWithPayStack(this.amount_paying);
     }
 
     //customer does not have shipping address
     checkoutWithoutShipping() {
 
-        this.af.database.list('/shipping/' + this.user)
-            .push(this.shippingForm.value)
+        this.af.database.object('/shipping/' + this.user)
+            .set(this.shippingForm.value)
             .then(() => {
-                this.payWithPayStack();
+                this.payWithPayStack(this.amount_paying);
             })
 
     }
 
-    payWithPayStack() {
+    payWithPayStack(amount : number) {
 
-        var amount_paying;
-        this.subtotal.subscribe(snapshot => { amount_paying = snapshot })
-
+        
         //post to paystack and get paystack redirect url
         let url = `https://api.paystack.co/transaction/initialize`;
         const headers = new Headers({
@@ -202,7 +208,7 @@ export class CartComponent {
 
             reference: this.order_reference,
             email: this.authState.auth.email,
-            amount: parseFloat(amount_paying.total) * 100,
+            amount: amount * 100,
             callback_url: document.location.origin + '/'
 
         };
@@ -211,7 +217,6 @@ export class CartComponent {
 
             console.log('Authorization URL: ' + response.json().data.authorization_url)
             window.location.href = response.json().data.authorization_url;
-
         }, error => {
             console.log(error);
         })
