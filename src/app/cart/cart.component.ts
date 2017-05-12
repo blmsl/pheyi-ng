@@ -7,7 +7,7 @@ import { Headers, Http } from "@angular/http";
 @Component({
     selector: 'app-cart',
     templateUrl: './cart.component.html',
-    styleUrls:['./cart.component.css'],
+    styleUrls: ['./cart.component.css'],
     providers: [CartService]
 })
 
@@ -18,9 +18,9 @@ export class CartComponent {
     order: FirebaseListObservable<any[]>;
 
     user: any;
-    email : any;
-    authState : any;
-    order_reference : any;
+    email: any;
+    authState: any;
+    order_reference: any;
     sum;
     removingPrice;
     currentTotal;
@@ -30,7 +30,7 @@ export class CartComponent {
     hasCompleteAdding;
     noOfItems;
     isLoggedIn: boolean;
-    shippingForm : FormGroup;
+    shippingForm: FormGroup;
 
 
     constructor(private af: AngularFire, private ct: CartService, private http: Http) { }
@@ -46,7 +46,7 @@ export class CartComponent {
             if (authState) {
                 this.isLoggedIn = true;
                 this.user = authState.uid;
-                
+
                 this.authState = authState;
 
                 this.cartItems = this.af.database.list('/shoppingCart/' + authState.uid);
@@ -64,15 +64,15 @@ export class CartComponent {
 
         //create shipping form
         this.shippingForm = new FormGroup({
-          'firstname' : new FormControl(null),
-          'lastname' : new FormControl(null),
-           'phone' : new FormControl(null),
-           'address' : new FormControl(null),
-           'country': new FormControl(null),
-           'state': new FormControl(null),
-           'city': new FormControl(null),
-           'zipCode': new FormControl(null)
-          //  'email' : new FormControl(this.authState.email)
+            'firstname': new FormControl(null),
+            'lastname': new FormControl(null),
+            'phone': new FormControl(null),
+            'address': new FormControl(null),
+            'country': new FormControl(null),
+            'state': new FormControl(null),
+            'city': new FormControl(null),
+            'zipCode': new FormControl(null)
+            //  'email' : new FormControl(this.authState.email)
         })
 
     }
@@ -87,7 +87,7 @@ export class CartComponent {
         })
 
         //get total and subtract current price
-       var subtotal_subscription =  this.subtotal.subscribe(snapshot => {
+        var subtotal_subscription = this.subtotal.subscribe(snapshot => {
             this.currentTotal = snapshot.total;
             this.sum = this.currentTotal - this.removingPrice;
         })
@@ -97,7 +97,7 @@ export class CartComponent {
             this.subtotal.remove().then(
                 () => {
                     subtotal_subscription.unsubscribe();
-                     document.location.reload(); //reload page to clear cache
+                    document.location.reload(); //reload page to clear cache
 
                 }
             );
@@ -122,29 +122,39 @@ export class CartComponent {
 
         //add item to order with isPayed=false
         //check if order exists before pushKey
-        this.af.database.list('orders', {
-          query:{
-            orderByChild : 'uid',
-            equalTo : this.user
-          }
-        }).subscribe(x => {
-          if(x.length === 0){
-            this.order_reference = this.order.push({
-                uid: this.user,
-                isPayed: false,
-                amount: '',
-                shippingDetails: {},
-                items: {},
-            }).key;
+         var amount_paying;
+        this.subtotal.subscribe(snapshot => { amount_paying = snapshot })
+        
+        //get items in cart
+        var itemsInCart = {};
+        this.cartItems.subscribe(snapshot=>{
+            itemsInCart = snapshot;
+        })
 
-          }
+        //create order
+        this.af.database.list('orders', {
+            query: {
+                orderByChild: 'uid',
+                equalTo: this.user
+            }
+        }).subscribe(x => {
+            if (x.length === 0) {
+                this.order_reference = this.order.push({
+                    uid: this.user,
+                    isPayed: false,
+                    amount: parseFloat(amount_paying),
+                    shippingDetails: this.shippingForm.value,
+                    items: itemsInCart,
+                }).key;
+
+            }
         })
 
         //check if user has shipping address
         this.shippingExisit = this.af.database.object('/shipping/' + this.user);
         this.shippingExisit.subscribe(x => {
             if (x && x.$value) {
-              this.checkOutWithShipping();
+                this.checkOutWithShipping();
 
             } else {
 
@@ -153,97 +163,61 @@ export class CartComponent {
             }
         })
 
-        //get order reference
-
-        //post to paystack with order_reference
-
-        //redirect to payment url from paystack promise
-
-        //redirect to callback url with reference as params
-
     }
 
-    backToCart(){
-      this.hasShippingAddress = false;
-      this.hasCompleteAdding = false;
+    backToCart() {
+        this.hasShippingAddress = false;
+        this.hasCompleteAdding = false;
     }
 
     //customer has shipping address
-    checkOutWithShipping(){
-      alert('checkout and pay')
-      console.log('shipping  exists')
+    checkOutWithShipping() {
+        this.payWithPayStack();
     }
 
     //customer does not have shipping address
-    checkoutWithoutShipping(){
+    checkoutWithoutShipping() {
 
-      var amount_paying;
-      this.subtotal.subscribe(snapshot=>{ amount_paying = snapshot })
-
-      this.af.database.list('/shipping/' + this.user)
+        this.af.database.list('/shipping/' + this.user)
             .push(this.shippingForm.value)
-
-            .then(x=>{
-
-              //post to paystack and get the redirect url
-              let url = `https://api.paystack.co/transaction/initialize`;
-              const headers = new Headers({
-                  'Authorization': 'Bearer sk_test_d5bc45fd1e80406abf8d152f5d3c6ff2efe2bca3'
-              });
-  
-            //   headers.append('Authorization', 'Bearer sk_test_d5bc45fd1e80406abf8d152f5d3c6ff2efe2bca3');
-            //   headers.append('Content-Type', 'application/json; charset=utf-8');
-              var body = {
-
-                reference : this.order_reference,
-                email : this.authState.auth.email,
-                amount : parseFloat(amount_paying.total) * 100 ,
-                callback_url : document.location.origin+'/'
-
-              };
-
-              this.http.post(url, JSON.stringify(body), {headers : headers}).subscribe( response =>{
-
-                  console.log('Authorization URL: '+response.json().data.authorization_url)
-                  window.location.href = response.json().data.authorization_url;
-
-              }, error =>{
-                console.log(error);
-              })
-              // alert('proceeding to payment of ..'+ parseFloat(amount_paying.total) * 100 )
-
-            }).then(s=>{
-              //redirect user to payment url
-              alert('payment completed')
-              // console.log('shipping does not exists')
-
+            .then(() => {
+                this.payWithPayStack();
             })
 
     }
 
-  // payWithPaystack(){
-  //   var handler = PaystackPop.setup({
-  //     key: 'pk_test_86d32aa1nV4l1da7120ce530f0b221c3cb97cbcc',
-  //     email: 'customer@email.com',
-  //     amount: 10000,
-  //     ref: "UNIQUE TRANSACTION REFERENCE HERE",
-  //     metadata: {
-  //        custom_fields: [
-  //           {
-  //               display_name: "Mobile Number",
-  //               variable_name: "mobile_number",
-  //               value: "+2348012345678"
-  //           }
-  //        ]
-  //     },
-  //     callback: function(response){
-  //         alert('success. transaction ref is ' + response.reference);
-  //     },
-  //     onClose: function(){
-  //         alert('window closed');
-  //     }
-  //   });
-  //   handler.openIframe();
-  // }
+    payWithPayStack() {
+
+        var amount_paying;
+        this.subtotal.subscribe(snapshot => { amount_paying = snapshot })
+
+        //post to paystack and get paystack redirect url
+        let url = `https://api.paystack.co/transaction/initialize`;
+        const headers = new Headers({
+            'Authorization': 'Bearer sk_test_d5bc45fd1e80406abf8d152f5d3c6ff2efe2bca3'
+        });
+
+        //payment body
+        var body = {
+
+            reference: this.order_reference,
+            email: this.authState.auth.email,
+            amount: parseFloat(amount_paying.total) * 100,
+            callback_url: document.location.origin + '/'
+
+        };
+
+        this.http.post(url, JSON.stringify(body), { headers: headers }).subscribe(response => {
+
+            console.log('Authorization URL: ' + response.json().data.authorization_url)
+            window.location.href = response.json().data.authorization_url;
+
+        }, error => {
+            console.log(error);
+        })
+
+
+    }
+
 
 }
