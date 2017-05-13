@@ -20,6 +20,7 @@ import { CartegoriesComponent } from './cartegories/cartegories.component';
 import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
  import { DetailsComponent } from './details/details.component';
+import { PayComponent } from './pay/pay.component';
 // import { CartService } from "app/cart.service";
 
 
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
   { path: 'cartegories', component : CartegoriesComponent },
   { path: 'orders', component: OrdersComponent},
   { path: 'sales', component: SalesComponent},
-  { path: 'details/:key', component:DetailsComponent}
+  { path: 'details/:key', component:DetailsComponent},
+  { path: 'pay_callback/:ref/', component:PayComponent}
 
 ]
 
@@ -62,6 +64,7 @@ const appRoutes: Routes = [
     OrdersComponent,
     SalesComponent,
     DetailsComponent,
+    PayComponent,
     // CartService,
   ],
   imports: [

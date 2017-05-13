@@ -16,13 +16,15 @@ export class CartComponent {
     cartItems: FirebaseListObservable<any[]>;
     cartItemForSum: FirebaseListObservable<any[]>;
     order: FirebaseListObservable<any[]>;
-    shipping : FirebaseObjectObservable<any>;
-    amount_paying : number;
+    shipping: FirebaseObjectObservable<any>;
+    amount_paying: number;
 
     user: any;
     email: any;
     authState: any;
-    order_reference: any;
+    order_reference: string;
+    _ref: string;
+
     sum;
     removingPrice;
     currentTotal;
@@ -55,7 +57,7 @@ export class CartComponent {
 
                 //get subtotal
                 this.subtotal = this.af.database.object('/shoppingTotal/' + this.user);
-                this.subtotal.subscribe(snapshot=>{
+                this.subtotal.subscribe(snapshot => {
                     this.amount_paying = snapshot.total
                 })
 
@@ -133,42 +135,51 @@ export class CartComponent {
         //check if order exists before pushKey
         // var amount_paying;
         // this.subtotal.subscribe(snapshot => { amount_paying = snapshot })
-        
+
         //get items in cart
         var itemsInCart = {};
-        this.cartItems.subscribe(snapshot=>{
+        this.cartItems.subscribe(snapshot => {
             itemsInCart = snapshot;
-        })
-
-        //create order
-        this.af.database.list('orders', {
-            query: {
-                orderByChild: 'uid',
-                equalTo: this.user
-            }
-        }).subscribe(x => {
-            if (x.length === 0) {
-                this.order_reference = this.order.push({
-                    uid: this.user,
-                    isPayed: false,
-                    amount: this.amount_paying,
-                    shippingDetails: this.shippingForm.value,
-                    items: itemsInCart,
-                }).key;
-
-            }
         })
 
         //check if user has shipping address
         this.shipping.subscribe(snapshot => {
+
+
+            // console.log('order ref: ' + this.order_reference);
+
             if (snapshot.$value !== null) {
-                this.checkOutWithShipping();
+                //create order
+                this.order_reference = this.order.push({
+                    uid: this.user,
+                    isPayed: false,
+                    isShipped: false,
+                    amount: this.amount_paying,
+                    shippingDetails: snapshot,
+                    items: itemsInCart,
+                }).key.toString();
+                this.checkOutWithShipping(this.order_reference);
 
             } else {
-                console.log('shipping dosent exist')
+
+                //TODO: Handle workflow without shipping
+                // console.log('shipping dosent exist')
+                //create order
+                this.order_reference = this.order.push({
+                    uid: this.user,
+                    isPayed: false,
+                    isShipped: false,
+                    amount: this.amount_paying,
+                    // shippingDetails: snapshot,
+                    items: itemsInCart,
+                }).key.toString();
+
                 this.hasShippingAddress = true;
             }
         })
+
+
+
 
     }
 
@@ -178,25 +189,26 @@ export class CartComponent {
     }
 
     //customer has shipping address
-    checkOutWithShipping() {
-      
-        this.payWithPayStack(this.amount_paying);
+    checkOutWithShipping(ref: string) {
+
+        this.payWithPayStack(this.amount_paying, ref);
     }
 
     //customer does not have shipping address
     checkoutWithoutShipping() {
 
+        this.af.database.object('/orders/'+this.order_reference).set({shippingDetails : this.shippingForm.value})
         this.af.database.object('/shipping/' + this.user)
             .set(this.shippingForm.value)
             .then(() => {
-                this.payWithPayStack(this.amount_paying);
+                this.payWithPayStack(this.amount_paying, this.order_reference);
             })
 
     }
 
-    payWithPayStack(amount : number) {
+    payWithPayStack(amount: number, ref: string) {
 
-        
+
         //post to paystack and get paystack redirect url
         let url = `https://api.paystack.co/transaction/initialize`;
         const headers = new Headers({
@@ -206,13 +218,13 @@ export class CartComponent {
         //payment body
         var body = {
 
-            reference: this.order_reference,
+            reference: ref,
             email: this.authState.auth.email,
             amount: amount * 100,
-            callback_url: document.location.origin + '/'
+            callback_url: document.location.origin + '/pay_callback/' + ref + '/',
 
         };
-
+        console.log('ref at paystack method: ' + this.order_reference);
         this.http.post(url, JSON.stringify(body), { headers: headers }).subscribe(response => {
 
             console.log('Authorization URL: ' + response.json().data.authorization_url)
