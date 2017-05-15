@@ -33,8 +33,9 @@
           <input formControlName="quantityInStock" type="number" class="form-control" placeholder="Quantity in stock">
           <input formControlName="isBestSeller" type="checkbox"> add this dress to best sellers<br><br>
           <input formControlName="isNewArrival" type="checkbox"> add this dress to new arrivals<br><br>
+
           <button type="submit"  class="btn btn-primary"[disabled]="!createItemForm.valid">save</button>
-          <button (click)="onCloseAdding()" class="btn btn-default">close</button>       
+          <a (click)="onCloseAdding()" class="btn btn-default">close</a>       
         </form>
        
       </div>
@@ -72,7 +73,7 @@
                   <button class="btn btn-default">
                     <i class="ion ion-edit"></i>
                   </button>
-                  <button class="btn btn-primary">
+                  <button (click)="removeItem(item.$key)" class="btn btn-primary">
                     <i class="ion ion-close"></i>
                   </button>
                </p>

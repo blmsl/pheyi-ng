@@ -21,6 +21,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
  import { DetailsComponent } from './details/details.component';
 import { PayComponent } from './pay/pay.component';
+import { ItemsService } from "app/items/shared/items.service";
+// import { ItemsService } from "app/items/shared/items.service";
 // import { CartService } from "app/cart.service";
 
 
@@ -65,7 +67,7 @@ const appRoutes: Routes = [
     SalesComponent,
     DetailsComponent,
     PayComponent,
-    // CartService,
+    // ItemsService,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +77,9 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(firebaseConfig),
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    ItemsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

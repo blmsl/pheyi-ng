@@ -197,7 +197,8 @@ export class CartComponent {
     //customer does not have shipping address
     checkoutWithoutShipping() {
 
-        this.af.database.object('/orders/'+this.order_reference).set({shippingDetails : this.shippingForm.value})
+        // this.af.database.object('/orders/'+this.order_reference).set({shippingDetails : this.shippingForm.value})
+            
         this.af.database.object('/shipping/' + this.user)
             .set(this.shippingForm.value)
             .then(() => {
