@@ -18,22 +18,18 @@ export class CartComponent {
     cartItemForSum: FirebaseListObservable<any[]>;
     order: FirebaseListObservable<any[]>;
     shipping: FirebaseObjectObservable<any>;
-    amount_paying: number;
-
+  
     user: any;
     email: any;
     authState: any;
     order_reference: string;
     _ref: string;
 
-    sum;
-    removingPrice;
-    currentTotal;
-    // subtotal: FirebaseObjectObservable<any>;
+   
     shippingExisit;
     hasShippingAddress;
     hasCompleteAdding;
-    noOfItems;
+
     isLoggedIn: boolean;
     shippingForm: FormGroup;
 
@@ -51,7 +47,7 @@ export class CartComponent {
         this.af.auth.subscribe(authState => {
             if (authState) {
                 this.isLoggedIn = true;
-                
+
                 this.user = authState.uid;
                 this.authState = authState;
                 this.cartItems = this.cartSvc.getCartItemsList(this.user)
@@ -147,7 +143,7 @@ export class CartComponent {
                     uid: this.user,
                     isPayed: false,
                     isShipped: false,
-                    amount: this.amount_paying,
+                    amount: this.subtotal,
                     shippingDetails: snapshot,
                     items: itemsInCart,
                 }).key.toString();
@@ -162,7 +158,7 @@ export class CartComponent {
                     uid: this.user,
                     isPayed: false,
                     isShipped: false,
-                    amount: this.amount_paying,
+                    amount: this.subtotal,
                     // shippingDetails: snapshot,
                     items: itemsInCart,
                 }).key.toString();
@@ -184,7 +180,7 @@ export class CartComponent {
     //customer has shipping address
     checkOutWithShipping(ref: string) {
 
-        this.payWithPayStack(this.amount_paying, ref);
+        this.payWithPayStack(this.subtotal, ref);
     }
 
     //customer does not have shipping address
@@ -195,7 +191,7 @@ export class CartComponent {
         this.af.database.object('/shipping/' + this.user)
             .set(this.shippingForm.value)
             .then(() => {
-                this.payWithPayStack(this.amount_paying, this.order_reference);
+                this.payWithPayStack(this.subtotal, this.order_reference);
             })
 
     }
