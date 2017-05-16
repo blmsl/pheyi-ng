@@ -22,8 +22,8 @@ import { SalesComponent } from './sales/sales.component';
  import { DetailsComponent } from './details/details.component';
 import { PayComponent } from './pay/pay.component';
 import { ItemsService } from "app/items/shared/items.service";
-// import { ItemsService } from "app/items/shared/items.service";
-// import { CartService } from "app/cart.service";
+import { CartService } from "app/cart/shared/cart.service";
+
 
 
 
@@ -78,7 +78,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule
   ],
   providers: [
-    ItemsService
+    ItemsService,
+    CartService
   ],
   bootstrap: [AppComponent]
 })

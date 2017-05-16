@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2';
-import { Item } from './item';
+import { Item } from "app/items/shared/item";
+// import { Item } from './item';
 
 @Injectable()
 export class ItemsService {

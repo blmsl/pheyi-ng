@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from "angularfire2";
-import { CartService } from "app/cart.service";
 import { FormControl } from "@angular/forms/forms";
+import { ItemsService } from "app/items/shared/items.service";
+import { CartService } from "app/cart/shared/cart.service";
+import { Item } from "app/items/shared/item";
+import { CartItem } from "app/cart/shared/cartItem";
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
-  providers: [CartService]
 })
 export class DetailsComponent implements OnInit {
+  item: Item;
   user: string;
   authState;
   sum: any;
-  item: FirebaseObjectObservable<any>;
+  // item: FirebaseObjectObservable<any>;
   AlsoLike: FirebaseListObservable<any[]>;
   key: string;
   sizeInInches;
@@ -23,12 +26,15 @@ export class DetailsComponent implements OnInit {
   toggleState;
 
 
-  constructor(private route: ActivatedRoute, private af: AngularFire, private ct: CartService) { }
+  constructor(private route: ActivatedRoute,
+    private af: AngularFire,
+    private itemSvc: ItemsService,
+    private cartSvc: CartService) { }
 
   ngOnInit() {
     //  this.key  = this.route.snapshot.params['key'];
     this.toggleState = "toggle size to see more size & Fit details"
-    this.af.database.list('/Sizes/women/inches').subscribe(snapshot =>{
+    this.af.database.list('/Sizes/women/inches').subscribe(snapshot => {
       this.ukSizes = snapshot;
     })
     this.sum = 0;
@@ -44,20 +50,10 @@ export class DetailsComponent implements OnInit {
         this.key = params['key'];
 
         //get details by key
-        this.af.database.object('/items/' + this.key)
-          .subscribe(
-          snapshot => {
-            this.item = snapshot;
-          }
-          );
-
+        this.itemSvc.getItem(this.key).subscribe((item) => this.item = item);
+       
         //get items for you may also like
-        this.AlsoLike = this.af.database.list('/items', {
-          query: {
-            limitToLast: 4
-          }
-        });
-
+        this.AlsoLike = this.itemSvc.getItemsList({ limitToLast: 4 });        
         // this.user.name = params['name'].replace(/\s+/g,'-');
       }
     );
@@ -65,72 +61,57 @@ export class DetailsComponent implements OnInit {
   }
 
   addItemToCart($key: string) {
-    
-    if(this.authState){
+
+    if (this.authState) {
+      
       //get the item
-    var item;
-    this.af.database.object('/items/' + $key).subscribe(snapshot => {
-      item = snapshot
-    })
+      var itemAdding;
+      this.itemSvc.getItem($key).subscribe((item) => itemAdding = item);
+     
+      //add item to cart
+      var cartItem  = new CartItem();
+      cartItem.imageURL = itemAdding.imageURL;
+      cartItem.itemKey = $key;
+      cartItem.name = itemAdding.title;
+      cartItem.price = itemAdding.price,
+      cartItem.quantity = 1;
 
-    this.sum = this.sum + item.price
-
-    //add item to cart
-    this.af.database.list('/shoppingCart/' + this.user)
-      .push({
-        key: $key,
-        name: item.title,
-        imageURL: item.imageURL,
-        price: item.price,
-        quantity: 1
-      })
-      .then(x => {
-
-        alert('added item to cart')
-      })
-      .catch(x => { alert('unable to add item to cart') })
-
-    //push to sum
-    this.af.database.object('/shoppingTotal/' + this.user).update({
-      total: this.sum
-    })
-
-    //update cart count
-    this.ct.addCartCount(1);
-
-    }else{
-      document.location.href = document.location.origin+"/login";
+      this.cartSvc.addItemToCart(this.user, cartItem);
+      alert('added item to cart');
+      
+    } else {
+      document.location.href = document.location.origin + "/login";
 
     }
-    
+
 
   }
 
-  toggleSize($uk_size){
+  toggleSize($uk_size) {
     this.toggleState = "loading ...."
 
     //inches
     this.af.database.list('/Sizes/women/inches', {
       query: {
-        orderByChild : 'UK',
-        equalTo : parseInt($uk_size)
+        orderByChild: 'UK',
+        equalTo: parseInt($uk_size)
       }
     }).subscribe(snapshot => {
       this.sizeInInches = snapshot;
-    }) 
+    })
 
     //cm
     this.af.database.list('/Sizes/women/cm', {
-      query:{
-        orderByChild : 'UK',
-        equalTo : parseInt($uk_size)
+      query: {
+        orderByChild: 'UK',
+        equalTo: parseInt($uk_size)
       }
     }).subscribe(snapshot => {
       this.sizeInCm = snapshot;
       this.toggleState = '';
-      
+
     })
-   
+
   }
 
 

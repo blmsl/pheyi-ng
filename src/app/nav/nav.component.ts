@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthMethods, AngularFire, AuthProviders, FirebaseListObservable } from 'angularfire2'
-import { CartService } from "app/cart.service";
+import { CartService } from "app/cart/shared/cart.service";
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
-  providers : [CartService]
 })
 export class NavComponent implements OnInit {
     count: number;
     cartItems: FirebaseListObservable<any[]>;
 
-  constructor(private af: AngularFire, private ct : CartService) { 
+  constructor(private af: AngularFire, private cartSvc : CartService) { 
     
   }
 
@@ -33,11 +32,11 @@ export class NavComponent implements OnInit {
          }
 
        }
-       //get no of items in cart
-      // this.count = this.ct.getCartCount();
-      this.af.database.list('/shoppingCart/'+authState.uid).subscribe(x=>{
-         this.count = x.length;
+       //get no of items in cart     
+      this.cartSvc.getCartItemsList(authState.uid).subscribe((cartItems) =>{
+          this.count = cartItems.length;
       })
+
      })
   }
 

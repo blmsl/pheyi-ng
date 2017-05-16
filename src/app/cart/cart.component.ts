@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { FirebaseListObservable, AngularFire, FirebaseObjectObservable } from "angularfire2";
-import { CartService } from "app/cart.service";
+// import { CartService } from "app/cart.service";
 import { FormGroup, FormControl } from "@angular/forms";
 import { Headers, Http } from "@angular/http";
+import { CartService } from "app/cart/shared/cart.service";
 
 @Component({
     selector: 'app-cart',
     templateUrl: './cart.component.html',
     styleUrls: ['./cart.component.css'],
-    providers: [CartService]
 })
 
 export class CartComponent {
+    subtotal: number;
 
     cartItems: FirebaseListObservable<any[]>;
     cartItemForSum: FirebaseListObservable<any[]>;
@@ -28,7 +29,7 @@ export class CartComponent {
     sum;
     removingPrice;
     currentTotal;
-    subtotal: FirebaseObjectObservable<any>;
+    // subtotal: FirebaseObjectObservable<any>;
     shippingExisit;
     hasShippingAddress;
     hasCompleteAdding;
@@ -37,9 +38,10 @@ export class CartComponent {
     shippingForm: FormGroup;
 
 
-    constructor(private af: AngularFire, private ct: CartService, private http: Http) { }
+    constructor(private af: AngularFire, private http: Http, private cartSvc: CartService) { }
 
     ngOnInit() {
+        this.subtotal = 0;
         this.hasShippingAddress = false;
         this.hasCompleteAdding = false;
 
@@ -49,17 +51,21 @@ export class CartComponent {
         this.af.auth.subscribe(authState => {
             if (authState) {
                 this.isLoggedIn = true;
+                
                 this.user = authState.uid;
-
                 this.authState = authState;
-
-                this.cartItems = this.af.database.list('/shoppingCart/' + authState.uid);
+                this.cartItems = this.cartSvc.getCartItemsList(this.user)
 
                 //get subtotal
-                this.subtotal = this.af.database.object('/shoppingTotal/' + this.user);
-                this.subtotal.subscribe(snapshot => {
-                    this.amount_paying = snapshot.total
-                })
+                this.cartItems.subscribe((cartItems) => {
+                    if (cartItems.length === 0) {
+                        this.subtotal = 0;
+                    } else {
+                        cartItems.forEach((cartItem) => {
+                            this.subtotal = this.subtotal + cartItem.price;
+                        })
+                    }
+                });
 
                 //order
                 this.order = this.af.database.list('/orders');
@@ -89,41 +95,28 @@ export class CartComponent {
     }
 
     removeItemFromCart($key: string) {
-        var item;
 
-        //get current price
-        this.af.database.object('/shoppingCart/' + this.user + '/' + $key).subscribe(snapshot => {
-            item = snapshot;
-            this.removingPrice = item.price;
+        this.cartSvc.getItem(this.user, $key).subscribe((item) => {
+            this.subtotal = this.subtotal - item.price;
+            if (isNaN(this.subtotal)) {
+                this.subtotal = 0;
+
+               //get subtotal
+                this.cartItems.subscribe((cartItems) => {
+                    if (cartItems.length === 0) {
+                        this.subtotal = 0;
+                    } else {
+                        this.subtotal = 0;  
+                        cartItems.forEach((cartItem) => {
+                            this.subtotal = this.subtotal + cartItem.price;
+                        })
+                    }
+
+                });              
+            }
         })
 
-        //get total and subtract current price
-        var subtotal_subscription = this.subtotal.subscribe(snapshot => {
-            this.currentTotal = snapshot.total;
-            this.sum = this.currentTotal - this.removingPrice;
-        })
-
-        //update new total
-        if (this.sum === 0) {
-            this.subtotal.remove().then(
-                () => {
-                    subtotal_subscription.unsubscribe();
-                    document.location.reload(); //reload page to clear cache
-
-                }
-            );
-
-        } else {
-            this.subtotal.update({
-                total: this.sum
-            })
-        }
-
-        this.cartItems.remove($key);
-
-        //update cart count
-        this.ct.removeCartCount(1);
-
+        this.cartSvc.removeItem(this.user, $key);
 
     }
 
@@ -198,7 +191,7 @@ export class CartComponent {
     checkoutWithoutShipping() {
 
         // this.af.database.object('/orders/'+this.order_reference).set({shippingDetails : this.shippingForm.value})
-            
+
         this.af.database.object('/shipping/' + this.user)
             .set(this.shippingForm.value)
             .then(() => {
