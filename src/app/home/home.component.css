@@ -16,3 +16,18 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.collection-parallax-2{
+    /*https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/collections%2FCollection_1.jpg?alt=media&token=840f58ca-5a64-4653-a93b-6ed6fb57123e*/
+    /* The image used */
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/collections%2Fcollection_3.jpg?alt=media&token=d8b3c1a3-7eb7-4325-9464-e99f6573862e");
+
+    /* Set a specific height */
+    min-height: 100vh; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+    background-size: 600px auto;
+}
