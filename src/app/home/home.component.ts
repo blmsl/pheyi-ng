@@ -42,7 +42,7 @@ export class HomeComponent {
            query:{
                orderByChild : 'isNewArrival',
                equalTo : true,
-               limitToLast : 8
+               limitToLast : 4
            }
         })
     }
