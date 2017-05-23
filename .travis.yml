@@ -4,6 +4,7 @@ node_js :
 script : 
   - ng build
 install : 
+  - npm install -g @angular/cli
   - npm install -g firebase-tools
 
 after_success : 
