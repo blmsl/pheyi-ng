@@ -20,8 +20,8 @@ install :
   - npm install promise-polyfill --save-exact
 
   #fix 
-  - npm uninstall firebase angularfire2 --save 
-  - npm install firebase angularfire2
+  # - npm uninstall firebase angularfire2 --save 
+  - npm install firebase angularfire2 --save
   
 
   - npm install -g @angular/cli@latest
