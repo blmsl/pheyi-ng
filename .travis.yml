@@ -13,3 +13,5 @@ install :
 
 after_success : 
   -firebase deploy --token $FIREBASE_TOKEN  
+  
+OS: mac
