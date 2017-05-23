@@ -22,6 +22,7 @@ install :
   #fix 
   # - npm uninstall firebase angularfire2 --save 
   - npm install firebase angularfire2 --save
+  - npm i angularfire2@next --save
   
 
   - npm install -g @angular/cli@latest
