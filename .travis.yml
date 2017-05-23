@@ -2,27 +2,30 @@ language : node_js
 node_js : 
   - "7.9.0"
 script : 
-  - npm clean cache
-  - npm install
-  # install polyfill
-  - npm install promise-polyfill --save-exact
-
-  #fix 
-  - npm uninstall firebase angularfire2 --save 
-  - npm install firebase angularfire2
-
+ 
   #build
   - ng build
 
 install : 
   # if you have the wrong cli version only
-  - npm uninstall -g angular-cli
-  - npm uninstall -g @angular/cli
-  - npm cache clean
+  # - npm uninstall -g angular-cli
+  # - npm uninstall -g @angular/cli
+  # - npm cache clean
 
 # reinstall clean version
+  - npm cache clean
+  - npm install
+
+   # install polyfill
+  - npm install promise-polyfill --save-exact
+
+  #fix 
+  - npm uninstall firebase angularfire2 --save 
+  - npm install firebase angularfire2
+  
+
   - npm install -g @angular/cli@latest
-  - npm install -g @angular/cli
+  # - npm install -g @angular/cli
 
   # make sure you have typings installed
   - npm install -g typings
