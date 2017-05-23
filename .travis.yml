@@ -4,15 +4,33 @@ node_js :
 script : 
   - npm clean cache
   - npm install
-  # - npm i angularfire2@next --save
+  # install polyfill
   - npm install promise-polyfill --save-exact
+
+  #fix 
+  - npm uninstall firebase angularfire2 --save 
+  - npm install firebase angularfire2
+
+  #build
   - ng build
+
 install : 
+  # if you have the wrong cli version only
+  - npm uninstall -g angular-cli
+  - npm uninstall -g @angular/cli
+  - npm cache clean
+
+# reinstall clean version
+  - npm install -g @angular/cli@latest
   - npm install -g @angular/cli
+
+  # make sure you have typings installed
+  - npm install -g typings
+  - npm install -g typescript
+
+  #install Firebase tools
   - npm install -g firebase-tools
 
 
 after_success : 
   -firebase deploy --token $FIREBASE_TOKEN  
-
-OS: mac
