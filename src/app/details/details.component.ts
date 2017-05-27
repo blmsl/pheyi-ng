@@ -33,7 +33,7 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
     //  this.key  = this.route.snapshot.params['key'];
-    this.toggleState = "toggle size to see more size & Fit details"
+    this.toggleState = " "
     this.af.database.list('/Sizes/women/inches').subscribe(snapshot => {
       this.ukSizes = snapshot;
     })

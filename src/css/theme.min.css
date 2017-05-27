@@ -3918,7 +3918,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
         padding-top: 0;
     }
 
-.product-gallery {
+/*.product-gallery {
     position: relative;
     width: 100%;
     max-width: 660px;
@@ -4012,7 +4012,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
             .product-gallery .product-gallery-thumblist > li > a {
                 width: 80px;
             }
-}
+}*/
 
 .product-info {
     max-width: 660px;
