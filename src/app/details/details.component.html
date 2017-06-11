@@ -1,22 +1,22 @@
 <!-- Pager + Product Gallery -->
-<section class="fw-section" style="padding-top:7em;">
+<app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
 
-  <div class="container padding-top">
+<section class="fw-section" style="padding-top:7em;">
+  <div  class="container padding-top">
 
     <!-- Product Gallery -->
-    <div class="product-gallery">
+    <div class="product-gallery animated fadeIn">
       <!-- Preview -->
-      <ul class="product-gallery-preview card">
+      <ul *ngIf="showContent" class="product-gallery-preview card">
         <li id="preview01"><img src="{{item?.imageURL}}" alt="Product"></li>
         <li id="preview02" class="current"><img src="{{item?.imageURL}}"></li>
         <li id="preview03"><img src="{{item?.imageURL}}" alt="Product"></li>
       </ul>
 
-      <div class="product-info padding-top-2x text-center">
+      <div *ngIf="showContent" class="product-info padding-top-2x text-center">
         <h1 class="h2 space-bottom-half">{{item?.title}}</h1>
         <h2>₦{{item?.price | number}}</h2>
-        <div class="product-meta">
-
+        <div  class="product-meta">
           <div class="product-category">
               <strong>Category: </strong>
               <a href="#">Ankara Drapes</a>
@@ -39,14 +39,14 @@
           </div>
 
         </div>
-        <div class="product-tools shop-item">
+        <div  class="product-tools shop-item">
           <div class="count-input">
             <a class="incr-btn" data-action="decrease" href="#">–</a>
             <input class="quantity" type="text" value="1">
             <a class="incr-btn" data-action="increase" href="#">+</a>
           </div>
           <!-- .count-input -->
-          <div class="form-element">
+          <div  class="form-element">
             <select #size (change)="toggleSize(size.value)" class="form-control form-control-sm color-select">
                 <option disabled selected>Choose your size</option>
                 <option *ngFor="let size of ukSizes" value="{{size.UK}}" >{{size.UK}}</option>
@@ -81,14 +81,14 @@
 
       <!-- Thumblist -->
       <ul class="product-gallery-thumblist">
-        <li><a href="#preview01">
-              <img src="{{item?.imageURL}}" >
+        <li ><a href="#preview01">
+              <img class="card" src="{{item?.imageURL}}" >
             </a></li>
         <li class="active"><a href="#preview02">
-              <img src="{{item?.imageURL}}" >
+              <img class="card" src="{{item?.imageURL}}" >
             </a></li>
-        <li><a href="#preview03">
-              <img src="{{item?.imageURL}}">
+        <li ><a href="#preview03">
+              <img class="card" src="{{item?.imageURL}}">
             </a></li>
       </ul> 
     </div>
@@ -96,80 +96,8 @@
   </div>
 </section>
 
-
-<!-- Product Info -->
-<!--<section class="fw-section bg-gray padding-bottom-3x">
-      <div class="container">
-        <div class="product-info padding-top-2x text-center">
-          <h1 class="h2 space-bottom-half">{{item?.title}}</h1>
-          <h2>₦{{item?.price | number}}</h2>
-          <div class="product-meta">
-           
-            <div class="product-category">
-              <strong>Category: </strong>
-              <a href="#">Furniture</a>
-            </div>
-          <div>
-            {{toggleState}} <br>
-           
-            <span *ngFor = "let size of sizeInInches" style="display: block">
-               Size in Inches<br>
-                 <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
-                 <b>Burst: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
-            </span><br>
-            
-             <span *ngFor = "let size of sizeInCm">
-                Size in Centimeters(cm)<br>
-               
-                 <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
-                 <b>Burst: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
-            </span>
-          </div>
-         
-          </div>
-          <div class="product-tools shop-item">
-            <div class="count-input">
-              <a class="incr-btn" data-action="decrease" href="#">–</a>
-              <input class="quantity" type="text" value="1">
-              <a class="incr-btn" data-action="increase" href="#">+</a>
-            </div>
-            <div class="form-element">
-              <select #size (change) = "toggleSize(size.value)" class="form-control form-control-sm color-select">
-                <option disabled selected>Choose your size</option>
-                <option *ngFor="let size of ukSizes" value="{{size.UK}}" >{{size.UK}}</option>
-               
-              </select>
-            </div>
-            <div class="form-element">
-             
-            </div>
-            <a href="#" (click)="addItemToCart(item?.$key)" class="add-to-cart">
-              <em>Add to Cart</em>
-              <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32">
-  							<path stroke-dasharray="19.79 19.79" stroke-dashoffset="19.79" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"></path>
-  						</svg>
-            </a>
-          </div>
-          <div class="product-share">
-            <span>Share this product: </span>
-            <div class="social-bar">
-              <a href="#" class="sb-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
-                <i class="socicon-facebook"></i>
-              </a>
-              <a href="#" class="sb-twitter" data-toggle="tooltip" data-placement="top" title="Twitter">
-                <i class="socicon-twitter"></i>
-              </a>
-              <a href="#" class="sb-instagram" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
-                <i class="socicon-instagram"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>-->
-
 <!-- Product Tabs -->
-<section class="container padding-top-2x">
+<section *ngIf="showContent" class="container padding-top-2x">
   <!-- Nav Tabs -->
   <ul class="nav-tabs text-center" role="tablist">
     <li class="active"><a href="#description" role="tab" data-toggle="tab">Description</a></li>
@@ -347,7 +275,7 @@
 </section>
 
 <!-- Related Products -->
-<section class="container padding-top padding-bottom">
+<section *ngIf="showContent" class="container padding-top padding-bottom">
   <hr>
   <h3 class="padding-top">You May Also Like</h3>
   <div class="row padding-top">

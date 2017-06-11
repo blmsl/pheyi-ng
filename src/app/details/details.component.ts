@@ -13,6 +13,7 @@ import { CartItem } from "app/cart/shared/cartItem";
   styleUrls: ['./details.component.css'],
 })
 export class DetailsComponent implements OnInit {
+ 
   item: Item;
   user: string;
   authState;
@@ -24,6 +25,9 @@ export class DetailsComponent implements OnInit {
   sizeInCm;
   ukSizes;
   toggleState;
+
+  showSpinner : boolean = true;
+  showContent : boolean = false;
 
 
   constructor(private route: ActivatedRoute,
@@ -50,7 +54,15 @@ export class DetailsComponent implements OnInit {
         this.key = params['key'];
 
         //get details by key
-        this.itemSvc.getItem(this.key).subscribe((item) => this.item = item);
+       this.itemSvc.getItem(this.key).subscribe(
+        
+        (item) => {
+          this.item = item;
+          this.showSpinner = false;
+          this.showContent = true;
+        }
+      );
+             
        
         //get items for you may also like
         this.AlsoLike = this.itemSvc.getItemsList({ limitToLast: 4 });        

@@ -23,6 +23,7 @@ import { SalesComponent } from './sales/sales.component';
 import { PayComponent } from './pay/pay.component';
 import { ItemsService } from "app/items/shared/items.service";
 import { CartService } from "app/cart/shared/cart.service";
+import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.component';
 
 
 
@@ -67,6 +68,7 @@ const appRoutes: Routes = [
     SalesComponent,
     DetailsComponent,
     PayComponent,
+    LoadingSpinnerComponent,
     // ItemsService,
   ],
   imports: [
