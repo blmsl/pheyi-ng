@@ -24,6 +24,10 @@ import { PayComponent } from './pay/pay.component';
 import { ItemsService } from "app/items/shared/items.service";
 import { CartService } from "app/cart/shared/cart.service";
 import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminSidenavComponent } from './ui/admin-sidenav/admin-sidenav.component';
+import { AdminService } from './admin/shared/admin.service';
+
 
 
 
@@ -34,12 +38,13 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'store', component: StoreComponent},
-  { path: 'items', component : ItemsComponent},
+  // { path: 'items', component : ItemsComponent},
   { path: 'cartegories', component : CartegoriesComponent },
   { path: 'orders', component: OrdersComponent},
   { path: 'sales', component: SalesComponent},
   { path: 'details/:key', component:DetailsComponent},
-  { path: 'pay_callback/:ref/', component:PayComponent}
+  { path: 'pay_callback/:ref/', component:PayComponent},
+  { path: 'admin', component:AdminComponent}
 
 ]
 
@@ -69,6 +74,8 @@ const appRoutes: Routes = [
     DetailsComponent,
     PayComponent,
     LoadingSpinnerComponent,
+    AdminComponent,
+    AdminSidenavComponent,
     // ItemsService,
   ],
   imports: [
@@ -81,7 +88,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     ItemsService,
-    CartService
+    CartService,
+    AdminService
   ],
   bootstrap: [AppComponent]
 })

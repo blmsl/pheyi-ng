@@ -3,7 +3,7 @@
 
 <!--a list of all items-->
     <p > 
-      <button class="btn btn-primary add-item" (click)="onAdding()">+ add new item</button>      
+      <button  class="btn btn-primary add-item" (click)="onAdding()">+ add new item</button>      
     </p>      
       <div *ngIf="isAdding" class="animated zoomIn">    
         <form id="new-item-form" [formGroup]="createItemForm" (ngSubmit)="createItem()"> 
@@ -41,7 +41,7 @@
       </div>
 
 
-      <div class="row padding-top">
+      <!--<div class="row padding-top">
         <div *ngFor="let item of items | async" class="col-xs-12 col-md-12 col-lg-12">
           <div class="teammate">
             <div class="teammate-thumb">
@@ -55,14 +55,14 @@
                 <a href="#" class="sb-google-plus" data-toggle="tooltip" data-placement="top" title="" data-original-title="Google+">
                   <i class="socicon-googleplus"></i>
                 </a>
-              </div><!-- .social-bar -->
+              </div>
               <img src="{{item.imageURL}}" alt="Teammate">
             </div>
             <h4 class="teammate-name">{{ item.title }}</h4>
             <span class="teammate-position">
               <blockquote>
                     <p>{{ item.description }}</p>
-                   <!--<cite>James Cameron</cite>-->
+                 
               </blockquote>
              
               </span>
@@ -78,10 +78,34 @@
                   </button>
                </p>
 
-          </div><!-- .teammate -->
+          </div>
+        </div>-->
+       <section class=" padding-top-3x space-top-half">
+    <h3 class="text-left">Items in store </h3>
+    <div class="row padding-top">
+        <div *ngFor="let item of items | async" class="col-lg-3 col-sm-3">
+            <div class="shop-item">
+                <div class="shop-thumbnail">
+                    <!--<span class="shop-label text-danger">Sale</span>-->
+                    <a href="/details/{{item.$key}}" class="item-link"></a>
+                    <img src="{{ item.imageURL }}" alt="Shop item">
+
+                </div>
+                <div class="shop-item-details">
+                    <h3 class="shop-item-title"><a style="color:black" href="#">{{item.title}}</a></h3>
+                    <!--<span style="color:black" class="shop-item-price">
+                        ₦{{item.price | number}}
+                    </span>-->
+                </div>
+            </div>
+            <!-- .shop-item -->
         </div>
-       
-      </div>
+        <!-- .col-lg-3.col-sm-6 -->
+
+    </div>
+    <!-- .row -->
+</section>
+ 
 
 <!--Show list is empty if no item-->
 <!-- Large modal -->
