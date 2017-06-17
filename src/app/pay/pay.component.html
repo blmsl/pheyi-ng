@@ -1,4 +1,57 @@
-<section style="padding:20em">
-  <p>{{status}}</p>
-  <!--<p>Payment was not successful</p>-->
+<div *ngIf="showSpinner" style="padding-bottom:10em;">
+<app-loading-spinner ></app-loading-spinner>
+
+</div>
+
+<section *ngIf="isSuccess" class="isSuccess-pay" >
+   <div class="success-header">
+       <h4> Thank you. Your order has been recieved</h4>
+       <a href="#" class="btn btn-primary">continue shopping</a>
+    </div><br>
+    <div class="row">
+        <div class="col-lg-6">
+           <div class="card orderList" style="padding:20px; height:auto; border-top:3px solid #9e9e9e">
+              <h2>Your Order <i style="float:right; color:#5c5757" class="ion ion-bag"></i></h2><br>
+              <table>
+                <tr *ngFor = "let item of orderItems | async">
+                    <td>
+                     <img class="card" src="{{item.imageURL}}" style="width:50px; height:auto;" alt="">
+                      
+                    </td>
+                    <td style="padding-top:2em; ">
+
+                      <span class="order-dress-name" style="font-size:10pt;">
+                        {{ item.name}} X  {{item.quantity}}
+                      </span>
+                      <b style="float:right">₦{{item.price | number}}</b>
+                   
+                    </td>
+                    
+                 
+                </tr>
+                <tr style="font-size:15pt;">
+                  <td>Order Total</td>
+                  <td>
+                    <span style="float:right;">₦25,000 [NGN]</span>
+                  </td>
+                </tr>
+              </table>
+           </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card" style="padding:20px;  border-top:3px solid #9e9e9e">
+            <h2>Shipping Address <i style="float:right; color:#5c5757" class="ion ion-android-mail"></i></h2><hr>
+                {{shippingAddress?.address}}<br>
+                {{shippingAddress?.city}}<br> <b>{{shippingAddress?.country}}</b>
+                
+          </div>
+        </div>
+    </div>
+</section>
+
+<section *ngIf="isFailed" class="isFailed-pay" style="padding:10em">
+  <div class="success-header" style="border-top:3px solid red">
+       <h4> Sorry, We were unable to process your payment</h4>
+       <a href="#" class="btn btn-primary">continue shopping</a>
+    </div>
 </section>

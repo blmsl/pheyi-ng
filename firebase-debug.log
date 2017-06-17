@@ -1,0 +1,114 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] CLI Version:  3.9.0
+[debug] Platform:     darwin
+[debug] Node Version: v7.9.0
+[debug] Time:         Sat Jun 17 2017 11:53:04 GMT+0100 (WAT)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/bmKtGSLKPp4ClHwRLEjHcZoQzo83C3QNL6QGUkG0zFI',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Sat Jun 17 2017 11:53:04 GMT+0100 (WAT)
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/pheyi-161501  
+ Sat Jun 17 2017 11:53:07 GMT+0100 (WAT)
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/pheyi-161501/tokens  
+ Sat Jun 17 2017 11:53:10 GMT+0100 (WAT)
+[debug] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'pheyi-161501'...
+[info] 
+[info] i  deploying functions, hosting
+[debug] > [functions] package.json contents: {
+  "name": "time-server-functions",
+  "description": "A simple time server using HTTPS Cloud Function",
+  "dependencies": {
+    "actions-on-google": "^1.1.1",
+    "cors": "^2.8.1",
+    "firebase-admin": "^4.1.1",
+    "firebase-functions": "^0.5.1",
+    "moment": "^2.17.1"
+  }
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[info] i  runtimeconfig: ensuring necessary APIs are enabled...
+[debug] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/pheyi-161501?view=CONSUMER_VIEW  
+ Sat Jun 17 2017 11:53:16 GMT+0100 (WAT)
+[debug] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/pheyi-161501?view=CONSUMER_VIEW  
+ Sat Jun 17 2017 11:53:16 GMT+0100 (WAT)
+[debug] <<< HTTP RESPONSE 200
+[info] ✔  runtimeconfig: all necessary APIs are enabled
+[debug] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/pheyi-161501  
+ Sat Jun 17 2017 11:53:19 GMT+0100 (WAT)
+[debug] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/pheyi-161501/apiKeys  
+ Sat Jun 17 2017 11:53:19 GMT+0100 (WAT)
+[debug] <<< HTTP RESPONSE 200
+[debug] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/pheyi-161501/configs  
+ Sat Jun 17 2017 11:53:21 GMT+0100 (WAT)
+[debug] <<< HTTP RESPONSE 200
+[debug] > [functions] runtime config materialized as: {
+  "firebase": {
+    "databaseURL": "https://pheyi-161501.firebaseio.com",
+    "storageBucket": "pheyi-161501.appspot.com",
+    "apiKey": "AIzaSyAFlCNJzpoOaM-aeIuvgQ5sq70wo4pyZlA",
+    "authDomain": "pheyi-161501.firebaseapp.com"
+  }
+}
+[info] i  functions: packaged functions (1.63 KB) for uploading
+[debug] >>> HTTP REQUEST GET https://www.googleapis.com/storage/v1/b/staging.pheyi-161501.appspot.com  
+ Sat Jun 17 2017 11:53:24 GMT+0100 (WAT)
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST POST https://www.googleapis.com/upload/storage/v1/b/staging.pheyi-161501.appspot.com/o?uploadType=media&name=firebase-functions-source ReadStream {
+  _readableState: 
+   ReadableState {
+     objectMode: false,
+     highWaterMark: 65536,
+     buffer: BufferList { head: [Object], tail: [Object], length: 1 },
+     length: 1668,
+     pipes: null,
+     pipesCount: 0,
+     flowing: null,
+     ended: true,
+     endEmitted: false,
+     reading: false,
+     sync: false,
+     needReadable: false,
+     emittedReadable: true,
+     readableListening: false,
+     resumeScheduled: false,
+     defaultEncoding: 'utf8',
+     ranOut: false,
+     awaitDrain: 0,
+     readingMore: false,
+     decoder: null,
+     encoding: null },
+  readable: true,
+  domain: null,
+  _events: { end: [Function] },
+  _eventsCount: 1,
+  _maxListeners: undefined,
+  path: '/var/folders/h6/5k_fb_3n48x0rspzlfcn8w9h0000gn/T/firebase-functions-9424udKNBM6Hnv0L.zip',
+  fd: 18,
+  flags: 'r',
+  mode: 438,
+  start: undefined,
+  end: undefined,
+  autoClose: true,
+  pos: undefined,
+  bytesRead: 1668 } 
+ Sat Jun 17 2017 11:53:25 GMT+0100 (WAT)
+[debug] <<< HTTP RESPONSE 200
+[info] ✔  functions: functions folder uploaded successfully
+[info] i  hosting: preparing dist directory for upload...
+[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/pheyi-161501/uploads/-Kmpft-RqPjPoWOejzR_?fileCount=58&message=  
+ Sat Jun 17 2017 11:53:27 GMT+0100 (WAT)
