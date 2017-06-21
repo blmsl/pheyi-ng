@@ -32,6 +32,7 @@ export class CartComponent {
 
     isLoggedIn: boolean;
     shippingForm: FormGroup;
+    isPaying : boolean = false;
 
 
     constructor(private af: AngularFire, private http: Http, private cartSvc: CartService) { }
@@ -198,6 +199,9 @@ export class CartComponent {
 
     payWithPayStack(amount: number, ref: string) {
 
+        //start busy icon
+        this.isPaying = true;
+
 
         //post to paystack and get paystack redirect url
         let url = `https://api.paystack.co/transaction/initialize`;
@@ -217,10 +221,13 @@ export class CartComponent {
         console.log('ref at paystack method: ' + this.order_reference);
         this.http.post(url, JSON.stringify(body), { headers: headers }).subscribe(response => {
 
-            console.log('Authorization URL: ' + response.json().data.authorization_url)
+            console.log('Authorization URL: ' + response.json().data.authorization_url)            
             window.location.href = response.json().data.authorization_url;
+            
         }, error => {
             console.log(error);
+        }, () => {
+            this.isPaying = false;
         })
 
 

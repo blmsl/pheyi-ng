@@ -27,6 +27,7 @@ import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.co
 import { AdminComponent } from './admin/admin.component';
 import { AdminSidenavComponent } from './ui/admin-sidenav/admin-sidenav.component';
 import { AdminService } from './admin/shared/admin.service';
+import { PaymentSpinnerComponent } from './ui/payment-spinner/payment-spinner.component';
 
 
 
@@ -76,6 +77,7 @@ const appRoutes: Routes = [
     LoadingSpinnerComponent,
     AdminComponent,
     AdminSidenavComponent,
+    PaymentSpinnerComponent,
     // ItemsService,
   ],
   imports: [
