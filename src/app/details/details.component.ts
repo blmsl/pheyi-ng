@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from "angularfire2";
-import { FormControl } from "@angular/forms/forms";
+import { FormControl, NgForm } from "@angular/forms";
 import { ItemsService } from "app/items/shared/items.service";
 import { CartService } from "app/cart/shared/cart.service";
 import { Item } from "app/items/shared/item";
 import { CartItem } from "app/cart/shared/cartItem";
+
 
 @Component({
   selector: 'app-details',
@@ -26,9 +27,18 @@ export class DetailsComponent implements OnInit {
   ukSizes;
   toggleState;
 
+  quantityValue : number = 1;
+  selectedSize : string = "";
+  selectedQuantity : number; 
+  private selectUndefinedOptionValue:any;
+
+
   showSpinner : boolean = true;
   showContent : boolean = false;
 
+
+  @ViewChild('addToCartForm') $addToCartForm : NgForm;
+  @ViewChild('size') $size : number;
 
   constructor(private route: ActivatedRoute,
     private af: AngularFire,
@@ -36,6 +46,8 @@ export class DetailsComponent implements OnInit {
     private cartSvc: CartService) { }
 
   ngOnInit() {
+
+    
     //  this.key  = this.route.snapshot.params['key'];
     this.toggleState = " "
     this.af.database.list('/Sizes/women/inches').subscribe(snapshot => {
@@ -73,6 +85,7 @@ export class DetailsComponent implements OnInit {
   }
 
   addItemToCart($key: string) {
+
 
     if (this.authState) {
       
@@ -126,5 +139,17 @@ export class DetailsComponent implements OnInit {
 
   }
 
+  incrementQuantity(){
+    
+    this.quantityValue = this.quantityValue + 1;
+  }
+
+  decrementQuantity(){
+
+    if(this.quantityValue  > 1){
+          this.quantityValue = this.quantityValue - 1;   
+    }
+
+  }
 
 }

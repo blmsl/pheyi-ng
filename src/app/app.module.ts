@@ -28,6 +28,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminSidenavComponent } from './ui/admin-sidenav/admin-sidenav.component';
 import { AdminService } from './admin/shared/admin.service';
 import { PaymentSpinnerComponent } from './ui/payment-spinner/payment-spinner.component';
+import { ReviewsComponent } from './reviews/reviews.component';
 
 
 
@@ -78,6 +79,7 @@ const appRoutes: Routes = [
     AdminComponent,
     AdminSidenavComponent,
     PaymentSpinnerComponent,
+    ReviewsComponent,
     // ItemsService,
   ],
   imports: [
