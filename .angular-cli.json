@@ -28,6 +28,7 @@
         "css/theme.min.css",
         "Content/animate.min.css",
         "Content/Site.css"
+     
 
       ],
       "scripts": [      
@@ -40,7 +41,8 @@
         "js/vendor/owl.carousel.min.js",
         "js/vendor/jquery.downCount.js",
         "js/vendor/magnific-popup.min.js",
-        "js/scripts.js"
+        "js/scripts.js",
+        "js/jivo.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

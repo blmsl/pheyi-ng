@@ -79,20 +79,20 @@
       <!-- .review -->
       <!-- Reviview Form -->
       <h4 class="padding-top">Leave a review</h4>
-      <form method="post" class="row padding-top">
+      <form #addReviewForm (ngSubmit)="addReview()" class="row padding-top">
         <div class="col-sm-4">
           <div class="form-element">
-            <input type="text" class="form-control" placeholder="Name*" required>
+            <input  type="text" class="form-control" placeholder="Name*" required>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="form-element">
-            <input type="email" class="form-control" placeholder="Email*" required>
+            <input  type="email" class="form-control" placeholder="Email*" required>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="form-element form-select">
-            <select class="form-control">
+            <select  class="form-control">
                   <option>5 stars</option>
                   <option>4 stars</option>
                   <option>3 stars</option>
@@ -107,7 +107,7 @@
           </div>
           <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-6 col-lg-offset-9 col-md-offset-8 col-sm-offset-6">
-              <button type="submit" class="btn btn-block btn-primary waves-effect waves-light space-top-none space-bottom-none">Leave Review</button>
+              <button [disabled]="!addReviewForm.valid" type="submit" class="btn btn-block btn-primary waves-effect waves-light space-top-none space-bottom-none">Leave Review</button>
             </div>
           </div>
         </div>

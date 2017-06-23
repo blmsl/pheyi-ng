@@ -24,4 +24,8 @@ export class ReviewsComponent implements OnInit {
     });
   }
 
+  addReview(){
+    alert("Adding review");
+  }
+
 }
