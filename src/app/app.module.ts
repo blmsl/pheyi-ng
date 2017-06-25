@@ -29,6 +29,7 @@ import { AdminSidenavComponent } from './ui/admin-sidenav/admin-sidenav.componen
 import { AdminService } from './admin/shared/admin.service';
 import { PaymentSpinnerComponent } from './ui/payment-spinner/payment-spinner.component';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { ReviewsService } from "app/reviews/shared/reviews.service";
 
 
 
@@ -93,7 +94,8 @@ const appRoutes: Routes = [
   providers: [
     ItemsService,
     CartService,
-    AdminService
+    AdminService,
+    ReviewsService
   ],
   bootstrap: [AppComponent]
 })
