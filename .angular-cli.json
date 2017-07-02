@@ -42,7 +42,8 @@
         "js/vendor/jquery.downCount.js",
         "js/vendor/magnific-popup.min.js",
         "js/scripts.js",
-        "js/jivo.js"
+        "js/jivo.js",
+        "js/google-analytics.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

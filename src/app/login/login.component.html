@@ -1,28 +1,24 @@
 <!-- Account (Login) -->
 <div class="login-section-plain animated fadeInDown" id="account">
     <div class="inner">
-        <h3 id="login-title"
-          class="toolbar-title space-bottom">
-          {{loggedInStatus}}
+        <h3 id="login-title" class="toolbar-title space-bottom">
+            {{loggedInStatus}}
         </h3>
         <span *ngIf="!loginError">{{loginErrorMessage}}</span>
         <form *ngIf="!isLoggedIn" id="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+            <h3 id="login-title" class="toolbar-title space-bottom">
+                Sign in to start shopping.
+            </h3>
             <p id="login-message"></p>
             <span class="help-block" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">
               Please enter a valid username
             </span>
-            <input type="text"
-                id="Email" formControlName="username"
-                placeholder="username"
-                class="form-control" required />
+            <input type="text" id="Email" formControlName="username" placeholder="username" class="form-control" required />
 
-                <span class="help-block" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+            <span class="help-block" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
                   You need to enter a valid password
                 </span>
-            <input type="password" formControlName="password"
-                class="form-control"
-                placeholder="Password"
-                required id="Password">
+            <input type="password" formControlName="password" class="form-control" placeholder="Password" required id="Password">
 
             <div class="form-footer">
                 <div class="rememberme">
@@ -33,35 +29,34 @@
                     </label>
                 </div>
                 <div class="form-submit">
-                    <button id="login-submit"
-                        type="submit"
-                        class="btn btn-primary btn-block
+                    <button id="login-submit" type="submit" class="btn btn-primary btn-block
                               waves-effect waves-light">
                       {{ loginState }}
                     </button>
                 </div>
             </div>
         </form>
-            <!-- .login-form -->
+        <!-- .login-form -->
 
-            <p class="text-sm space-top">Don’t have an account?
-                <a href="/register" class="toggle-section">
+        <p class="text-sm space-top">Don’t have an account?
+            <a href="/register" class="toggle-section">
                   Signup here
                 </a> or with social account:
-            </p>
-            <!-- <a href="#" class="social-signup-btn ssb-facebook">
+        </p>
+        <!-- <a href="#" class="social-signup-btn ssb-facebook">
                 <i class="socicon-facebook"></i>
                 <span>Signup with Facebook</span>
             </a> -->
-              <button  (click)="loginWithGoogle()"
-                  class="btn social-signup-btn ssb-google">
+        <button (click)="loginWithGoogle()" class="btn social-signup-btn ssb-google">
                   <i class="socicon-googleplus"></i>
                   <span>Sign in with Google+</span>
               </button>
 
-            <!-- <a href="#" class="social-signup-btn ssb-twitter">
+        <!-- <a href="#" class="social-signup-btn ssb-twitter">
                 <i class="socicon-twitter"></i>
                 <span>Signup with Twitter</span>
             </a> -->
-</div><!-- .inner -->
-</div><!-- .toolbar-section#account -->
+    </div>
+    <!-- .inner -->
+</div>
+<!-- .toolbar-section#account -->
