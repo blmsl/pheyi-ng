@@ -13,7 +13,8 @@
             <span class="help-block" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">
               Please enter a valid username
             </span>
-            <input type="text" id="Email" formControlName="username" placeholder="username" class="form-control" required />
+            <input type="text" id="Email" formControlName="username" placeholder="Preferred username/email" class="form-control" required
+            />
 
             <span class="help-block" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
                   You need to enter a valid password
@@ -29,7 +30,7 @@
                     </label>
                 </div>
                 <div class="form-submit">
-                    <button id="login-submit" type="submit" class="btn btn-primary btn-block
+                    <button [disabled]="!loginForm.valid" id="login-submit" type="submit" class="btn btn-primary btn-block
                               waves-effect waves-light">
                       {{ loginState }}
                     </button>
@@ -38,24 +39,20 @@
         </form>
         <!-- .login-form -->
 
-        <p class="text-sm space-top">Don’t have an account?
+        <p class="text-sm space-top" style="text-align:center">
+            Don’t have an account?
             <a href="/register" class="toggle-section">
                   Signup here
-                </a> or with social account:
+                </a>
         </p>
-        <!-- <a href="#" class="social-signup-btn ssb-facebook">
-                <i class="socicon-facebook"></i>
-                <span>Signup with Facebook</span>
-            </a> -->
-        <button (click)="loginWithGoogle()" class="btn social-signup-btn ssb-google">
-                  <i class="socicon-googleplus"></i>
-                  <span>Sign in with Google+</span>
+        <h3 id="login-title" class="toolbar-title space-bottom" style="text-align:center">OR</h3>
+
+        <button (click)="loginWithGoogle()" value="" class="btn google-btn">
+                       <img style="width:40px; height:auto" src="../assets/google.jpg" alt="">
+                     <span >Continue with google</span>
               </button>
 
-        <!-- <a href="#" class="social-signup-btn ssb-twitter">
-                <i class="socicon-twitter"></i>
-                <span>Signup with Twitter</span>
-            </a> -->
+
     </div>
     <!-- .inner -->
 </div>

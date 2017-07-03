@@ -1,3 +1,30 @@
+.btn[disabled]{
+    background-color: #757575 !important;
+}
+
+.google-btn{
+   background:white;color:black;border-style: solid solid solid solid;
+    -webkit-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    -moz-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    -ms-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    -o-box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    box-shadow: 2px 0px 46px 0px rgba(50,50,50,0.18);
+    width:50%;
+    margin-left:25%; margin-right:25%;
+}
+.google-btn:hover{
+    border:1px solid gray;
+}
+.google-btn img{
+    margin-bottom: -3em;
+    
+}
+
+.google-btn span{
+    padding-left:4em;
+}
+
+
 .login-section-plain {
     width: 70%;
     margin-left: auto;
@@ -29,7 +56,16 @@ input.ng-invalid.ng-touched{
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
-    
+    .login-section-plain{
+        width:40%;
+     
+    }
+
+     .google-btn{
+        width:100%;
+        margin-right:auto;
+        margin-left:auto;
+    }
  }
 /*Small screens*/
 @media (min-width: 320px) and (max-width: 700px) { 
@@ -43,5 +79,11 @@ input.ng-invalid.ng-touched{
     }
     h3#login-title{
         font-size:13pt;
+    }
+
+    .google-btn{
+        width:100%;
+        margin-right:auto;
+        margin-left:auto;
     }
 }
