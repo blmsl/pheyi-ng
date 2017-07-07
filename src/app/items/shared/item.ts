@@ -9,4 +9,5 @@ export class Item {
     isNewArrival : boolean = true;
     addedBy : string
     createdAt : Date = new Date();
+    isSoldOut : boolean = false;
 }

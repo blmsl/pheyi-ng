@@ -16,6 +16,8 @@ import { CartItem } from "app/cart/shared/cartItem";
 export class DetailsComponent implements OnInit {
  
   item: Item;
+  isSoldOut : boolean;
+
   user: string;
   authState;
   sum: any;
@@ -70,6 +72,7 @@ export class DetailsComponent implements OnInit {
         
         (item) => {
           this.item = item;
+          this.isSoldOut = item.isSoldOut;
           this.showSpinner = false;
           this.showContent = true;
         }
@@ -85,7 +88,6 @@ export class DetailsComponent implements OnInit {
   }
 
   addItemToCart($key: string) {
-
 
     if (this.authState) {
       

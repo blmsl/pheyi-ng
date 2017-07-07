@@ -19,7 +19,10 @@
         <div  class="product-meta">
           <div class="product-category">
               <strong>Category: </strong>
-              <a href="#">Ankara Drapes</a>
+              <a href="#">Ankara Drapes</a><br>
+              <!--TODO : Notify me form when this dress is available-->
+              <p *ngIf="isSoldOut" style="color:red">Sold Out</p>
+
             </div>
           <div>
             {{toggleState}}
@@ -39,7 +42,7 @@
           </div>
 
         </div>
-        <form #addToCartForm = "ngForm" (ngSubmit)="addItemToCart(item?.$key)"  class="product-tools shop-item">
+        <form *ngIf="!isSoldOut" #addToCartForm = "ngForm" (ngSubmit)="addItemToCart(item?.$key)"  class="product-tools shop-item">
           <div class="count-input">
             <a class="incr-btn" (click)="decrementQuantity()" style="cursor:pointer">–</a>
             <input required  class="quantity" type="text" value="{{quantityValue}}">
