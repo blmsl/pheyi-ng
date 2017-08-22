@@ -30,6 +30,11 @@ import { AdminService } from './admin/shared/admin.service';
 import { PaymentSpinnerComponent } from './ui/payment-spinner/payment-spinner.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { ReviewsService } from "app/reviews/shared/reviews.service";
+import { PushnotificationComponent } from './pushnotification/pushnotification.component';
+import { AngularFireDatabaseModule } from "angularfire2/database";
+import { AngularFireAuthModule } from "angularfire2/auth";
+import { MessagingService } from "app/messaging.service";
+import { TestComponent } from './test/test.component';
 
 
 
@@ -81,6 +86,8 @@ const appRoutes: Routes = [
     AdminSidenavComponent,
     PaymentSpinnerComponent,
     ReviewsComponent,
+    PushnotificationComponent,
+    TestComponent,
     // ItemsService,
   ],
   imports: [
@@ -89,13 +96,17 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(firebaseConfig),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [
     ItemsService,
     CartService,
     AdminService,
-    ReviewsService
+    ReviewsService,
+    MessagingService
   ],
   bootstrap: [AppComponent]
 })

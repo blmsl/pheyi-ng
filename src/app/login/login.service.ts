@@ -1,14 +1,15 @@
-import {AngularFire, FirebaseListObservable, AuthProviders, AuthMethods} from 'angularfire2'
+import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database'
+import { AngularFireAuth } from "angularfire2/auth";
 
 
 export class LoginService{
-   constructor(private af: AngularFire){ }
+   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth ){ }
 
    login(loginModel){
-     this.af.auth.login({
-       provider:AuthProviders.Password,
+    //  this.afAuth.auth..login({
+    //    provider:AuthProviders.Password,
 
-     })
+    //  })
    }
 
    logoutOut(){
@@ -16,12 +17,12 @@ export class LoginService{
    }
 
    register(registerModel){
-      var promise =  this.af.auth.createUser({
-         email : registerModel.email,
-         password: registerModel.password
-       }).then(x=>{
-         console.log('User registered')
-       })
+      // var promise =  this.afAuth.auth.createUser({
+      //    email : registerModel.email,
+      //    password: registerModel.password
+      //  }).then(x=>{
+      //    console.log('User registered')
+      //  })
 
    }
 

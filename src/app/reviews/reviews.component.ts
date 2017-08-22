@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFire, FirebaseAuthState, FirebaseListObservable } from "angularfire2";
+import {FirebaseListObservable } from "angularfire2/database";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Review } from "app/reviews/shared/review";
 import { ReviewsService } from "app/reviews/shared/reviews.service";
@@ -15,13 +15,16 @@ export class ReviewsComponent implements OnInit {
   reviewsForm : FormGroup;
   isSignedIn : boolean = true;
   reviews : FirebaseListObservable<any[]>;
+  
 
   review: Review = new Review();
 
-  constructor(private af: AngularFire, private reviewSvc : ReviewsService) { }
+  constructor( private reviewSvc : ReviewsService) { }
 
   ngOnInit() {
-    
+
+   
+   //get list of reviews
     this.reviews = this.reviewSvc.getReviewsList();
 
     //TODO: Implement reviews  form
@@ -31,6 +34,7 @@ export class ReviewsComponent implements OnInit {
        'name': new FormControl(null, Validators.required),
        'rating': new FormControl( Validators.required),
        'reviews': new FormControl(null, Validators.required),
+       'dressKey': new FormControl(null)
     });
   }
 

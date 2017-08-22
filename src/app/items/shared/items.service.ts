@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Item } from "app/items/shared/item";
+import { AngularFireAuth } from "angularfire2/auth";
 // import { Item } from './item';
 
 @Injectable()
@@ -12,8 +13,7 @@ export class ItemsService {
   items: FirebaseListObservable<Item[]> = null;
   item: FirebaseObjectObservable<Item> = null;
 
-  constructor(private af: AngularFire,
-    private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase) { }
 
 
   //return an observable list with optional query

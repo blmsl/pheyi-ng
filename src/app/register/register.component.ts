@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AngularFire, AuthMethods, AuthProviders } from 'angularfire2'
+import { AngularFireDatabase} from 'angularfire2/database'
 import {FormGroup, FormControl, Validators} from '@angular/forms'
+import { AngularFireAuth } from "angularfire2/auth";
 
 @Component({
     templateUrl : './register.component.html',
@@ -14,7 +15,7 @@ export class RegisterComponent {
   registerState: string;
   formIsDisabled : boolean;
 
-  constructor(private af: AngularFire){
+  constructor(private db: AngularFireDatabase, private afAuth : AngularFireAuth){
 
     this.registerForm = new FormGroup({
 
@@ -29,7 +30,7 @@ export class RegisterComponent {
     this.isRegisterError = false;
     this.registerState = 'Sign up';
 
-    this.af.auth.subscribe(authState => {
+    this.afAuth.authState.subscribe(authState => {
       if(!authState){
         //not logged in
       }else{
@@ -46,12 +47,11 @@ export class RegisterComponent {
 
 
 
-         this.af.auth.createUser(
-          {
-            email: registerModel.email,
-            password : registerModel.password
+         this.afAuth.auth.createUserWithEmailAndPassword(
+             registerModel.email,
+             registerModel.password
 
-          }).then(e =>{
+          ).then(e =>{
               this.registerState = 'Sign up'
               alert('you have been successfully registered')
 

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service'
-import { AngularFire, AuthProviders, AuthMethods, FirebaseListObservable } from 'angularfire2'
+import { AngularFireDatabase,  FirebaseListObservable } from 'angularfire2/database'
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from "@angular/router";
+import { AngularFireAuth } from "angularfire2/auth";
+import * as firebase from 'firebase/app';
 
 
 @Component({
@@ -13,7 +15,7 @@ import { Router } from "@angular/router";
 
 
 export class LoginComponent implements OnInit{
-  constructor(private af : AngularFire, private router : Router){ }
+  constructor(private db : AngularFireDatabase, private router : Router, private afAuth: AngularFireAuth){ }
 
   //control group object for login
   loginForm : FormGroup;
@@ -28,7 +30,7 @@ export class LoginComponent implements OnInit{
     // this.loginForm = new FormGroup();
     this.loginState = 'login'; this.loginError = false;
 
-    this.af.auth.subscribe(authState => {
+    this.afAuth.authState.subscribe(authState => {
       if(!authState){
         this.loggedInStatus = 'You are not logged in';
         this.isLoggedIn = false;
@@ -47,10 +49,9 @@ export class LoginComponent implements OnInit{
   }
 
   loginWithGoogle(){
-    this.af.auth.login({
-      provider : AuthProviders.Google,
-      method: AuthMethods.Popup
-    }).then(authState=>{
+    
+    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+    .then(authState=>{
       window.location.href = document.location.origin + '/';
       console.log('Logged in via Google');
     })
@@ -59,13 +60,9 @@ export class LoginComponent implements OnInit{
   login(){
     // console.log(this.loginForm.value);
        this.loginState = 'please wait..'
-       this.af.auth.login({
-         email : this.loginForm.value.username,
-         password: this.loginForm.value.password
-       }, {
-         method: AuthMethods.Password,
-         provider: AuthProviders.Password
-       }).then(authState => {
+   
+      this.afAuth.auth.signInWithEmailAndPassword(this.loginForm.value.username, this.loginForm.value.password)
+      .then(authState => {
 
          this.loginState = 'Login';
          window.location.href = document.location.origin + '/'; 

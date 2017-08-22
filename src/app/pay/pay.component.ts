@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Http, Headers } from "@angular/http";
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from "angularfire2";
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database";
+import { AngularFireAuth } from "angularfire2/auth";
 
 @Component({
   selector: 'app-pay',
@@ -17,13 +18,13 @@ export class PayComponent implements OnInit {
   orderItems : FirebaseListObservable<any[]>;
   shippingAddress : FirebaseObjectObservable<any>;
 
-  constructor(private router: ActivatedRoute, private http: Http, private af: AngularFire) { }
+  constructor(private router: ActivatedRoute, private http: Http, private db: AngularFireDatabase, private afAuth: AngularFireAuth) { }
 
   ngOnInit() {
 
     this.ref = this.router.snapshot.params["ref"];
 
-    this.af.auth.subscribe(authState => {
+    this.afAuth.authState.subscribe(authState => {
 
       if (authState) {
 
@@ -44,12 +45,12 @@ export class PayComponent implements OnInit {
 
             //set order isPayed = true
             //check of order exists first
-            this.af.database.object('/orders/' + this.ref)
+            this.db.object('/orders/' + this.ref)
               .subscribe(snapshot => {
                 if (snapshot.$value !== null) {
-                  this.af.database.object('/orders/' + this.ref).update({ isPayed: true });
-                  this.orderItems = this.af.database.list('/orders/'+this.ref+'/items')
-                  this.af.database.object('/orders/'+this.ref+'/shippingDetails').subscribe(snapshot=>{
+                  this.db.object('/orders/' + this.ref).update({ isPayed: true });
+                  this.orderItems = this.db.list('/orders/'+this.ref+'/items')
+                  this.db.object('/orders/'+this.ref+'/shippingDetails').subscribe(snapshot=>{
                     this.shippingAddress = snapshot;
                   })
                   
@@ -57,8 +58,8 @@ export class PayComponent implements OnInit {
               })
 
             // clear shopping cart
-            this.af.database.object('/shoppingCart/' + authState.uid).remove();
-            this.af.database.object('/shoppingTotal/' + authState.uid).remove();
+            this.db.object('/shoppingCart/' + authState.uid).remove();
+            this.db.object('/shoppingTotal/' + authState.uid).remove();
 
           } else {
             // this.status = 'transaction failed'

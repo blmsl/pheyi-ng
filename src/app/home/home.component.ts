@@ -1,5 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from "angularfire2";
+import { FirebaseListObservable, AngularFireDatabase } from "angularfire2/database";
+import { AngularFireAuth } from "angularfire2/auth";
+// import { AngularFire, FirebaseListObservable } from "angularfire2";
 
 
 @Component({
@@ -16,12 +18,13 @@ export class HomeComponent {
     sum;
     images : any[];
 
-    constructor(private af : AngularFire){
+    constructor(private db : AngularFireDatabase, afAuth: AngularFireAuth){
         this.sum = 0;
 
-        this.af.auth.subscribe(authState =>{
-            this.user = authState.uid
-        })
+        // this.user = afAuth.auth.currentUser.uid
+        // this.af.auth.subscribe(authState =>{
+        //     this.user = authState.uid
+        // })
 
         // this.cartItems =  this.ct.getCartItems();
     }
@@ -29,7 +32,7 @@ export class HomeComponent {
     ngOnInit(){
 
         //get all best sellers
-        this.bestSellers = this.af.database.list('/items', {
+        this.bestSellers = this.db.list('/items', {
             query:{
                 orderByChild : 'isBestSeller',
                 equalTo : true,
@@ -38,7 +41,7 @@ export class HomeComponent {
         })
 
         //get all new arrivals
-        this.newArrivals = this.af.database.list('/items',{
+        this.newArrivals = this.db.list('/items',{
            query:{
                orderByChild : 'isNewArrival',
                equalTo : true,

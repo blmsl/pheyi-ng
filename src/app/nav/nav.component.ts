@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthMethods, AngularFire, AuthProviders, FirebaseListObservable } from 'angularfire2'
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'
 import { CartService } from "app/cart/shared/cart.service";
+import { AngularFireAuth } from "angularfire2/auth";
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +12,7 @@ export class NavComponent implements OnInit {
     count: number;
     cartItems: FirebaseListObservable<any[]>;
 
-  constructor(private af: AngularFire, private cartSvc : CartService) { 
+  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth, private cartSvc : CartService) { 
     
   }
 
@@ -20,12 +21,12 @@ export class NavComponent implements OnInit {
 
 
   ngOnInit() {
-    this.af.auth.subscribe(authState=>{
+    this.afAuth.authState.subscribe(authState=>{
        if(!authState){
          this.isLoggedIn = false;
        }else{
          this.isLoggedIn = true;
-         if(authState.auth.email === 'daniel.adigun@digitalforte.ng'){
+         if(authState.email === 'daniel.adigun@digitalforte.ng'){
            this.isAdmin = true;
          }else{
            this.isAdmin = false;
@@ -41,7 +42,7 @@ export class NavComponent implements OnInit {
   }
 
   logOff(){
-    this.af.auth.logout().then(e=>{
+    this.afAuth.auth.signOut().then(e=>{
       this.isLoggedIn = false;
       window.location.href = document.location.origin + '/'; 
     });

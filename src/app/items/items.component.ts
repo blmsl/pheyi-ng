@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFire, FirebaseAuthState, FirebaseListObservable } from "angularfire2";
+import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
 import { Router } from "@angular/router";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ItemsService } from "app/items/shared/items.service";
 import { Item } from "app/items/shared/item";
+import { AngularFireAuth } from "angularfire2/auth";
+import * as firebase from 'firebase/app';
 
 
 @Component({
@@ -12,25 +14,26 @@ import { Item } from "app/items/shared/item";
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent implements OnInit {
+  user: firebase.User;
   itemAdding: any;
   createItemForm: FormGroup;
-  user: FirebaseAuthState;
+  // user: FirebaseAuthState;
   items: FirebaseListObservable<any[]>;
   isAdding: boolean;
   itemIsEmpty: boolean;
 
-  constructor(private af: AngularFire,
+  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth,
     private router: Router,
     private itemSvc: ItemsService) {
 
     this.isAdding = false;
 
     //check if user is authorized
-    this.af.auth.subscribe(authState => {
+    this.afAuth.authState.subscribe(authState => {
       if (authState) {
         this.user = authState;
-        if (this.user.auth.email !== "daniel.adigun@digitalforte.ng") {
-          this.af.auth.logout();
+        if (this.user.email !== "daniel.adigun@digitalforte.ng") {
+          this.afAuth.auth.signOut();
           router.navigate(['']);
         }
       }
@@ -64,7 +67,7 @@ export class ItemsComponent implements OnInit {
 
   createItem() {
     var pushKey = this.itemSvc.createItem(this.createItemForm.value);
-    this.itemSvc.updateItem(pushKey, {addedBy : this.user.auth.email, createdAt : new Date()});
+    this.itemSvc.updateItem(pushKey, {addedBy : this.user.email, createdAt : new Date()});
 
     this.createItemForm.reset();
     alert('item has been added!');

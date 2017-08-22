@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
-import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from "angularfire2";
+import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from "angularfire2/database";
 import { FormControl, NgForm } from "@angular/forms";
 import { ItemsService } from "app/items/shared/items.service";
 import { CartService } from "app/cart/shared/cart.service";
 import { Item } from "app/items/shared/item";
 import { CartItem } from "app/cart/shared/cartItem";
+import { AngularFireAuth } from "angularfire2/auth";
 
 
 @Component({
@@ -43,7 +44,8 @@ export class DetailsComponent implements OnInit {
   @ViewChild('size') $size : number;
 
   constructor(private route: ActivatedRoute,
-    private af: AngularFire,
+    private afAuth: AngularFireAuth,
+    private db:AngularFireDatabase,
     private itemSvc: ItemsService,
     private cartSvc: CartService) { }
 
@@ -52,12 +54,12 @@ export class DetailsComponent implements OnInit {
     
     //  this.key  = this.route.snapshot.params['key'];
     this.toggleState = " "
-    this.af.database.list('/Sizes/women/inches').subscribe(snapshot => {
+    this.db.list('/Sizes/women/inches').subscribe(snapshot => {
       this.ukSizes = snapshot;
     })
     this.sum = 0;
 
-    this.af.auth.subscribe(authState => {
+    this.afAuth.authState.subscribe(authState => {
       this.authState = authState;
       this.user = authState.uid
     })
@@ -118,7 +120,7 @@ export class DetailsComponent implements OnInit {
     this.toggleState = "loading ...."
 
     //inches
-    this.af.database.list('/Sizes/women/inches', {
+    this.db.list('/Sizes/women/inches', {
       query: {
         orderByChild: 'UK',
         equalTo: parseInt($uk_size)
@@ -128,7 +130,7 @@ export class DetailsComponent implements OnInit {
     })
 
     //cm
-    this.af.database.list('/Sizes/women/cm', {
+    this.db.list('/Sizes/women/cm', {
       query: {
         orderByChild: 'UK',
         equalTo: parseInt($uk_size)

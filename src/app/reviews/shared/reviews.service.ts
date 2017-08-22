@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FirebaseListObservable, FirebaseObjectObservable, AngularFire, AngularFireDatabase } from "angularfire2";
+import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from "angularfire2/database";
 import { Review } from "app/reviews/shared/review";
 
 
@@ -12,7 +12,7 @@ export class ReviewsService {
   reviews: FirebaseListObservable<Review[]> = null;
   review: FirebaseObjectObservable<Review> = null;
 
-  constructor(private af: AngularFire, private db: AngularFireDatabase) { }
+  constructor( private db: AngularFireDatabase) { }
 
   //return list of reviews
   getReviewsList(query = {}) : FirebaseListObservable<Review[]>{
@@ -26,6 +26,10 @@ export class ReviewsService {
   //create a review and return the pushKey
   createReview(review: Review) : string{
     return this.reviews.push(review).key;
+  }
+
+  getReviewsByDress(dressKey : string){
+    
   }
 
 }

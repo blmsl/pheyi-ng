@@ -10,11 +10,11 @@
             </div>
             <div class="column">
               <span class="product-rating text-warning">
-                    <i class="material-icons star"></i>
-                    <i class="material-icons star"></i>
-                    <i class="material-icons star"></i>
-                    <i class="material-icons star"></i>
-                    <i class="material-icons star"></i>
+                    <i class="ion ion-android-star"></i>
+                    <i class="ion ion-android-star"></i>
+                    <i class="ion ion-android-star"></i>
+                    <i class="ion ion-android-star"></i>
+                    <i class="ion ion-android-star"></i>
                   </span>
             </div>
           </div>
@@ -57,6 +57,7 @@
           <div class="form-element">
             <textarea formControlName="reviews" rows="8" class="form-control" placeholder="Review*" required></textarea>
           </div>
+          <!--<input type="hidden" value="{{}}">-->
           <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-6 col-lg-offset-9 col-md-offset-8 col-sm-offset-6">
               <button [disabled]="!reviewsForm.valid" type="submit" class="btn btn-block btn-primary waves-effect waves-light space-top-none space-bottom-none">Leave Review</button>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2';
+import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database';
 import { CartItem } from "app/cart/shared/cartItem";
 
 
@@ -15,7 +15,7 @@ export class CartService {
   cartItemsCount: number;
   totalPrice: number;
 
-  constructor(private af: AngularFire,
+  constructor(
     private db: AngularFireDatabase) {
 
   }

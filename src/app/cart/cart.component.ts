@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { FirebaseListObservable, AngularFire, FirebaseObjectObservable } from "angularfire2";
+import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from "angularfire2/database";
 // import { CartService } from "app/cart.service";
 import { FormGroup, FormControl } from "@angular/forms";
 import { Headers, Http } from "@angular/http";
 import { CartService } from "app/cart/shared/cart.service";
+import { AngularFireAuth } from "angularfire2/auth";
 
 @Component({
     selector: 'app-cart',
@@ -35,7 +36,7 @@ export class CartComponent {
     isPaying : boolean = false;
 
 
-    constructor(private af: AngularFire, private http: Http, private cartSvc: CartService) { }
+    constructor(private af: AngularFireAuth, private db: AngularFireDatabase, private http: Http, private cartSvc: CartService) { }
 
     ngOnInit() {
         this.subtotal = 0;
@@ -45,7 +46,8 @@ export class CartComponent {
         // this.count = this.ct.getCartCount();
 
         //get user and update cart if any
-        this.af.auth.subscribe(authState => {
+        
+        this.af.authState.subscribe(authState => {
             if (authState) {
                 this.isLoggedIn = true;
 
@@ -65,10 +67,10 @@ export class CartComponent {
                 });
 
                 //order
-                this.order = this.af.database.list('/orders');
+                this.order = this.db.list('/orders');
 
                 //get shipping 
-                this.shipping = this.af.database.object('/shipping/' + this.user);
+                this.shipping = this.db.object('/shipping/' + this.user);
 
             } else {
                 this.isLoggedIn = false;
@@ -189,7 +191,7 @@ export class CartComponent {
 
         // this.af.database.object('/orders/'+this.order_reference).set({shippingDetails : this.shippingForm.value})
 
-        this.af.database.object('/shipping/' + this.user)
+        this.db.object('/shipping/' + this.user)
             .set(this.shippingForm.value)
             .then(() => {
                 this.payWithPayStack(this.subtotal, this.order_reference);

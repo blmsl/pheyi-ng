@@ -4,4 +4,5 @@ export class Review{
     email : string;
     stars : string;
     review : string;
+    dressKey : string;
 }
