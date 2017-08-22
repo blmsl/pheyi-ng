@@ -113,7 +113,7 @@
   <ul class="nav-tabs text-center" role="tablist">
     <li class="active"><a href="#description" role="tab" data-toggle="tab">Description</a></li>
     <!--<li><a href="#additional" role="tab" data-toggle="tab">Additional Info</a></li>-->
-    <li><a href="#reviews" role="tab" data-toggle="tab">Reviews <sup>3</sup></a></li>
+    <li><a href="#reviews" role="tab" data-toggle="tab">Reviews <sup style="background:#606060; color:white; font-weight:bold; padding:5px;">{{ (reviewList  | async)?.length}}</sup></a></li>
   </ul>
   <!-- Tab panes -->
   <div class="tab-content">

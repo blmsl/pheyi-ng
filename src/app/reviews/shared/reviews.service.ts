@@ -8,6 +8,7 @@ export class ReviewsService {
 
   private basePath = "/reviews";
   pushKey : string ;
+  reviewsCountByKey : number;
 
   reviews: FirebaseListObservable<Review[]> = null;
   review: FirebaseObjectObservable<Review> = null;
@@ -28,8 +29,19 @@ export class ReviewsService {
     return this.reviews.push(review).key;
   }
 
-  getReviewsByDress(dressKey : string){
-    
+  //returns the number of reviews by dressKey
+  getCount(dressKey : string) : number{
+
+    this.db.list(this.basePath, {
+      query : {
+        orderByChild : 'dressKey',
+        equalTo : dressKey
+      }
+    }).subscribe(reviews => {
+     this.reviewsCountByKey = reviews.length;
+    })
+ 
+    return this.reviewsCountByKey;
   }
 
 }

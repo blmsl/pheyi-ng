@@ -26,12 +26,14 @@ export class ReviewsComponent implements OnInit {
   ngOnInit() {
 
    
-   //get list of reviews
-    this.reviews = this.reviewSvc.getReviewsList( { orderByChild : 'dressKey', equalTo : this.dressKey} );
+   //get list of reviews by dress key
+    this.reviews = this.reviewSvc.getReviewsList( 
+      { orderByChild : 'dressKey', equalTo : this.dressKey});
 
-    //TODO: Implement reviews  form
+    
+    //Implement reviews  form
     this.reviewsForm = new FormGroup({
-      'title': new FormControl(null, Validators.required),
+       'title': new FormControl(null, Validators.required),
        'email': new FormControl(null, [Validators.required, Validators.email]),
        'name': new FormControl(null, Validators.required),
        'rating': new FormControl( Validators.required),

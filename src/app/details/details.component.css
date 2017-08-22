@@ -117,3 +117,18 @@ input.ng-invalid, select.ng-invalid{
                 width: 80px;
             }
 }
+
+.nav-tabs li sup.reviewsCount{
+    position: absolute;
+    display: block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #5c5757;
+    top: -2px;
+    right: -17px;
+}

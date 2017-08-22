@@ -6,6 +6,8 @@ import { ItemsService } from "app/items/shared/items.service";
 import { CartService } from "app/cart/shared/cart.service";
 import { Item } from "app/items/shared/item";
 import { CartItem } from "app/cart/shared/cartItem";
+import { ReviewsService } from "app/reviews/shared/reviews.service";
+
 import { AngularFireAuth } from "angularfire2/auth";
 
 
@@ -15,7 +17,8 @@ import { AngularFireAuth } from "angularfire2/auth";
   styleUrls: ['./details.component.css'],
 })
 export class DetailsComponent implements OnInit {
- 
+  reviewList: FirebaseListObservable<any[]>;
+
   item: Item;
   isSoldOut : boolean;
 
@@ -38,6 +41,8 @@ export class DetailsComponent implements OnInit {
 
   showSpinner : boolean = true;
   showContent : boolean = false;
+ 
+
 
 
   @ViewChild('addToCartForm') $addToCartForm : NgForm;
@@ -47,10 +52,12 @@ export class DetailsComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private db:AngularFireDatabase,
     private itemSvc: ItemsService,
-    private cartSvc: CartService) { }
+    private cartSvc: CartService,
+    private reviewSvc : ReviewsService) { }
 
   ngOnInit() {
 
+    
     
     //  this.key  = this.route.snapshot.params['key'];
     this.toggleState = " "
@@ -68,6 +75,10 @@ export class DetailsComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
         this.key = params['key'];
+
+        //get the count 
+        this.reviewList = this.reviewSvc.getReviewsList({ orderByChild : 'dressKey', equalTo: this.key});
+        
 
         //get details by key
        this.itemSvc.getItem(this.key).subscribe(
