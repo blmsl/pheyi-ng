@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {FirebaseListObservable } from "angularfire2/database";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Review } from "app/reviews/shared/review";
@@ -11,6 +11,8 @@ import { ReviewsService } from "app/reviews/shared/reviews.service";
   styleUrls: ['./reviews.component.css']
 })
 export class ReviewsComponent implements OnInit {
+
+  @Input() dressKey : string;
 
   reviewsForm : FormGroup;
   isSignedIn : boolean = true;
@@ -25,7 +27,7 @@ export class ReviewsComponent implements OnInit {
 
    
    //get list of reviews
-    this.reviews = this.reviewSvc.getReviewsList();
+    this.reviews = this.reviewSvc.getReviewsList( { orderByChild : 'dressKey', equalTo : this.dressKey} );
 
     //TODO: Implement reviews  form
     this.reviewsForm = new FormGroup({
@@ -34,7 +36,7 @@ export class ReviewsComponent implements OnInit {
        'name': new FormControl(null, Validators.required),
        'rating': new FormControl( Validators.required),
        'reviews': new FormControl(null, Validators.required),
-       'dressKey': new FormControl(null)
+       'dressKey': new FormControl(this.dressKey)
     });
   }
 
