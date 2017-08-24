@@ -32,11 +32,12 @@ export class LoginComponent implements OnInit{
 
     this.afAuth.authState.subscribe(authState => {
       if(!authState){
-        this.loggedInStatus = 'You are not logged in';
+        // this.loggedInStatus = 'You are not logged in';
         this.isLoggedIn = false;
       }else{
-        this.loggedInStatus ='you are currently logged in';
-        this.isLoggedIn = true;
+        // this.isLoggedIn = true;
+        this.loggedInStatus = 'please wait....';
+        window.location.href = document.location.origin + '/';
       }
     })
 
@@ -50,11 +51,23 @@ export class LoginComponent implements OnInit{
 
   loginWithGoogle(){
     
-    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider())
-    .then(authState=>{
-      window.location.href = document.location.origin + '/';
-      console.log('Logged in via Google');
-    })
+    // this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+    // .then(authState=>{
+    //   this.router.navigate([''])
+    //   console.log('Logged in via Google');
+    // })
+    var provider = new firebase.auth.GoogleAuthProvider();
+
+    provider.addScope('https://www.googleapis.com/auth/plus.login');
+
+    firebase.auth().signInWithRedirect(provider);
+
+    firebase.auth().getRedirectResult().then(function(authData) {
+      this.router.navigate(['']);
+    }).catch(function(error) {
+      console.log(error);
+    });
+    
   }
 
   login(){
@@ -65,7 +78,8 @@ export class LoginComponent implements OnInit{
       .then(authState => {
 
          this.loginState = 'Login';
-         window.location.href = document.location.origin + '/'; 
+        //  window.location.href = document.location.origin + '/'; 
+         this.router.navigate([''])
          console.log("Login Success", authState)
 
        }).catch(error =>{

@@ -27,9 +27,9 @@ export class DetailsComponent implements OnInit {
   user: string;
   authState;
   sum: any;
-  // item: FirebaseObjectObservable<any>;
-  // AlsoLike: FirebaseListObservable<any[]>;
+
   AlsoLike: Item[] = [];
+
   key: string;
   sizeInInches;
   sizeInCm;
@@ -60,9 +60,9 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
 
+    //scroll to top on activation
     window.scrollTo(0,0);
     
-    //  this.key  = this.route.snapshot.params['key'];
     this.toggleState = " "
     this.db.list('/Sizes/women/inches').subscribe(snapshot => {
       this.ukSizes = snapshot;
@@ -97,14 +97,12 @@ export class DetailsComponent implements OnInit {
         //get items for you may also like      
         this.itemSvc.getItemsList({ limitToLast: 4 }).subscribe((alsoLikes)=>{
           alsoLikes.forEach(alsoLike => {
-            const title = alsoLike.title.replace(/\s+/g, '-');
+            const title = alsoLike.title.replace(/\s+/g, '-'); //for SEO
             this.itemTitle.push(title);
-            this.AlsoLike.push(alsoLike);
-          
+            this.AlsoLike.push(alsoLike);   
             
           })
         });        
-        // this.user.name = params['name'].replace(/\s+/g,'-');
       }
     );
 
