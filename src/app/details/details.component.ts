@@ -17,6 +17,7 @@ import { AngularFireAuth } from "angularfire2/auth";
   styleUrls: ['./details.component.css'],
 })
 export class DetailsComponent implements OnInit {
+  allItemsArray: Item[] = [];
   reviewList: FirebaseListObservable<any[]>;
 
   item: Item;
@@ -93,15 +94,14 @@ export class DetailsComponent implements OnInit {
         }
       );
              
-       
-        //get items for you may also like
-        // this.AlsoLike = this.itemSvc.getItemsList({ limitToLast: 4 });        
+        //get items for you may also like      
         this.itemSvc.getItemsList({ limitToLast: 4 }).subscribe((alsoLikes)=>{
           alsoLikes.forEach(alsoLike => {
             const title = alsoLike.title.replace(/\s+/g, '-');
             this.itemTitle.push(title);
             this.AlsoLike.push(alsoLike);
-            console.log(this.itemTitle);
+          
+            
           })
         });        
         // this.user.name = params['name'].replace(/\s+/g,'-');
