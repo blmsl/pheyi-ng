@@ -151,7 +151,7 @@ export class CartComponent {
 
             if (snapshot.$value !== null) {
 
-                 /*
+                /*
                     Handle workflow for customer with an existing shipping address
                 */
 

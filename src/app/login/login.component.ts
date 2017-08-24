@@ -27,6 +27,10 @@ export class LoginComponent implements OnInit{
   isLoggedIn : boolean;
 
   ngOnInit(){
+
+    //scroll to top on activation
+    window.scrollTo(0,0);
+
     // this.loginForm = new FormGroup();
     this.loginState = 'login'; this.loginError = false;
 

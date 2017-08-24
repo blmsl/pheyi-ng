@@ -7,7 +7,7 @@
     </p>      
       <div *ngIf="isAdding" class="animated zoomIn">    
         <form id="new-item-form" [formGroup]="createItemForm" (ngSubmit)="createItem()"> 
-          <span class="help-block" *ngIf="!createItemForm.get('title').valid && createItemForm.get('title').touched">
+            <span class="help-block" *ngIf="!createItemForm.get('title').valid && createItemForm.get('title').touched">
               Please enter the name of this dress
             </span>
           <input formControlName="title" type="text" class="form-control" placeholder="Name of dress e.g. Drapped gown for evening">

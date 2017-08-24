@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from "angularfire2/database";
 import { FormControl, NgForm } from "@angular/forms";
 import { ItemsService } from "app/items/shared/items.service";
@@ -54,6 +54,7 @@ export class DetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private afAuth: AngularFireAuth,
     private db:AngularFireDatabase,
+    private router : Router,
     private itemSvc: ItemsService,
     private cartSvc: CartService,
     private reviewSvc : ReviewsService) { }
@@ -128,8 +129,8 @@ export class DetailsComponent implements OnInit {
       alert('added item to cart');
       
     } else {
-      document.location.href = document.location.origin + "/login";
-
+      // document.location.href = document.location.origin + "/login";
+      this.router.navigate(['login']);
     }
 
 
