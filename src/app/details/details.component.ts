@@ -60,7 +60,7 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
 
-    
+    window.scrollTo(0,0);
     
     //  this.key  = this.route.snapshot.params['key'];
     this.toggleState = " "
