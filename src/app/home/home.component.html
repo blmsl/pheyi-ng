@@ -39,6 +39,8 @@
 <section class="container padding-top-3x">
     <!-- Bestsellers -->
     <h3 class="text-center">Bestsellers</h3>
+   <app-loading-spinner *ngIf="showSpinner" [showLoading]=true text="populating bestsellers..."></app-loading-spinner>
+    
     <div class="row padding-top">
         <!-- Item -->
         <div *ngFor="let item of bestSellers; let i=index " class="col-md-4 col-sm-6 col-lg-4">
@@ -123,6 +125,8 @@
 <!-- New Arrivals -->
 <section class="container padding-top-3x space-top-half">
     <h3 class="text-center">Just In </h3>
+   <app-loading-spinner *ngIf="showSpinnerJustIn" [showLoading]=true text="populating new arrivals..."></app-loading-spinner>
+    
     <div class="row padding-top">
         <div *ngFor="let item of newArrivals; let i=index" class="col-lg-6 col-sm-6">
             <div class="shop-item">

@@ -13,6 +13,8 @@ import { Item } from "app/items/shared/item";
 
 
 export class HomeComponent {
+    showSpinnerJustIn: boolean = true;
+    showSpinner: boolean = true;
     cartItems: FirebaseListObservable<any[]>;
 
     bestSellers : Item[];
@@ -51,6 +53,7 @@ export class HomeComponent {
               var title = bestSeller.title.replace(/\s+/g, '-');
               this.itemTitleBestSellers.push(title);
            })
+          this.showSpinner = false;
        })
 
         //get all new arrivals
@@ -64,6 +67,7 @@ export class HomeComponent {
               var title = newArrival.title.replace(/\s+/g, '-');
               this.itemTitleNewArrivals.push(title);
            })
+           this.showSpinnerJustIn = false;
        })
         
     }
