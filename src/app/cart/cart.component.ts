@@ -13,7 +13,9 @@ import { AngularFireAuth } from "angularfire2/auth";
 })
 
 export class CartComponent {
+    isPayingError: boolean;
     subtotal: number;
+    paymentError : string;
 
     cartItems: FirebaseListObservable<any[]>;
     cartItemForSum: FirebaseListObservable<any[]>;
@@ -215,7 +217,7 @@ export class CartComponent {
         var body = {
 
             reference: ref,
-            email: this.authState.auth.email,
+            email: this.af.auth.currentUser.email,
             amount: amount * 100,
             callback_url: document.location.origin + '/pay_callback/' + ref + '/',
 
@@ -227,6 +229,9 @@ export class CartComponent {
             window.location.href = response.json().data.authorization_url;
             
         }, error => {
+            this.isPaying = false;
+            this.isPayingError = true;
+            this.paymentError = JSON.parse(error._body).message;
             console.log(error);
         }, () => {
             this.isPaying = false;

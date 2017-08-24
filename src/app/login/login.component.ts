@@ -51,11 +51,6 @@ export class LoginComponent implements OnInit{
 
   loginWithGoogle(){
     
-    // this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider())
-    // .then(authState=>{
-    //   this.router.navigate([''])
-    //   console.log('Logged in via Google');
-    // })
     var provider = new firebase.auth.GoogleAuthProvider();
 
     provider.addScope('https://www.googleapis.com/auth/plus.login');
