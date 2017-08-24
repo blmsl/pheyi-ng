@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from "angularfire2/database";
 // import { CartService } from "app/cart.service";
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Headers, Http } from "@angular/http";
 import { CartService } from "app/cart/shared/cart.service";
 import { AngularFireAuth } from "angularfire2/auth";
+import { ShippingService } from "app/shipping.service";
 
 @Component({
     selector: 'app-cart',
@@ -16,6 +17,7 @@ export class CartComponent {
     isPayingError: boolean;
     subtotal: number;
     paymentError : string;
+    countries : any[];
 
     cartItems: FirebaseListObservable<any[]>;
     cartItemForSum: FirebaseListObservable<any[]>;
@@ -38,14 +40,21 @@ export class CartComponent {
     isPaying : boolean = false;
 
 
-    constructor(private af: AngularFireAuth, private db: AngularFireDatabase, private http: Http, private cartSvc: CartService) { }
+    constructor(private af: AngularFireAuth, 
+            private db: AngularFireDatabase,
+            private http: Http, 
+            private cartSvc: CartService,
+            private shippingSvc : ShippingService) { }
 
     ngOnInit() {
         this.subtotal = 0;
         this.hasShippingAddress = false;
         this.hasCompleteAdding = false;
 
-        // this.count = this.ct.getCartCount();
+        // populate countries;
+        this.http.get('https://restcountries.eu/rest/v2/all').subscribe(response =>{
+            this.countries = response.json();
+        })
 
         //get user and update cart if any
         
@@ -82,18 +91,16 @@ export class CartComponent {
 
         //create shipping form
         this.shippingForm = new FormGroup({
-            'firstname': new FormControl(null),
-            'lastname': new FormControl(null),
-            'phone': new FormControl(null),
-            'address': new FormControl(null),
-            'country': new FormControl(null),
-            'state': new FormControl(null),
-            'city': new FormControl(null),
-            'zipCode': new FormControl(null)
-            //  'email' : new FormControl(this.authState.email)
+            'firstname': new FormControl(null, Validators.required),
+            'lastname': new FormControl(null, Validators.required),
+            'phone': new FormControl(null, Validators.required),
+            'address': new FormControl(null, Validators.required),
+            'country': new FormControl(null, Validators.required),
+            'city': new FormControl(null, Validators.required),
         })
 
     }
+
 
     removeItemFromCart($key: string) {
 
@@ -143,6 +150,11 @@ export class CartComponent {
             // console.log('order ref: ' + this.order_reference);
 
             if (snapshot.$value !== null) {
+
+                 /*
+                    Handle workflow for customer with an existing shipping address
+                */
+
                 //create order
                 this.order_reference = this.order.push({
                     uid: this.user,
@@ -152,22 +164,26 @@ export class CartComponent {
                     shippingDetails: snapshot,
                     items: itemsInCart,
                 }).key.toString();
+
+                //pay
                 this.checkOutWithShipping(this.order_reference);
 
             } else {
 
-                //TODO: Handle workflow without shipping
-                // console.log('shipping dosent exist')
+                /*
+                    Handle workflow for customer without shipping address
+                */
+
                 //create order
                 this.order_reference = this.order.push({
                     uid: this.user,
                     isPayed: false,
                     isShipped: false,
                     amount: this.subtotal,
-                    // shippingDetails: snapshot,
                     items: itemsInCart,
                 }).key.toString();
 
+                //display shipping address form before payment
                 this.hasShippingAddress = true;
             }
         })
@@ -191,11 +207,16 @@ export class CartComponent {
     //customer does not have shipping address
     checkoutWithoutShipping() {
 
-        // this.af.database.object('/orders/'+this.order_reference).set({shippingDetails : this.shippingForm.value})
-
-        this.db.object('/shipping/' + this.user)
+        this.db.object('/shipping/' + this.af.auth.currentUser.uid)
             .set(this.shippingForm.value)
             .then(() => {
+                //notify user of update
+                alert('Your shipping details have been successfully saved. please proceed to payment')
+
+                //hidding shipping address form
+                 this.hasShippingAddress = false;
+
+                 //proceed to payment
                 this.payWithPayStack(this.subtotal, this.order_reference);
             })
 

@@ -34,6 +34,7 @@ import { PushnotificationComponent } from './pushnotification/pushnotification.c
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
 import { MessagingService } from "app/messaging.service";
+import { ShippingService } from "app/shipping.service";
 
 
 
@@ -101,7 +102,8 @@ const appRoutes: Routes = [
     CartService,
     AdminService,
     ReviewsService,
-    MessagingService
+    MessagingService,
+    ShippingService
   ],
   bootstrap: [AppComponent]
 })

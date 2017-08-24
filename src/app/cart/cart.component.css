@@ -1,3 +1,7 @@
 input.ng-invalid.ng-touched{
   border:2px solid #5c5757;
 }
+
+.help-block{
+  color:brown;
+}
