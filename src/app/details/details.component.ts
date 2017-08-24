@@ -20,13 +20,15 @@ export class DetailsComponent implements OnInit {
   reviewList: FirebaseListObservable<any[]>;
 
   item: Item;
+  itemTitle : string [] = [];
   isSoldOut : boolean;
 
   user: string;
   authState;
   sum: any;
   // item: FirebaseObjectObservable<any>;
-  AlsoLike: FirebaseListObservable<any[]>;
+  // AlsoLike: FirebaseListObservable<any[]>;
+  AlsoLike: Item[] = [];
   key: string;
   sizeInInches;
   sizeInCm;
@@ -93,7 +95,15 @@ export class DetailsComponent implements OnInit {
              
        
         //get items for you may also like
-        this.AlsoLike = this.itemSvc.getItemsList({ limitToLast: 4 });        
+        // this.AlsoLike = this.itemSvc.getItemsList({ limitToLast: 4 });        
+        this.itemSvc.getItemsList({ limitToLast: 4 }).subscribe((alsoLikes)=>{
+          alsoLikes.forEach(alsoLike => {
+            const title = alsoLike.title.replace(/\s+/g, '-');
+            this.itemTitle.push(title);
+            this.AlsoLike.push(alsoLike);
+            console.log(this.itemTitle);
+          })
+        });        
         // this.user.name = params['name'].replace(/\s+/g,'-');
       }
     );

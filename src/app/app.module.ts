@@ -34,10 +34,6 @@ import { PushnotificationComponent } from './pushnotification/pushnotification.c
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
 import { MessagingService } from "app/messaging.service";
-import { TestComponent } from './test/test.component';
-
-
-
 
 
 
@@ -50,7 +46,7 @@ const appRoutes: Routes = [
   { path: 'cartegories', component : CartegoriesComponent },
   { path: 'orders', component: OrdersComponent},
   { path: 'sales', component: SalesComponent},
-  { path: 'details/:key', component:DetailsComponent},
+  { path: 'shopping/:key/:dress', component:DetailsComponent},
   { path: 'pay_callback/:ref/', component:PayComponent},
   { path: 'admin', component:AdminComponent}
 
@@ -86,8 +82,7 @@ const appRoutes: Routes = [
     AdminSidenavComponent,
     PaymentSpinnerComponent,
     ReviewsComponent,
-    PushnotificationComponent,
-    TestComponent,
+    PushnotificationComponent
     // ItemsService,
   ],
   imports: [

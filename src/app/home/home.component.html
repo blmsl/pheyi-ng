@@ -35,13 +35,13 @@
     <!-- .inner -->
 </section>
 
-<!-- Product Grid -->
+<!-- Best Sellers Grid -->
 <section class="container padding-top-3x">
     <!-- Bestsellers -->
     <h3 class="text-center">Bestsellers</h3>
     <div class="row padding-top">
         <!-- Item -->
-        <div *ngFor="let item of bestSellers | async " class="col-md-4 col-sm-6 col-lg-4">
+        <div *ngFor="let item of bestSellers; let i=index " class="col-md-4 col-sm-6 col-lg-4">
             <div class="shop-item">
                 <div class="shop-thumbnail">
                     <span class="item-rating text-warning">
@@ -51,7 +51,7 @@
                         <i class="material-icons star_half"></i>
                         <i class="material-icons star_border"></i>
                     </span>
-                    <a href="/details/{{item.$key}}" class="item-link"></a>
+                    <a href="/shopping/{{item.$key}}/{{itemTitleBestSellers[i]}}" class="item-link"></a>
                     <img src="{{ item.imageURL }}" alt="Shop item">
 
                 </div>
@@ -124,11 +124,11 @@
 <section class="container padding-top-3x space-top-half">
     <h3 class="text-center">Just In </h3>
     <div class="row padding-top">
-        <div *ngFor="let item of newArrivals | async" class="col-lg-6 col-sm-6">
+        <div *ngFor="let item of newArrivals; let i=index" class="col-lg-6 col-sm-6">
             <div class="shop-item">
                 <div class="shop-thumbnail">
                     <!--<span class="shop-label text-danger">Sale</span>-->
-                    <a href="/details/{{item.$key}}" class="item-link"></a>
+                    <a href="/shopping/{{item.$key}}/{{itemTitleNewArrivals[i]}}" class="item-link"></a>
                     <img src="{{ item.imageURL }}" alt="Shop item">
 
                 </div>
@@ -167,7 +167,7 @@
         <h3 class="text-center">Ankara Drapes Collection</h3>
         <div class="row padding-top">
             <!-- Item -->
-            <div *ngFor="let item of bestSellers | async " class="col-md-4 col-sm-6 col-lg-4">
+            <div *ngFor="let item of bestSellers; let i=index" class="col-md-4 col-sm-6 col-lg-4">
                 <div class="shop-item">
                     <div class="shop-thumbnail">
                         <span class="item-rating text-warning">
@@ -177,7 +177,7 @@
                         <i class="material-icons star_half"></i>
                         <i class="material-icons star_border"></i>
                     </span>
-                        <a href="/details/{{item.$key}}" class="item-link"></a>
+                        <a href="/shopping/{{item.$key}}/{{itemTitleBestSellers[i]}}" class="item-link"></a>
                         <img src="{{ item.imageURL }}" alt="Shop item">
 
                     </div>
