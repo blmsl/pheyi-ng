@@ -39,8 +39,8 @@
                <div class="toolbar-section" id="menu">
                    <div class="inner">
                        <ul class="main-navigation space-bottom">
-                           <li><a href="/">Home</a></li>
-                           <li><a href="/store">Online Store</a></li>
+                           <li><a routerlink="/">Home</a></li>
+                           <li><a routerLink="/store">Online Store</a></li>
                            <li class="menu-item-has-children">
                                <a href="#">Men</a>
                                <ul class="sub-menu">
@@ -68,7 +68,7 @@
                            </li>
                            <div *ngIf="isAdmin && isLoggedIn">
                                  <br><br><li>Admin Management</li><hr>
-                                 <li ><a href="/admin" style="font-size:12pt;">Manage store</a></li>
+                                 <li ><a routerLink="/admin" style="font-size:12pt;">Manage store</a></li>
                                  <!--<li ><a href="/cartegories" style="font-size:12pt;">Cartegories</a></li>
                                  <li ><a href="/orders" style="font-size:12pt;">Orders</a></li>
                                  <li ><a href="/sales" style="font-size:12pt;">Sales</a></li>-->
@@ -109,13 +109,13 @@
                        <div *ngIf="!isLoggedIn" id="loggedOut">
                            <h3 class="space-bottom">You are not logged in </h3>
                            <p>
-                               <a href="/login" id="start-login" class="btn btn-primary">
+                               <a routerLink="/login" id="start-login" class="btn btn-primary">
                                    Sign in to start shopping
                                </a>
                            </p>
                            <p class="text-sm space-top">
                                Don’t have an account?
-                               <a href="/register" class="toggle-section">Signup here</a>
+                               <a routerLink="/register" class="toggle-section">Signup here</a>
 
                            </p>
 
@@ -140,7 +140,7 @@
                                </div>
                            </div>
                        </form><!-- .login-form -->
-                       <p class="text-sm space-top">Already have an account? Than <a href="#account" class="toggle-section">Login here</a></p>
+                       <p class="text-sm space-top">Already have an account? <a routerLink="/login" class="toggle-section">Login here</a></p>
                    </div><!-- .inner -->
                </div><!-- .toolbar-section#account -->
                <!-- Cart -->
