@@ -146,9 +146,6 @@ export class CartComponent {
         //check if user has shipping address
         this.shipping.subscribe(snapshot => {
 
-
-            // console.log('order ref: ' + this.order_reference);
-
             if (snapshot.$value !== null) {
 
                 /*
@@ -227,7 +224,6 @@ export class CartComponent {
         //start busy icon
         this.isPaying = true;
 
-
         //post to paystack and get paystack redirect url
         let url = `https://api.paystack.co/transaction/initialize`;
         const headers = new Headers({
@@ -235,7 +231,7 @@ export class CartComponent {
         });
 
         //payment body
-        var body = {
+        var payload = {
 
             reference: ref,
             email: this.af.auth.currentUser.email,
@@ -244,7 +240,7 @@ export class CartComponent {
 
         };
         console.log('ref at paystack method: ' + this.order_reference);
-        this.http.post(url, JSON.stringify(body), { headers: headers }).subscribe(response => {
+        this.http.post(url, JSON.stringify(payload), { headers: headers }).subscribe(response => {
 
             console.log('Authorization URL: ' + response.json().data.authorization_url)            
             window.location.href = response.json().data.authorization_url;
@@ -255,6 +251,9 @@ export class CartComponent {
             this.paymentError = JSON.parse(error._body).message;
             console.log(error);
         }, () => {
+
+            //clear the cart when  payment is successful
+            this.cartSvc.removeAll();
             this.isPaying = false;
         })
 

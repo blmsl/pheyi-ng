@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Http, Headers } from "@angular/http";
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database";
 import { AngularFireAuth } from "angularfire2/auth";
+import { Order } from "app/pay/order";
 
 @Component({
   selector: 'app-pay',
@@ -10,12 +11,13 @@ import { AngularFireAuth } from "angularfire2/auth";
   styleUrls: ['./pay.component.css']
 })
 export class PayComponent implements OnInit {
+  orderTotal: number = 0;
   ref: string[];
   status;
   isSuccess : boolean = false;
   isFailed : boolean = false;
   showSpinner : boolean = true;
-  orderItems : FirebaseListObservable<any[]>;
+  orderItems : FirebaseListObservable<Order[]>;
   shippingAddress : FirebaseObjectObservable<any>;
 
   constructor(private router: ActivatedRoute, private http: Http, private db: AngularFireDatabase, private afAuth: AngularFireAuth) { }
@@ -50,10 +52,17 @@ export class PayComponent implements OnInit {
                 if (snapshot.$value !== null) {
                   this.db.object('/orders/' + this.ref).update({ isPayed: true });
                   this.orderItems = this.db.list('/orders/'+this.ref+'/items')
+
                   this.db.object('/orders/'+this.ref+'/shippingDetails').subscribe(snapshot=>{
                     this.shippingAddress = snapshot;
                   })
                   
+                  //Sum total
+                  this.orderItems.forEach(orderArray => {
+                    orderArray.forEach(order => {
+                      this.orderTotal = this.orderTotal + order.price;
+                    })
+                  })
                 }
               })
 

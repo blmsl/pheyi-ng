@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database';
 import { CartItem } from "app/cart/shared/cartItem";
+import { AngularFireAuth } from "angularfire2/auth";
 
 
 @Injectable()
 export class CartService {
+  shoppingCart: FirebaseObjectObservable<any>;
 
   private basePath = '/shoppingCart';
 
@@ -16,7 +18,8 @@ export class CartService {
   totalPrice: number;
 
   constructor(
-    private db: AngularFireDatabase) {
+    private db: AngularFireDatabase,
+    private afAuth: AngularFireAuth) {
 
   }
 
@@ -69,10 +72,11 @@ export class CartService {
   }
 
   removeAll(): void {
-    this.cartItems.remove()
-      .catch(error => console.error(error));
+     const itemPath = `${this.basePath}/${this.afAuth.auth.currentUser.uid}`
+     this.shoppingCart = this.db.object(itemPath);
+    
+     this.shoppingCart.remove()
+       .catch(error => console.error(error));
   }
-
-
 
 }
