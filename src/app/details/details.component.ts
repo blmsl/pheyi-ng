@@ -9,6 +9,8 @@ import { CartItem } from "app/cart/shared/cartItem";
 import { ReviewsService } from "app/reviews/shared/reviews.service";
 
 import { AngularFireAuth } from "angularfire2/auth";
+declare var jquery: any;
+declare var $: any;
 
 
 @Component({
@@ -127,6 +129,7 @@ export class DetailsComponent implements OnInit {
 
       this.cartSvc.addItemToCart(this.user, cartItem);
       alert('added item to cart');
+      this.openCart();
       
     } else {
       // document.location.href = document.location.origin + "/login";
@@ -175,5 +178,11 @@ export class DetailsComponent implements OnInit {
     }
 
   }
+
+  openCart(){
+    var toggleCart = $('a[href=#cart]').trigger("click");
+  }
+
+  
 
 }

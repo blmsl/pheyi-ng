@@ -1,4 +1,4 @@
-<div class="shopping-cart">
+<div class="shopping-cart animated fadeIn">
     <div *ngIf="!hasCompleteAdding">
         <!-- Item -->
         <div *ngFor="let item of cartItems | async" class="item">
@@ -100,7 +100,7 @@
     </div>
 
     <div *ngIf="!isLoggedIn">
-        <a href="/login" class="btn btn-primary">Sign in to start shopping</a>
+        <a routerLink="/login" class="btn btn-primary">Sign in to start shopping</a>
     </div>
 
     <!-- Buttons -->

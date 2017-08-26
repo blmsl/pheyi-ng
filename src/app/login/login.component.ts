@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit{
       }else{
         // this.isLoggedIn = true;
         this.loggedInStatus = 'please wait....';
-        window.location.href = document.location.origin + '/';
+        this.router.navigate(['/'])
+        // window.location.href = document.location.origin + '/';
       }
     })
 
@@ -78,7 +79,7 @@ export class LoginComponent implements OnInit{
 
          this.loginState = 'Login';
         //  window.location.href = document.location.origin + '/'; 
-         this.router.navigate([''])
+         this.router.navigate(['/'])
          console.log("Login Success", authState)
 
        }).catch(error =>{

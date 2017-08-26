@@ -12,12 +12,15 @@ export class HeroSliderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
+   /**
+    * Initialize JQuery Owl-Carousel Plugin for slider
+    */
     var $heroSlider = $('.hero-slider .inner');
+    
     if ($heroSlider.length > 0) {
       $heroSlider.each(function () {
 
-        var loop = $(this).parent().data('loop'),
+          var loop = $(this).parent().data('loop'),
           autoplay = $(this).parent().data('autoplay'),
           interval = $(this).parent().data('interval') || 3000;
 
@@ -33,6 +36,7 @@ export class HeroSliderComponent implements OnInit {
           autoplayHoverPause: true,
           smartSpeed: 450
         });
+
       });
     }
   }
