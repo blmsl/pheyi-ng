@@ -85,3 +85,6 @@ exports.onStoreItemChange = functions.database.ref('/items/{pushId}').onWrite(ev
         return event.data.ref.update({isSoldOut : true, quantityInStock : 0});
     }
 })
+
+
+

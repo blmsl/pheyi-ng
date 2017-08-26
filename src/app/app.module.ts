@@ -35,6 +35,7 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
 import { MessagingService } from "app/messaging.service";
 import { ShippingService } from "app/shipping.service";
+import { HeroSliderComponent } from './hero-slider/hero-slider.component';
 
 
 
@@ -83,7 +84,8 @@ const appRoutes: Routes = [
     AdminSidenavComponent,
     PaymentSpinnerComponent,
     ReviewsComponent,
-    PushnotificationComponent
+    PushnotificationComponent,
+    HeroSliderComponent,
     // ItemsService,
   ],
   imports: [
