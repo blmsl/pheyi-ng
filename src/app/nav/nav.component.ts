@@ -3,6 +3,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { CartService } from "app/cart/shared/cart.service";
 import { AngularFireAuth } from "angularfire2/auth";
 import { Router } from "@angular/router";
+import { MenuService } from "app/nav/menu-service.service";
 
 declare var jquery: any;
 declare var $: any;
@@ -19,7 +20,8 @@ export class NavComponent implements OnInit {
   constructor(private db: AngularFireDatabase,
     private afAuth: AngularFireAuth,
     private cartSvc: CartService,
-    private router: Router) {
+    private router: Router,
+    private menuSvc : MenuService) {
 
   }
 
@@ -60,5 +62,9 @@ export class NavComponent implements OnInit {
       // window.location.href = document.location.origin + '/'; 
     });
 
+  }
+
+  toggleMenu($menu){
+     $('a[href=#'+$menu+']').trigger("click");
   }
 }

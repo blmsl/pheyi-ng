@@ -39,25 +39,25 @@
                <div class="toolbar-section" id="menu">
                    <div class="inner">
                        <ul class="main-navigation space-bottom">
-                           <li><a routerlink="/">Home</a></li>
-                           <li><a routerLink="/store">Online Store</a></li>
-                           <li class="menu-item-has-children">
+                            <li><a (click)="toggleMenu('menu')"   routerlink="/" style="cursor:pointer">Home</a></li> 
+                           <!-- <li><a routerLink="/store">Online Store</a></li> -->
+                           <!-- <li class="menu-item-has-children">
                                <a href="#">Men</a>
                                <ul class="sub-menu">
                                    <li><a href="/">High-End Designs</a></li>
                                    <li><a href="/">Casuals</a></li>
 
                                </ul>
-                           </li>
+                           </li> -->
 
-                           <li class="menu-item-has-children">
+                           <!-- <li class="menu-item-has-children">
                                <a href="#">Women</a>
                                <ul class="sub-menu">
                                    <li><a href="/">High-End Designs</a></li>
                                    <li><a href="/">Casuals</a></li>
                                    <li><a href="/">Summer wears</a></li>
                                </ul>
-                           </li>
+                           </li> -->
                            <li class="menu-item-has-children">
                                <a href="#">Collections</a>
                                <ul class="sub-menu">
@@ -109,13 +109,13 @@
                        <div *ngIf="!isLoggedIn" id="loggedOut">
                            <h3 class="space-bottom">You are not logged in </h3>
                            <p>
-                               <a routerLink="/login" id="start-login" class="btn btn-primary">
+                               <a (click)="toggleMenu('account')" routerLink="/login" id="start-login" class="btn btn-primary">
                                    Sign in to start shopping
                                </a>
                            </p>
                            <p class="text-sm space-top">
                                Don’t have an account?
-                               <a routerLink="/register" class="toggle-section">Signup here</a>
+                               <a (click)="toggleMenu('account')" routerLink="/register" class="toggle-section">Signup here</a>
 
                            </p>
 

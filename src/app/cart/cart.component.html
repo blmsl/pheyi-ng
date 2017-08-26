@@ -100,7 +100,7 @@
     </div>
 
     <div *ngIf="!isLoggedIn">
-        <a routerLink="/login" class="btn btn-primary">Sign in to start shopping</a>
+        <a (click)="toggleMenu('cart')" routerLink="/login" class="btn btn-primary">Sign in to start shopping</a>
     </div>
 
     <!-- Buttons -->
@@ -113,7 +113,7 @@
     <div *ngIf="isPayingError" style="text-align:center">
         <h3>Opps! Payment Error!</h3>
         <h4> {{paymentError}} </h4>
-        <a href="/" class="btn btn-primary">Go Back to Store</a>
+        <a (click)="backToStore()"  routerLink="/" class="btn btn-primary">Go Back to Store</a>
     </div>
     <app-payment-spinner *ngIf="isPaying"></app-payment-spinner>
 </div>

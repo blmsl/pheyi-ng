@@ -7,6 +7,9 @@ import { CartService } from "app/cart/shared/cart.service";
 import { AngularFireAuth } from "angularfire2/auth";
 import { ShippingService } from "app/shipping.service";
 
+declare var jquery: any;
+declare var $: any;
+
 @Component({
     selector: 'app-cart',
     templateUrl: './cart.component.html',
@@ -260,5 +263,14 @@ export class CartComponent {
 
     }
 
+    toggleMenu($menu){
+       $('a[href=#'+$menu+']').trigger("click");
+     }
+
+     backToStore(){
+         this.isPayingError = false;
+         this.hasCompleteAdding = false;
+         this.toggleMenu('cart');
+     }
 
 }

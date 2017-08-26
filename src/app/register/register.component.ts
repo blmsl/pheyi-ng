@@ -3,6 +3,10 @@ import { AngularFireDatabase} from 'angularfire2/database'
 import {FormGroup, FormControl, Validators} from '@angular/forms'
 import { AngularFireAuth } from "angularfire2/auth";
 
+declare var jquery: any;
+declare var $: any;
+
+
 @Component({
     templateUrl : './register.component.html',
     styleUrls:['./register.component.css']
@@ -27,6 +31,7 @@ export class RegisterComponent {
   }
 
   ngOnInit(){
+    
     this.isRegisterError = false;
     this.registerState = 'Sign up';
 
@@ -62,7 +67,9 @@ export class RegisterComponent {
           });
        }
 
-
+      toggleAccount(){
+          var toggleCart = $('a[href=#account]').trigger("click");
+       }
 
 
 }

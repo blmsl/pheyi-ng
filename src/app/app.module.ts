@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2'
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 import { Routes, RouterModule } from '@angular/router'
 
@@ -36,6 +38,12 @@ import { AngularFireAuthModule } from "angularfire2/auth";
 import { MessagingService } from "app/messaging.service";
 import { ShippingService } from "app/shipping.service";
 import { HeroSliderComponent } from './hero-slider/hero-slider.component';
+
+//---Angular Material Components
+import {
+      MdCheckboxModule
+  } from '@angular/material';
+import { MenuService } from "app/nav/menu-service.service";
 
 
 
@@ -97,7 +105,9 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     AngularFireModule,
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    BrowserAnimationsModule,
+    MdCheckboxModule
   ],
   providers: [
     ItemsService,
@@ -105,7 +115,8 @@ const appRoutes: Routes = [
     AdminService,
     ReviewsService,
     MessagingService,
-    ShippingService
+    ShippingService,
+    MenuService
   ],
   bootstrap: [AppComponent]
 })
