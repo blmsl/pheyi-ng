@@ -48,9 +48,7 @@ export class DetailsComponent implements OnInit {
   showContent : boolean = false;
  
 
-
-
-  @ViewChild('addToCartForm') $addToCartForm : NgForm;
+  // @ViewChild('addToCartForm') addToCartForm : NgForm;
   @ViewChild('size') $size : number;
 
   constructor(private route: ActivatedRoute,
@@ -63,9 +61,11 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
 
+    
+
     //scroll to top on activation
     window.scrollTo(0,0);
-    
+
     this.toggleState = " "
     this.db.list('/Sizes/women/inches').subscribe(snapshot => {
       this.ukSizes = snapshot;
