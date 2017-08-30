@@ -84,7 +84,12 @@ exports.onStoreItemChange = functions.database.ref('/items/{pushId}').onWrite(ev
     if(event.data.val().quantityInStock < 0){
         return event.data.ref.update({isSoldOut : true, quantityInStock : 0});
     }
+
 })
 
+//when a new item is added to store
+exports.onNewItem = functions.database.ref('/items/{pushId}').onWrite(event => {
+    console.write('A new item has been added');
 
-
+    //TODO: Notify every body of all the item that has been added to store via Email and SMS
+})

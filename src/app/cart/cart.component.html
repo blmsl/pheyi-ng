@@ -105,7 +105,7 @@
 
     <!-- Buttons -->
     <div *ngIf="!hasCompleteAdding && isLoggedIn" class="text-right">
-        <button class="btn btn-default btn-ghost close-dropdown">Continue Shopping</button>
+        <button (click)="backToStore()" routerLink = "/" class="btn btn-default btn-ghost close-dropdown">Continue Shopping</button>
         <button (click)="checkout()" class="btn btn-primary waves-effect waves-light ">Proceed to Checkout</button>
     </div>
 

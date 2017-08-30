@@ -49,7 +49,7 @@ export class DetailsComponent implements OnInit {
  
 
   // @ViewChild('addToCartForm') addToCartForm : NgForm;
-  @ViewChild('size') $size : number;
+  // @ViewChild('size') $size : number;
 
   constructor(private route: ActivatedRoute,
     private afAuth: AngularFireAuth,
