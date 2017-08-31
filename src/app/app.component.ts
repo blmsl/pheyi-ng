@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from "app/auth.service";
+import { Router } from "@angular/router";
+import { UserService } from "app/user.service";
 // import { MessagingService } from './messaging.service'
 
 
@@ -8,19 +11,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-
-
-export class AppComponent implements OnInit {
+export class AppComponent {
   
-  // message;
+  constructor(private auth: AuthService,  router: Router, private userService : UserService){
+    this.auth.user$.subscribe(user => {
+      if(user){
+        userService.save(user);
 
-  // constructor(private msgService: MessagingService){}
-
-  ngOnInit(): void {
-    // this.msgService.getPermission();
-    // this.msgService.recieveMessage();
-    // this.message = this.msgService.currentMessage;
+        let returnUrl = localStorage.getItem('returnUrl');
+        router.navigateByUrl(returnUrl);
+      }
+    })
   }
-
-  title = 'app works!';
 }

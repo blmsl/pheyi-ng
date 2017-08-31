@@ -4,6 +4,8 @@ import { CartService } from "app/cart/shared/cart.service";
 import { AngularFireAuth } from "angularfire2/auth";
 import { Router } from "@angular/router";
 import { MenuService } from "app/nav/menu-service.service";
+import { AuthService } from "app/auth.service";
+import { AppUser } from "app/models/app-user";
 
 declare var jquery: any;
 declare var $: any;
@@ -16,52 +18,27 @@ declare var $: any;
 export class NavComponent implements OnInit {
   count: number;
   cartItems: FirebaseListObservable<any[]>;
+  appUser : AppUser
 
-  constructor(private db: AngularFireDatabase,
-    private afAuth: AngularFireAuth,
-    private cartSvc: CartService,
-    private router: Router,
-    private menuSvc : MenuService) {
-
+  constructor(private cartSvc: CartService, private auth : AuthService) {
+      auth.appUser$.subscribe(appUser => this.appUser = appUser)
   }
-
-  isLoggedIn: boolean;
-  isAdmin: boolean;
-
 
   ngOnInit() {
 
-    // Check if user is authenticated
+    // Get no of items in cart if user is authenticated
     //------------------------------------------------------------------------------
 
-    this.afAuth.authState.subscribe(authState => {
-      if (!authState) {
-        this.isLoggedIn = false;
-      } else {
-        this.isLoggedIn = true;
-        if (authState.email === 'daniel.adigun@digitalforte.ng') {
-          this.isAdmin = true;
-        } else {
-          this.isAdmin = false;
-        }
-
-      }
-      //get no of items in cart     
-      this.cartSvc.getCartItemsList(authState.uid).subscribe((cartItems) => {
-        this.count = cartItems.length;
-      })
-
+    this.auth.user$.subscribe(user => {
+      if (user) {
+        this.cartSvc.getCartItemsList(user.uid).subscribe((cartItems) =>  this.count = cartItems.length)
+     }   
     })
   }
 
   logOff() {
     this.cartSvc.removeAll();
-    this.afAuth.auth.signOut().then(e => {
-      this.isLoggedIn = false;
-      this.router.navigate(['/']);
-      // window.location.href = document.location.origin + '/'; 
-    });
-
+    this.auth.logOut();
   }
 
   toggleMenu($menu){

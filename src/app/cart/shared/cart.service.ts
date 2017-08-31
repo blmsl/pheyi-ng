@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database';
 import { CartItem } from "app/cart/shared/cartItem";
 import { AngularFireAuth } from "angularfire2/auth";
+import { AuthService } from "app/auth.service";
 
 
 @Injectable()
@@ -19,7 +20,8 @@ export class CartService {
 
   constructor(
     private db: AngularFireDatabase,
-    private afAuth: AngularFireAuth) {
+    private afAuth: AngularFireAuth,
+    private auth : AuthService) {
 
   }
 

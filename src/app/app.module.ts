@@ -44,6 +44,10 @@ import {
       MdCheckboxModule
   } from '@angular/material';
 import { MenuService } from "app/nav/menu-service.service";
+import { AuthService } from "app/auth.service";
+import { AuthGuard } from "app/auth-guard.service";
+import { UserService } from "app/user.service";
+import { AdminAuthGuard } from "app/admin-auth-guard.service";
 
 
 
@@ -51,14 +55,19 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'store', component: StoreComponent},
-  // { path: 'items', component : ItemsComponent},
-  { path: 'cartegories', component : CartegoriesComponent },
-  { path: 'orders', component: OrdersComponent},
-  { path: 'sales', component: SalesComponent},
   { path: 'shopping/:key/:dress', component:DetailsComponent},
-  { path: 'pay_callback/:ref/', component:PayComponent},
-  { path: 'admin', component:AdminComponent}
+
+  { path: 'pay_callback/:ref/', component:PayComponent, canActivate: [AuthGuard]},
+  
+  
+  { path: 'store', component: StoreComponent, canActivate: [AuthGuard]},
+  { path: 'cartegories', component : CartegoriesComponent, canActivate: [AuthGuard] },
+  { path: 'orders', component: OrdersComponent, canActivate : [AuthGuard]},
+
+  { path: 'sales', component: SalesComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+  { path: 'admin', component:AdminComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+
+  { path: '**', component: HomeComponent},
 
 ]
 
@@ -116,7 +125,12 @@ const appRoutes: Routes = [
     ReviewsService,
     MessagingService,
     ShippingService,
-    MenuService
+    MenuService,
+    AuthService,
+    AuthGuard,
+    AdminAuthGuard,
+    UserService
+    
   ],
   bootstrap: [AppComponent]
 })
