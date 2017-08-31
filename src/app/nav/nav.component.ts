@@ -24,11 +24,9 @@ export class NavComponent implements OnInit {
   constructor(private cartSvc: CartService, private auth : AuthService) {
       auth.appUser$.subscribe(appUser => {
         this.appUser = appUser; 
-        if (appUser){
-          if(appUser.isAdmin)  this.isAdmin = true;
-        }else{
-          this.isAdmin = false;
-        }
+        if (appUser) { if(appUser.isAdmin)  this.isAdmin = true; }
+        
+        else{ this.isAdmin = false;}
       })
 
   }
