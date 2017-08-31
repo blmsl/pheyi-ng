@@ -19,9 +19,18 @@ export class NavComponent implements OnInit {
   count: number;
   cartItems: FirebaseListObservable<any[]>;
   appUser : AppUser
+  isAdmin : boolean = false;
 
   constructor(private cartSvc: CartService, private auth : AuthService) {
-      auth.appUser$.subscribe(appUser => this.appUser = appUser)
+      auth.appUser$.subscribe(appUser => {
+        this.appUser = appUser; 
+        if (appUser){
+          if(appUser.isAdmin)  this.isAdmin = true;
+        }else{
+          this.isAdmin = false;
+        }
+      })
+
   }
 
   ngOnInit() {
@@ -32,7 +41,8 @@ export class NavComponent implements OnInit {
     this.auth.user$.subscribe(user => {
       if (user) {
         this.cartSvc.getCartItemsList(user.uid).subscribe((cartItems) =>  this.count = cartItems.length)
-     }   
+     }  
+     
     })
   }
 
