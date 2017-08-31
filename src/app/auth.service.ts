@@ -6,7 +6,7 @@ import { ActivatedRoute } from "@angular/router";
 import { AppUser } from "app/models/app-user";
 import { UserService } from "app/user.service";
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/Observable/of';
+import 'rxjs/add/observable/of';
 
 
 @Injectable()
