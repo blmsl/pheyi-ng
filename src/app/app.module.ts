@@ -48,6 +48,9 @@ import { AuthService } from "app/auth.service";
 import { AuthGuard } from "app/auth-guard.service";
 import { UserService } from "app/user.service";
 import { AdminAuthGuard } from "app/admin-auth-guard.service";
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { CategoryService } from "app/category.service";
+import { ProductService } from "app/product.service";
 
 
 
@@ -65,6 +68,8 @@ const appRoutes: Routes = [
   { path: 'orders', component: OrdersComponent, canActivate : [AuthGuard]},
 
   { path: 'sales', component: SalesComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+  { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+  { path: 'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
   { path: 'admin', component:AdminComponent, canActivate: [AuthGuard, AdminAuthGuard]},
 
   { path: '**', component: HomeComponent},
@@ -103,6 +108,7 @@ const appRoutes: Routes = [
     ReviewsComponent,
     PushnotificationComponent,
     HeroSliderComponent,
+    ProductFormComponent,
     // ItemsService,
   ],
   imports: [
@@ -129,7 +135,9 @@ const appRoutes: Routes = [
     AuthService,
     AuthGuard,
     AdminAuthGuard,
-    UserService
+    UserService,
+    CategoryService,
+    ProductService
     
   ],
   bootstrap: [AppComponent]

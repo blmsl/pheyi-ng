@@ -1,5 +1,4 @@
-export class Item {
-    // $key : string ;
+export class Product {
     title: string;
     imageURL : string;
     description : string;
@@ -9,5 +8,6 @@ export class Item {
     isNewArrival : boolean = true;
     addedBy : string
     createdAt : Date = new Date();
+    modifiedAt : Date = new Date();
     isSoldOut : boolean = false;
 }

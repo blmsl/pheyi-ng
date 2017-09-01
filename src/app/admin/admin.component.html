@@ -1,9 +1,32 @@
-<section>
-   <app-admin-sidenav></app-admin-sidenav>
-
-  <div class="admin-content">
-      <app-items ></app-items>
-      <!--<app-cartegories *ngIf="showCategories"></app-cartegories>-->
-  </div>
-
+<section style="height:100vh; padding-left:20%; padding-right:20%; padding-top:10%; ">
+    <p>
+        <a routerLink="/admin/products/new" class="btn btn-primary">+ New Product</a> 
+    </p>
+    <p>
+        <input
+         #query
+         (keyup)="filter(query.value)"
+         type="text" class="form-control" placeholder="search..">
+    </p>
+    <!-- <app-loading-spinner [showLoading]="false" *ngIf="isBusy"></app-loading-spinner>     -->
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of filteredProducts">
+                <td>{{p.title}}</td>
+                <td> ₦{{p.price | number}}</td>
+                <td>
+                    <a style="color:blue" [routerLink]="['/admin/products/', p.$key]">Edit</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  
 </section>
