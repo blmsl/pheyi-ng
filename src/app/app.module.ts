@@ -17,13 +17,11 @@ import { RegisterComponent } from './register/register.component';
 import { StoreComponent } from './store/store.component';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
-import { ItemsComponent } from './items/items.component';
 import { CartegoriesComponent } from './cartegories/cartegories.component';
 import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
  import { DetailsComponent } from './details/details.component';
 import { PayComponent } from './pay/pay.component';
-import { ItemsService } from "app/items/shared/items.service";
 import { CartService } from "app/cart/shared/cart.service";
 import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.component';
 import { AdminComponent } from './admin/admin.component';
@@ -95,7 +93,6 @@ const appRoutes: Routes = [
     StoreComponent,
     NavComponent,
     FooterComponent,
-    ItemsComponent,
     CartegoriesComponent,
     OrdersComponent,
     SalesComponent,
@@ -109,7 +106,6 @@ const appRoutes: Routes = [
     PushnotificationComponent,
     HeroSliderComponent,
     ProductFormComponent,
-    // ItemsService,
   ],
   imports: [
     BrowserModule,
@@ -125,7 +121,6 @@ const appRoutes: Routes = [
     MdCheckboxModule
   ],
   providers: [
-    ItemsService,
     CartService,
     AdminService,
     ReviewsService,
