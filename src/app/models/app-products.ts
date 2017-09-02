@@ -3,6 +3,7 @@ export class Product {
     imageURL : string;
     description : string;
     price : number;
+    category : string;
     quantityInStock : number;
     isBestSeller : boolean = true;
     isNewArrival : boolean = true;

@@ -42,14 +42,13 @@
         <div class="toolbar-section" id="menu">
             <div class="inner">
                 <ul class="main-navigation space-bottom">
-                    <li><a (click)="toggleMenu('menu')" routerlink="/" style="cursor:pointer">Home</a></li>
+                    <li><a (click)="toggleMenu('menu')"   href="/" style="cursor:pointer">Home</a></li>
+                     <li><a (click)="toggleMenu('menu')" href="/store" style="cursor:pointer">Online Shop</a></li> 
                  
                     <li class="menu-item-has-children">
                         <a href="#">Collections</a>
                         <ul class="sub-menu">
-                            <li><a href="~/">High-End Designs</a></li>
-                            <li><a href="~/">Casuals</a></li>
-                            <li><a href="~/">Summer wears</a></li>
+                            <li *ngFor="let c of categories$ | async"><a (click)="toggleMenu('menu')" routerLink="/store" [queryParams]="{category : c.$key}">{{c.name}}</a></li>   
                         </ul>
                     </li>
                        <div *ngIf="isAdmin">

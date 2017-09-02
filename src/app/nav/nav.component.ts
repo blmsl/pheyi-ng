@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { MenuService } from "app/nav/menu-service.service";
 import { AuthService } from "app/auth.service";
 import { AppUser } from "app/models/app-user";
+import { CategoryService } from "app/category.service";
 
 declare var jquery: any;
 declare var $: any;
@@ -20,8 +21,9 @@ export class NavComponent implements OnInit {
   cartItems: FirebaseListObservable<any[]>;
   appUser : AppUser
   isAdmin : boolean = false;
+  categories$;
 
-  constructor(private cartSvc: CartService, private auth : AuthService) {
+  constructor(private cartSvc: CartService, private auth : AuthService, categoryService : CategoryService) {
       auth.appUser$.subscribe(appUser => {
         this.appUser = appUser; 
         if (appUser) { if(appUser.isAdmin)  this.isAdmin = true; }
@@ -29,6 +31,7 @@ export class NavComponent implements OnInit {
         else{ this.isAdmin = false;}
       })
 
+      this.categories$ = categoryService.getAll();
   }
 
   ngOnInit() {

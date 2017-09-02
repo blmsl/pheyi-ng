@@ -1,0 +1,32 @@
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.category-tile {
+    display: block;
+    min-height: 250px;
+      background-color: white;  
+     /* background-color: #fafafa !important; */
+    text-decoration: none;
+    margin-bottom: 30px;
+
+}
+
+.category-tile:hover{
+
+    background:white !important;
+    box-shadow: 0 12px 25px 0 rgba(0,0,0,0.1);
+    border-bottom: 2px solid #3A2748;
+    
+}
+
+.sticky-top{
+    top:180px;
+}

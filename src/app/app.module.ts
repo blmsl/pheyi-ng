@@ -64,7 +64,7 @@ const appRoutes: Routes = [
   { path: 'pay_callback/:ref/', component:PayComponent, canActivate: [AuthGuard]},
   
   
-  { path: 'store', component: StoreComponent, canActivate: [AuthGuard]},
+  { path: 'store', component: StoreComponent},
   { path: 'cartegories', component : CartegoriesComponent, canActivate: [AuthGuard] },
   { path: 'orders', component: OrdersComponent, canActivate : [AuthGuard]},
 

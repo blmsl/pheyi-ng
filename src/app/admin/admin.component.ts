@@ -60,7 +60,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-   
+   //scroll to top on activation
+    window.scrollTo(0,0);
   }
   
 }

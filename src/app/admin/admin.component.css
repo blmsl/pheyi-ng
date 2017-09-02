@@ -12,7 +12,7 @@
 
 :host /deep/  .pagination-limit {
     position: absolute;
-    top: -28px;
+    /* top: -28px; */
     right: 120%;
    
 }
@@ -22,14 +22,15 @@
     right: 0;
 }
 :host /deep/ .pagination-page > div.input-group input {
-        text-align:left;
+        /* text-align:left; */
         font-size:12pt;
 }
-:host /deep/ .pagination-page > div > div.input-group-addon {
-    position: absolute !important;
-    top: 11px !important;
-    right: 50% !important;
-}
+ :host /deep/ .pagination-page > div > div.input-group-addon {
+    /* position: absolute !important; */
+    margin-top: -1.5px !important;
+    font-size:13pt;
+    /* right: 50% !important; */
+} 
 
 
 @media (min-width: 320px) and (max-width: 700px) { 
