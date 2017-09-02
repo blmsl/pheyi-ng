@@ -37,6 +37,8 @@ import { MessagingService } from "app/messaging.service";
 import { ShippingService } from "app/shipping.service";
 import { HeroSliderComponent } from './hero-slider/hero-slider.component';
 
+import { DataTableModule } from 'angular-4-data-table';
+
 //---Angular Material Components
 import {
       MdCheckboxModule
@@ -112,6 +114,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    DataTableModule,
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(firebaseConfig),
     ReactiveFormsModule,
