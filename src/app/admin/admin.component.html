@@ -1,4 +1,4 @@
-<section style="height:100vh; padding-left:20%; padding-right:20%; padding-top:10%; ">
+<section style="height:250vh; padding-left:20%; padding-right:20%; padding-top:10%; ">
     <p>
         <a routerLink="/admin/products/new" class="btn btn-primary">+ New Product</a> 
     </p>
@@ -10,23 +10,41 @@
     </p>
     <!-- <app-loading-spinner [showLoading]="false" *ngIf="isBusy"></app-loading-spinner>     -->
     
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let p of filteredProducts">
-                <td>{{p.title}}</td>
-                <td> ₦{{p.price | number}}</td>
-                <td>
-                    <a style="color:blue" [routerLink]="['/admin/products/', p.$key]">Edit</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <data-table
+    [items]="items"
+    [itemCount]="itemCount"
+    (reload)="reloadItems($event)"
+    >
+
+        <data-table-column
+            [property]="'title'"
+            [header]="'Title'"
+            [sortable]="true"
+            [resizable]="true"
+        >
+        </data-table-column>
+
+         <data-table-column
+            [property]="'price'"
+            [header]="'Price'"
+            [sortable]="true"
+            [resizable]="true"
+        >
+        <ng-template #dataTableCell let-item="item">
+            {{ item.price | currency:'NGN':true }}
+        </ng-template>
+        </data-table-column>
+
+         <data-table-column
+            [property]="'$key'"
+         >
+        <ng-template #dataTableCell let-item="item">
+             <a style="color:blue" [routerLink]="['/admin/products/', item.$key]">Edit</a>
+        </ng-template>
+
+        </data-table-column>
+    </data-table>
+
+
   
 </section>

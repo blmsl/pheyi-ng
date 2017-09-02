@@ -2,6 +2,36 @@
   padding-left:2em;
 }*/
 
+:host /deep/ .pagination-page > div.input-group input{
+     margin-top: -2px !important; 
+}
+
+:host /deep/ .pagination-pages .btn{
+    margin-top:-3px !important;
+}
+
+:host /deep/  .pagination-limit {
+    position: absolute;
+    top: -28px;
+    right: 120%;
+   
+}
+:host /deep/ .pagination-controllers {
+    /* float: right; */
+    position: absolute;
+    right: 0;
+}
+:host /deep/ .pagination-page > div.input-group input {
+        text-align:left;
+        font-size:12pt;
+}
+:host /deep/ .pagination-page > div > div.input-group-addon {
+    position: absolute !important;
+    top: 11px !important;
+    right: 50% !important;
+}
+
+
 @media (min-width: 320px) and (max-width: 700px) { 
     .admin-content{
         padding-left:3em;
