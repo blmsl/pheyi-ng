@@ -49,6 +49,7 @@ import { AdminAuthGuard } from "app/admin-auth-guard.service";
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { CategoryService } from "app/category.service";
 import { ProductService } from "app/product.service";
+import { ItemsService } from "app/items/shared/items.service";
 
 
 
@@ -132,7 +133,8 @@ const appRoutes: Routes = [
     AdminAuthGuard,
     UserService,
     CategoryService,
-    ProductService
+    ProductService,
+    ItemsService
     
   ],
   bootstrap: [AppComponent]

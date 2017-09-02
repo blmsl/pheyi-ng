@@ -1,0 +1,75 @@
+<section id="item-view">
+
+
+<!--a list of all items-->
+    <p > 
+      <button  class="btn btn-primary add-item" (click)="onAdding()">+ add new item</button>      
+    </p>      
+      <div *ngIf="isAdding" class="animated zoomIn">    
+        <form id="new-item-form" [formGroup]="createItemForm" (ngSubmit)="createItem()"> 
+            <span class="help-block" *ngIf="!createItemForm.get('title').valid && createItemForm.get('title').touched">
+              Please enter the name of this dress
+            </span>
+          <input formControlName="title" type="text" class="form-control" placeholder="Name of dress e.g. Drapped gown for evening">
+          
+          <span class="help-block" *ngIf="!createItemForm.get('imageURL').valid && createItemForm.get('imageURL').touched">
+              Please enter a valid URL of format 'https://...'
+            </span>
+          <input formControlName="imageURL" type="text" class="form-control" placeholder="Image URL">
+          
+          <span class="help-block" *ngIf="!createItemForm.get('description').valid && createItemForm.get('description').touched">
+              describe this dress please
+            </span>
+          <textarea formControlName="description" name="" id="" cols="30" rows="10" class="form-control" placeholder="Enter description here.."></textarea>
+          
+          <span class="help-block" *ngIf="!createItemForm.get('price').valid && createItemForm.get('price').touched">
+              enter price of dress please in Naira
+            </span>
+          <input formControlName="price" type="number" class="form-control" placeholder="price of dress in [NGN]">
+
+          <span class="help-block" *ngIf="!createItemForm.get('quantityInStock').valid && createItemForm.get('quantityInStock').touched">
+              enter quantity you adding to store please
+            </span>
+          <input formControlName="quantityInStock" type="number" class="form-control" placeholder="Quantity in stock">
+          <input formControlName="isBestSeller" type="checkbox"> add this dress to best sellers<br><br>
+          <input formControlName="isNewArrival" type="checkbox"> add this dress to new arrivals<br><br>
+
+          <button type="submit"  class="btn btn-primary"[disabled]="!createItemForm.valid">save</button>
+          <a (click)="onCloseAdding()" class="btn btn-default">close</a>       
+        </form>
+       
+      </div>
+
+       <section class=" padding-top-3x space-top-half">
+    <h3 class="text-left">Items in store </h3>
+    <div class="row padding-top">
+        <div *ngFor="let item of items | async" class="col-lg-3 col-sm-3">
+            <div class="shop-item">
+                <div class="shop-thumbnail">
+                    <!--<span class="shop-label text-danger">Sale</span>-->
+                    <a href="/details/{{item.$key}}" class="item-link"></a>
+                    <img src="{{ item.imageURL }}" alt="Shop item">
+
+                </div>
+                <div class="shop-item-details">
+                    <h3 class="shop-item-title"><a style="color:black" href="#">{{item.title}}</a></h3>
+                    <!--<span style="color:black" class="shop-item-price">
+                        ₦{{item.price | number}}
+                    </span>-->
+                </div>
+            </div>
+            <!-- .shop-item -->
+        </div>
+        <!-- .col-lg-3.col-sm-6 -->
+
+    </div>
+    <!-- .row -->
+</section>
+ 
+
+<!--Show list is empty if no item-->
+<!-- Large modal -->
+
+<!--dialog to add new item-->
+
+</section>
