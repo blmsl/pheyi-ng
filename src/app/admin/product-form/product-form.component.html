@@ -43,8 +43,8 @@
           
           </div>
           <div class="col-md-6" style="padding-left:10%">
-             <h3>Preview</h3>
-            <div class="card" style="width: 30rem;">
+             <!-- <h3>Preview</h3> -->
+            <div *ngIf="product.title" class="card" style="width: 50rem; padding:2rem;">
               <img class="card-img-top" [src]="product.imageURL" style="width:100%" *ngIf="product.imageURL">
               <div class="container">
                 <h4 class="card-title">{{product.title}}</h4>
