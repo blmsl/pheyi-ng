@@ -1,4 +1,5 @@
 export class Product {
+    $key : string;
     title: string;
     imageURL : string;
     description : string;

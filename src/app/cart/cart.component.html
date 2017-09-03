@@ -1,6 +1,35 @@
 <div class="shopping-cart animated fadeIn">
-    <div *ngIf="!hasCompleteAdding">
-        <!-- Item -->
+    <h1>Shopping Cart</h1>
+    <ng-container *ngIf="cart$ | async as cart">
+        <p>
+            You have {{ cart.totalItemsCount }} items in your shopping cart.
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of cart.items">
+                    <td>{{ item.product.title }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.totalPrice | currency : 'NGN' : true}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>{{cart.totalPrice | currency: 'NGN' : true}}</th>
+                </tr>
+            </tfoot>
+        </table>
+    </ng-container>
+
+    <!-- <div *ngIf="!hasCompleteAdding">
         <div *ngFor="let item of cartItems | async" class="item">
             <a href="shop-single.html" class="item-thumb">
                 <img src="{{item.imageURL}}" alt="Item">
@@ -16,9 +45,7 @@
                 <i class="ion ion-ios-close-empty"></i>
             </a>
         </div>
-        <!-- .item -->
 
-        <!-- Subtotal -->
         <div *ngIf="isLoggedIn" class="cart-subtotal space-bottom">
             <div class="column">
                 <h3 class="toolbar-title">Subtotal:</h3>
@@ -27,7 +54,6 @@
                 <h3 class="amount">₦{{ subtotal | number}}</h3>
             </div>
         </div>
-        <!-- .subtotal -->
     </div>
 
     <div *ngIf="hasShippingAddress">
@@ -86,8 +112,6 @@
                      </span>
                     <input formControlName="city" class="form-control" name="city" placeholder="City" required="" type="text">
 
-                    <!-- <input formControlName = "email" type="hidden"  name="email"> -->
-                    <!-- <input formControlName = "uid" type="hidden"  name="uid"> -->
                 </div>
             </div>
             <div class="text-left">
@@ -103,18 +127,15 @@
         <a (click)="toggleMenu('cart')" routerLink="/login" class="btn btn-primary">Sign in to start shopping</a>
     </div>
 
-    <!-- Buttons -->
     <div *ngIf="!hasCompleteAdding && isLoggedIn" class="text-right">
         <button (click)="backToStore()" routerLink = "/" class="btn btn-default btn-ghost close-dropdown">Continue Shopping</button>
         <button (click)="checkout()" class="btn btn-primary waves-effect waves-light ">Proceed to Checkout</button>
     </div>
 
-    <!--Busy Icon-->
     <div *ngIf="isPayingError" style="text-align:center">
         <h3>Opps! Payment Error!</h3>
         <h4> {{paymentError}} </h4>
         <a (click)="backToStore()"  routerLink="/" class="btn btn-primary">Go Back to Store</a>
     </div>
-    <app-payment-spinner *ngIf="isPaying"></app-payment-spinner>
+    <app-payment-spinner *ngIf="isPaying"></app-payment-spinner> -->
 </div>
-<!-- .shopping-cart -->

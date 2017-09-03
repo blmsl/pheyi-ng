@@ -7,6 +7,9 @@ import { MenuService } from "app/nav/menu-service.service";
 import { AuthService } from "app/auth.service";
 import { AppUser } from "app/models/app-user";
 import { CategoryService } from "app/category.service";
+import { ShoppingCartService } from "app/shopping-cart.service";
+import { ShoppingCart } from "app/models/app-shopping-cart";
+import { Observable } from "rxjs/Observable";
 
 declare var jquery: any;
 declare var $: any;
@@ -22,29 +25,24 @@ export class NavComponent implements OnInit {
   appUser : AppUser
   isAdmin : boolean = false;
   categories$;
+  cart$ : Observable<ShoppingCart>;
 
-  constructor(private cartSvc: CartService, private auth : AuthService, categoryService : CategoryService) {
-      auth.appUser$.subscribe(appUser => {
-        this.appUser = appUser; 
+  constructor(
+    private cartSvc: CartService,
+    private auth : AuthService,
+    categoryService : CategoryService,
+    private cartService : ShoppingCartService) {
+
+      auth.appUser$.subscribe(appUser => {this.appUser = appUser; 
         if (appUser) { if(appUser.isAdmin)  this.isAdmin = true; }
-        
         else{ this.isAdmin = false;}
       })
 
       this.categories$ = categoryService.getAll();
   }
 
-  ngOnInit() {
-
-    // Get no of items in cart if user is authenticated
-    //------------------------------------------------------------------------------
-
-    this.auth.user$.subscribe(user => {
-      if (user) {
-        this.cartSvc.getCartItemsList(user.uid).subscribe((cartItems) =>  this.count = cartItems.length)
-     }  
-     
-    })
+  async ngOnInit() {
+    this.cart$ = await this.cartService.getCart();
   }
 
   logOff() {

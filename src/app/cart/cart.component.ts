@@ -6,6 +6,7 @@ import { Headers, Http } from "@angular/http";
 import { CartService } from "app/cart/shared/cart.service";
 import { AngularFireAuth } from "angularfire2/auth";
 import { ShippingService } from "app/shipping.service";
+import { ShoppingCartService } from "app/shopping-cart.service";
 
 declare var jquery: any;
 declare var $: any;
@@ -42,14 +43,21 @@ export class CartComponent {
     shippingForm: FormGroup;
     isPaying : boolean = false;
 
+    cart$;
+
 
     constructor(private af: AngularFireAuth, 
             private db: AngularFireDatabase,
             private http: Http, 
             private cartSvc: CartService,
+            private cartService : ShoppingCartService,
             private shippingSvc : ShippingService) { }
 
-    ngOnInit() {
+    async ngOnInit() {
+
+        this.cart$ = await this.cartService.getCart();
+
+
         this.subtotal = 0;
         this.hasShippingAddress = false;
         this.hasCompleteAdding = false;

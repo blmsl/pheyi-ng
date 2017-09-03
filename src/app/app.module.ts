@@ -52,6 +52,8 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
 import { CategoryService } from "app/category.service";
 import { ProductService } from "app/product.service";
 import { ItemsService } from "app/items/shared/items.service";
+import { ShoppingCartService } from "app/shopping-cart.service";
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 
 
 
@@ -109,6 +111,7 @@ const appRoutes: Routes = [
     PushnotificationComponent,
     HeroSliderComponent,
     ProductFormComponent,
+    ProductQuantityComponent,
   ],
   imports: [
     BrowserModule,
@@ -137,7 +140,8 @@ const appRoutes: Routes = [
     UserService,
     CategoryService,
     ProductService,
-    ItemsService
+    ItemsService,
+    ShoppingCartService
     
   ],
   bootstrap: [AppComponent]

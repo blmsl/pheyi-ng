@@ -29,7 +29,7 @@
                        <i>
                             <!-- <span class="material-icons shopping_basket"></span> -->
                            <i style="font-size:20pt; font-weight:bold" class="ion ion-bag"></i>
-                           <span class="count">{{count}}</span>
+                           <span class="count" *ngIf="cart$ | async as cart">{{cart.totalItemsCount}}</span>
                        </i>
                    </a>
         </div>

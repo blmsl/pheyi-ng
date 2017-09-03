@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from "angularfire2/database";
 import { FormControl, NgForm } from "@angular/forms";
@@ -9,6 +9,11 @@ import { CartItem } from "app/cart/shared/cartItem";
 import { ReviewsService } from "app/reviews/shared/reviews.service";
 
 import { AngularFireAuth } from "angularfire2/auth";
+import { Product } from "app/models/app-products";
+import { ShoppingCartService } from "app/shopping-cart.service";
+import { Subscription } from "rxjs/Subscription";
+import { ProductService } from "app/product.service";
+import { ShoppingCart } from "app/models/app-shopping-cart";
 declare var jquery: any;
 declare var $: any;
 
@@ -18,11 +23,12 @@ declare var $: any;
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
+
   allItemsArray: Item[] = [];
   reviewList: FirebaseListObservable<any[]>;
 
-  item: Item;
+  item: Product;
   itemTitle : string [] = [];
   isSoldOut : boolean;
 
@@ -46,6 +52,11 @@ export class DetailsComponent implements OnInit {
 
   showSpinner : boolean = true;
   showContent : boolean = false;
+
+  cart : ShoppingCart;
+  subscription : Subscription;
+  // shoppingCart;
+
  
 
   // @ViewChild('addToCartForm') addToCartForm : NgForm;
@@ -57,11 +68,16 @@ export class DetailsComponent implements OnInit {
     private router : Router,
     private itemSvc: ItemsService,
     private cartSvc: CartService,
+    private cartService : ShoppingCartService,
+    private productService : ProductService,
     private reviewSvc : ReviewsService) { }
 
-  ngOnInit() {
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+  async ngOnInit() {
 
-    
+    this.subscription = (await this.cartService.getCart()).subscribe(cart => this.cart = cart);
 
     //scroll to top on activation
     window.scrollTo(0,0);
@@ -72,10 +88,6 @@ export class DetailsComponent implements OnInit {
     })
     this.sum = 0;
 
-    this.afAuth.authState.subscribe(authState => {
-      this.authState = authState;
-      this.user = authState.uid
-    })
 
     //get key from route params
     this.route.params.subscribe(
@@ -87,7 +99,7 @@ export class DetailsComponent implements OnInit {
         
 
         //get details by key
-       this.itemSvc.getItem(this.key).subscribe(
+       this.productService.get(this.key).subscribe(
         
         (item) => {
           this.item = item;
@@ -111,32 +123,18 @@ export class DetailsComponent implements OnInit {
 
   }
 
-  addItemToCart($key: string) {
+  addItemToCart() {
+    this.cartService.addToCart(this.item);
+  }
 
-    if (this.authState) {
-      
-      //get the item
-      var itemAdding;
-      this.itemSvc.getItem($key).subscribe((item) => itemAdding = item);
-     
-      //add item to cart
-      var cartItem  = new CartItem();
-      cartItem.imageURL = itemAdding.imageURL;
-      cartItem.itemKey = $key;
-      cartItem.name = itemAdding.title;
-      cartItem.price = itemAdding.price,
-      cartItem.quantity = 1;
+  removeFromCart(){
+    this.cartService.removeFromCart(this.item)
+  }
+  getQuantity(){
+    if(!this.cart) return 0;
 
-      this.cartSvc.addItemToCart(this.user, cartItem);
-      alert('added item to cart');
-      this.openCart();
-      
-    } else {
-      // document.location.href = document.location.origin + "/login";
-      this.router.navigate(['login']);
-    }
-
-
+    let item = this.cart.itemsMap[this.item.$key];
+    return item ? item.quantity : 0;
   }
 
   toggleSize($uk_size) {
@@ -163,19 +161,6 @@ export class DetailsComponent implements OnInit {
       this.toggleState = '';
 
     })
-
-  }
-
-  incrementQuantity(){
-    
-    this.quantityValue = this.quantityValue + 1;
-  }
-
-  decrementQuantity(){
-
-    if(this.quantityValue  > 1){
-          this.quantityValue = this.quantityValue - 1;   
-    }
 
   }
 
