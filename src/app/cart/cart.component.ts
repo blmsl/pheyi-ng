@@ -56,7 +56,7 @@ export class CartComponent {
     async ngOnInit() {
 
         this.cart$ = await this.cartService.getCart();
-
+      
 
         this.subtotal = 0;
         this.hasShippingAddress = false;
@@ -280,5 +280,6 @@ export class CartComponent {
          this.hasCompleteAdding = false;
          this.toggleMenu('cart');
      }
+     
 
 }

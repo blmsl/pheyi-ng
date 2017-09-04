@@ -54,6 +54,7 @@ import { ProductService } from "app/product.service";
 import { ItemsService } from "app/items/shared/items.service";
 import { ShoppingCartService } from "app/shopping-cart.service";
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 
 
@@ -112,6 +113,7 @@ const appRoutes: Routes = [
     HeroSliderComponent,
     ProductFormComponent,
     ProductQuantityComponent,
+    ProductCardComponent,
   ],
   imports: [
     BrowserModule,

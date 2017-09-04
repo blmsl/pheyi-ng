@@ -55,13 +55,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   cart : ShoppingCart;
   subscription : Subscription;
-  // shoppingCart;
-
- 
-
-  // @ViewChild('addToCartForm') addToCartForm : NgForm;
-  // @ViewChild('size') $size : number;
-
+  isQuantity : boolean = false;
+  
   constructor(private route: ActivatedRoute,
     private afAuth: AngularFireAuth,
     private db:AngularFireDatabase,
@@ -70,7 +65,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private cartSvc: CartService,
     private cartService : ShoppingCartService,
     private productService : ProductService,
-    private reviewSvc : ReviewsService) { }
+    private reviewSvc : ReviewsService) { 
+
+     
+  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -123,19 +121,19 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   }
 
-  addItemToCart() {
-    this.cartService.addToCart(this.item);
-  }
+  // addItemToCart() {
+  //   this.cartService.addToCart(this.item);
+  // }
 
   removeFromCart(){
     this.cartService.removeFromCart(this.item)
   }
-  getQuantity(){
-    if(!this.cart) return 0;
+  // getQuantity() {
+  //   if(!this.cart) return 0;
 
-    let item = this.cart.itemsMap[this.item.$key];
-    return item ? item.quantity : 0;
-  }
+  //   let item = this.cart.items[this.item.$key];
+  //   return item ? item.quantity : 0;
+  // }
 
   toggleSize($uk_size) {
     this.toggleState = "loading ...."

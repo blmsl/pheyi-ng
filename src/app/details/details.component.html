@@ -2,104 +2,113 @@
 <app-loading-spinner *ngIf="showSpinner" [showLoading]=true></app-loading-spinner>
 
 <section class="fw-section" style="padding-top:7em;">
-  <div  class="container padding-top">
-
-    <!-- Product Gallery -->
-    <div class="product-gallery animated fadeIn">
-      <!-- Preview -->
-      <ul  class="product-gallery-preview card">
+  <div class="container padding-top">
+      <product-card [product]="item"  [shopping-cart]="cart" [show-actions]="true"  ></product-card> 
+    <!-- <div class="product-gallery animated fadeIn">
+      <ul class="product-gallery-preview card">
         <li id="preview01"><img src="{{item?.imageURL}}" alt="Product"></li>
         <li id="preview02" class="current"><img src="{{item?.imageURL}}"></li>
         <li id="preview03"><img src="{{item?.imageURL}}" alt="Product"></li>
       </ul>
 
       <div *ngIf="showContent" class="product-info padding-top-2x text-center">
-        <h1 class="h2 space-bottom-half">{{item?.title}}</h1>
-        <h2>₦{{item?.price | number}}</h2>
-        <div  class="product-meta">
-          <div class="product-category">
+        <div>
+          <h1 class="h2 space-bottom-half">{{item?.title}}</h1>
+          <h2>₦{{item?.price | number}}</h2>
+          <div class="product-meta">
+            <div class="product-category">
               <strong>Category: </strong>
               <a href="#">Ankara Drapes</a><br>
-              <!--TODO : Notify me form when this dress is available-->
-              <div *ngIf="isSoldOut" >
-                 <h3 style="color:red"> Sold Out</h3>
+
+              <div *ngIf="isSoldOut">
+                <h3 style="color:red"> Sold Out</h3>
                 <form>
                   <p>Notify me when this item is available.</p>
                   <input class="form-control" type="email" placeholder="Enter your email address">
-                  <button class ="btn btn-primary" style="width:100%">Notify me</button>
+                  <button class="btn btn-primary" style="width:100%">Notify me</button>
                 </form>
-               </div>
+              </div>
 
             </div>
-          <div>
-            {{toggleState}}
+            <div>
+              {{toggleState}}
 
-            <span *ngFor="let size of sizeInInches" style="display: block">
-               Size in Inches<br>
-                 <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
-                 <b>Burst: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
-            </span><br>
+              <span *ngFor="let size of sizeInInches" style="display: block">
+                   Size in Inches<br>
+                     <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
+                     <b>Burst: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
+                </span><br>
 
-            <span  *ngFor="let size of sizeInCm">
-                Size in Centimeters(cm)<br>
-               
-                 <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
-                 <b>Burst: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
-            </span>
+              <span *ngFor="let size of sizeInCm">
+                    Size in Centimeters(cm)<br>
+                   
+                     <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
+                     <b>Burst: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
+                </span>
+            </div>
+
           </div>
+          <form *ngIf="!isSoldOut" #addToCartForm="ngForm" (ngSubmit)="addItemToCart()" class="product-tools shop-item">
 
-        </div>
-        <form *ngIf="!isSoldOut" #addToCartForm = "ngForm" (ngSubmit)="addItemToCart()"  class="product-tools shop-item">
-         
-          <div style="margin-left:10%;">
-            <select required  ngModel name="selectedSize"  #size="ngModel" (change)="toggleSize(size.value)" class="form-control">
-                <option value="" disabled selected>Choose your size</option>
-                <option *ngFor="let size of ukSizes" value="{{size.UK}}" >{{size.UK}}</option> 
-              </select>
+            <div style="margin-left:10%">
               <span class="help-block" style="color:#795548; display:block" *ngIf="!size.valid">Please select your prefered size.</span>
-          
-          </div>
-          
-          <button *ngIf="getQuantity() === 0; else updateQuantity" [disabled]="!addToCartForm.valid" class="add-to-cart btn" style="display:block; width:100%">
-              <em>Add to Cart</em>
-              <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32">
-  							<path stroke-dasharray="19.79 19.79" stroke-dashoffset="19.79" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"></path>
-  						</svg>
-            </button>
-            <ng-template #updateQuantity>
-               <product-quantity [product]="item"></product-quantity> 
-            </ng-template>
-        </form>
 
-        <div class="product-share">
-          <!--<span>Share this product: </span>-->
-          <div class="social-bar">
-            <a href="#" class="sb-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
-                <i class="socicon-facebook"></i>
-              </a>
-            <a href="#" class="sb-twitter" data-toggle="tooltip" data-placement="top" title="Twitter">
-                <i class="socicon-twitter"></i>
-              </a>
-            <a href="#" class="sb-instagram" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
-                <i class="socicon-instagram"></i>
-              </a>
+              <select required ngModel name="selectedSize" #size="ngModel" (change)="toggleSize(size.value)" class="form-control">
+                    <option value="" disabled selected>Choose your size</option>
+                    <option *ngFor="let size of ukSizes" value="{{size.UK}}" >{{size.UK}}</option> 
+                  </select>
+              <ng-template #updateQuantity>
+                <div class="row">
+                  <div class="col-md-2">
+                    <a class="btn btn-primary" (click)="removeFromCart()" style="cursor:pointer; color:white">–</a>
+                  </div>
+                  <div class="col-md-8" style="margin-left:2px; margin-right:-2em">
+                    <input style="margin-top:10px; text-align:center; border-radius:0" class="form-control" required type="text" value=" {{ getQuantity() }} in Cart">
+                  </div>
+                  <div class="col-md-2">
+                    <a class="btn btn-primary" (click)="addItemToCart()" style="cursor:pointer; color:white;">+</a>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+
+            <button *ngIf="isQuantity; else updateQuantity" [disabled]="!addToCartForm.valid" class="add-to-cart btn" style="display:block; width:100%">
+                  <em>Add to Cart</em>
+                  <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32">
+                    <path stroke-dasharray="19.79 19.79" stroke-dashoffset="19.79" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"></path>
+                  </svg>
+                </button>
+
+          </form>
+
+          <div class="product-share">
+            <div class="social-bar">
+              <a href="#" class="sb-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
+                    <i class="socicon-facebook"></i>
+                  </a>
+              <a href="#" class="sb-twitter" data-toggle="tooltip" data-placement="top" title="Twitter">
+                    <i class="socicon-twitter"></i>
+                  </a>
+              <a href="#" class="sb-instagram" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
+                    <i class="socicon-instagram"></i>
+                  </a>
+            </div>
           </div>
-        </div>     
+        </div>
       </div>
 
-      <!-- Thumblist -->
       <ul class="product-gallery-thumblist">
-        <li ><a href="#preview01">
+        <li><a href="#preview01">
               <img class="card" src="{{item?.imageURL}}" >
             </a></li>
         <li class="active"><a href="#preview02">
               <img class="card" src="{{item?.imageURL}}" >
             </a></li>
-        <li ><a href="#preview03">
+        <li><a href="#preview03">
               <img class="card" src="{{item?.imageURL}}">
             </a></li>
-      </ul> 
-    </div>
+      </ul>
+    </div> -->
 
   </div>
 </section>

@@ -4,17 +4,20 @@ import { Product } from "app/models/app-products";
 export class ShoppingCart {
     items : ShoppingCartItem[] = [];
 
-    constructor(public itemsMap : { [productId : string]: ShoppingCartItem }){
+    constructor(public itemsMap : { [productId : string] : ShoppingCartItem }){
+        this.itemsMap = itemsMap || {};
+
         for(let productId in itemsMap){
             let item = itemsMap[productId];
-            this.items.push(new ShoppingCartItem(item.product, item.quantity));
+            this.items.push(new ShoppingCartItem({ ...item, $key: productId }))
         }
     }
 
-    get productIds  (){
-        return Object.keys(this.itemsMap);
-    }
-
+    getQuantity(product : Product) {    
+        let item = this.itemsMap[product.$key];
+        return item ? item.quantity : 0;
+      }
+    
 
     get totalPrice(){
         let sum = 0;

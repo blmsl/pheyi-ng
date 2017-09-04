@@ -1,11 +1,11 @@
-<div class="row">
-    <div class="col-md-2"> 
-       <a  class="btn btn-primary" (click)="removeFromCart()" style="cursor:pointer; color:white">–</a>                      
+<div class="row no-gutters">
+    <div class="col-2">
+        <button (click)="removeFromCart()" class="btn btn-secondary btn-block">-</button>
     </div>
-     <div class="col-md-8" style="margin-left:2px; margin-right:-2em">
-         <input style="margin-top:10px; text-align:center; border-radius:0" class="form-control" required  type="text" value=" {{ getQuantity() }} in Cart">
-      </div>
-      <div class="col-md-2">
-         <a class="btn btn-primary"  (click)="addItemToCart()"  style="cursor:pointer; color:white;">+</a>                        
-       </div>  
- </div>
+    <div class="col text-center">
+        {{ shoppingCart.getQuantity(product) }} in cart
+    </div>
+    <div class="col-2">
+        <button (click)="addToCart()" class="btn btn-secondary btn-block">+</button>
+    </div>
+</div>
