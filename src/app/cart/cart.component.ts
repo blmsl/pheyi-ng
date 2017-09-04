@@ -112,31 +112,8 @@ export class CartComponent {
 
     }
 
-
-    removeItemFromCart($key: string) {
-
-        this.cartSvc.getItem(this.user, $key).subscribe((item) => {
-            this.subtotal = this.subtotal - item.price;
-            if (isNaN(this.subtotal)) {
-                this.subtotal = 0;
-
-               //get subtotal
-                this.cartItems.subscribe((cartItems) => {
-                    if (cartItems.length === 0) {
-                        this.subtotal = 0;
-                    } else {
-                        this.subtotal = 0;  
-                        cartItems.forEach((cartItem) => {
-                            this.subtotal = this.subtotal + cartItem.price;
-                        })
-                    }
-
-                });              
-            }
-        })
-
-        this.cartSvc.removeItem(this.user, $key);
-
+    clearCart(){
+        this.cartService.clearCart();   
     }
 
     checkout() {

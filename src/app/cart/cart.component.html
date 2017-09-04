@@ -1,36 +1,41 @@
-<div class="shopping-cart animated fadeIn">
+<div class="row col-12 shopping-cart animated fadeIn">
     <h1>Shopping Cart</h1>
-    <ng-container *ngIf="cart$ | async as cart">
+    <div *ngIf="cart$ | async as cart">
         <p>
             You have {{ cart.totalItemsCount }} items in your shopping cart.
         </p>
         <table class="table">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
+                    <th class="text-center" style="width:230px">Quantity</th>
+                    <th class="text-right" style="width:200px">Price</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of cart.items">
+                    <td>
+                        <div [style.backgroundImage]="'url('+ item.imageURL +')'" class="thumbnail"></div>
+                    </td>
                     <td>{{ item.title }}</td>
-                    <td> <product-quantity [product]="item" [shopping-cart]="cart"></product-quantity></td>
-                    <td style="padding-left:2em;">{{ item.totalPrice | currency : 'NGN' : true}}</td>
+                    <td class="text-center"> <product-quantity [product]="item" [shopping-cart]="cart"></product-quantity></td>
+                    <td class="text-right" style="padding-left:2em;">{{ item.totalPrice | currency : 'NGN' : true}}</td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <th></th>
                     <th></th>
-                    <th>{{cart.totalPrice | currency: 'NGN' : true}}</th>
+                    <th></th>
+                    <th class="text-right">{{cart.totalPrice | currency: 'NGN' : true}}</th>
                 </tr>
             </tfoot>
         </table>
         <button 
          (click)="clearCart()"
         class="btn btn-danger btn-sm">clear shopping cart</button>
-    </ng-container>
+    </div>
 
     <!-- <div *ngIf="!hasCompleteAdding">
         <div *ngFor="let item of cartItems | async" class="item">
