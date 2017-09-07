@@ -24,7 +24,7 @@ export class OrderService {
 
     this.db.object('/shipping/'+this.userId).update(shipping);
     let result = await this.db.list('/orders').push(order);
-    this.shoppingCartService.clearCart();
+    // this.shoppingCartService.clearCart();
     return result;
   }
 

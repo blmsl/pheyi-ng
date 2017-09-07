@@ -63,6 +63,7 @@ import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 import { AdminOrdersComponent } from "app/admin/admin-orders/admin-orders.component";
 import { MyOrdersComponent } from "app/my-orders/my-orders.component";
 import { UpdateShippingFormComponent } from './update-shipping-form/update-shipping-form.component';
+import { PaymentGatewayService } from "app/payment-gateway.service";
 
 
 
@@ -73,7 +74,7 @@ const appRoutes: Routes = [
   { path: 'shopping/:key/:dress', component:DetailsComponent},
 
   { path: 'check-out', component: CheckOutComponent , canActivate: [AuthGuard]},  
-  { path: 'order-success/:id', component: OrderSuccessComponent , canActivate: [AuthGuard]},  
+  { path: 'order-success/:trxref/:reference', component: OrderSuccessComponent , canActivate: [AuthGuard]},  
   { path: 'pay_callback/:ref/', component:PayComponent, canActivate: [AuthGuard]},
   
   
@@ -163,7 +164,8 @@ const appRoutes: Routes = [
     ProductService,
     ItemsService,
     ShoppingCartService,
-    OrderService
+    OrderService,
+    PaymentGatewayService
     
   ],
   bootstrap: [AppComponent]

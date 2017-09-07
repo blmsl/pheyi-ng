@@ -8,6 +8,7 @@ import { Subscription } from "rxjs/Subscription";
 import { AuthService } from "app/auth.service";
 import { Order } from "app/models/app-order";
 import { Router } from "@angular/router";
+import { PaymentGatewayService } from "app/payment-gateway.service";
 
 @Component({
   selector: 'app-check-out',
@@ -20,6 +21,7 @@ export class CheckOutComponent implements OnInit, OnDestroy{
   cart$: Observable<ShoppingCart>;
   userSubscription : Subscription;
   userId : string;
+  email : string;
   cart : ShoppingCart;
   showChangeAddress : boolean = false;
   
@@ -29,11 +31,13 @@ export class CheckOutComponent implements OnInit, OnDestroy{
     private authService : AuthService,
     private orderService : OrderService,
     private router : Router,
-    private shoppingCartService : ShoppingCartService){ }
+    private shoppingCartService : ShoppingCartService,
+    private paymentService : PaymentGatewayService){ }
   
   async ngOnInit(){
     this.userSubscription = this.authService.user$.subscribe(user => {
-      this.userId = user.uid
+      this.userId = user.uid;
+      this.email = user.email;
 
       this.shippingService.getSingle(this.userId)
       .subscribe(shipping => {this.userShipping = shipping; console.log(this.userShipping)})
@@ -48,10 +52,19 @@ export class CheckOutComponent implements OnInit, OnDestroy{
 
   async placeOrder() {
     this.cart$.subscribe(cart => {
+      this.cart = cart;
       this.order = new Order(this.userId, this.userShipping, cart)
     });
+
     let result = await this.orderService.placeOrder(this.order, this.userShipping);
-    this.router.navigate(['/order-success', result.key]);
+    this.paymentService.payWithPaystack(this.cart.totalPrice, result.key, this.email)
+        .subscribe(response => {
+          this.shoppingCartService.clearCart();
+          window.location.href = (response.json().data.authorization_url); 
+        });
+        
+    
+    // this.router.navigate(['/order-success', result.key]);
   } 
  
   changeAddress(){

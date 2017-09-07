@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-order-success',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-success.component.css']
 })
 export class OrderSuccessComponent implements OnInit {
+  reference : string;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { 
+    route.queryParamMap.subscribe(params => this.reference = params.get('reference'))
+  }
 
   ngOnInit() {
+    console.log(this.reference);
   }
 
 }
