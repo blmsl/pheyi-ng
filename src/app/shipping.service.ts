@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ShippingAddress } from "app/ShippingAddress";
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class ShippingService {
@@ -16,8 +17,9 @@ export class ShippingService {
     return this.shippingAddresses.push(address).key;
   }
 
-  update(key:string, address: ShippingAddress){
-     this.shippingAddresses.update(key, address)
+  update(key:string, address : ShippingAddress){
+    //  this.shippingAddresses.update(key, address)
+    this.db.object('/shipping/'+key).update(address)
        .catch(error => console.error(error));;
   }
 
@@ -28,7 +30,8 @@ export class ShippingService {
     return this.shippingAddresses
   }
 
-  getSingle(key: string) : FirebaseObjectObservable<ShippingAddress>{
+  
+   getSingle(key: string) : FirebaseObjectObservable<ShippingAddress>{
     const itemPath = `${this.basePath}/${key}`;
     this.shippingAddress = this.db.object(itemPath);
     return this.shippingAddress;

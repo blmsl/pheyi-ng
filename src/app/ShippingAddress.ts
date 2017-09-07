@@ -1,9 +1,8 @@
 export class ShippingAddress{
-    firstname: string
-    lastname: string
-    phone: string
+    name: string
+    // phone: string
     address :string
-    country : string
+    // country : string
     city : string
     // email : string
     // uid : string

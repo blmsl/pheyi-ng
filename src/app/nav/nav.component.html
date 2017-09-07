@@ -1,20 +1,16 @@
 <!-- Navbar -->
 <!-- Remove ".navbar-sticky" class to make navigation bar scrollable with the page. -->
 <header class="navbar navbar-sticky">
-    <!-- Site Logo -->
     <a routerLink="/" class="site-logo card visible-desktop" style="padding:0.5em; border-bottom: 2px solid #3A2748">
                <span>
                    <img src="./assets/color_logo.png" alt="">
                </span>
            </a>
-    <!-- site-logo.visible-desktop -->
     <a routerLink="/" class="site-logo card visible-mobile" style="padding:0.5em; border-bottom: 2px solid #3A2748">
                <img src="./assets/color_logo.png" alt="">
            </a>
-    <!-- site-logo.visible-mobile -->
 
 
-    <!-- Toolbar -->
     <div class="toolbar">
         <div class="inner">
             <a href="#menu" class="toolbar-toggle">
@@ -34,8 +30,6 @@
                    </a>
         </div>
     </div>
-    <!-- .toolbar -->
-    <!-- Toolbar Dropdown -->
     <div class="toolbar-dropdown">
 
         <!-- Menu -->
@@ -56,6 +50,7 @@
                         <li>Admin Management</li>
                         <hr>
                         <li><a routerLink="/admin" style="font-size:12pt;">Manage products</a></li>
+                        <li><a routerLink="/admin-orders" style="font-size:12pt;">Manage Orders</a></li>
                     </div>   
 
 
@@ -88,31 +83,37 @@
         <div class="toolbar-section" id="account">
             <div class="inner">
 
-             <ng-template #anonymousUser>
-                    <div id="loggedOut">
-                        <h3 class="space-bottom">You are not logged in </h3>
-                        <p>
-                            <a (click)="toggleMenu('account')" routerLink="/login" id="start-login" class="btn btn-primary">
-                                   Sign in to start shopping
-                               </a>
-                        </p>
-                        <p class="text-sm space-top">
-                            Don’t have an account?
-                            <a (click)="toggleMenu('account')" routerLink="/register" class="toggle-section">Signup here</a>
-                        </p>
+                <ng-template #anonymousUser>
+                        <div id="loggedOut">
+                            <h3 class="space-bottom">You are not logged in </h3>
+                            <p>
+                                <a (click)="toggleMenu('account')" routerLink="/login" id="start-login" class="btn btn-primary">
+                                    Sign in to start shopping
+                                </a>
+                            </p>
+                            <p class="text-sm space-top">
+                                Don’t have an account?
+                                <a (click)="toggleMenu('account')" routerLink="/register" class="toggle-section">Signup here</a>
+                            </p>
 
-                    </div>
+                        </div>
 
-            </ng-template>
+                </ng-template>
 
                 <div *ngIf="appUser; else anonymousUser" id="loggedIn">
-                    <h4 class="space-bottom">Welcome, {{appUser.name}} </h4>
-                    <button id="loggOff" class="btn btn-primary" (click)="logOff()">Log off</button>
-                </div>
-          
+                        <h4 class="space-bottom">Welcome, {{appUser.name}} </h4>
+                        <button id="loggOff" class="btn btn-primary" (click)="logOff()">Log off</button>
+                        <div style="padding-top:3em;">
+                             <ul>
+                                 <li>
+                                     <a routerLink="/my-orders">My Orders</a>
+                                 </li>
+                             </ul>
+                        </div>
+                 </div>
+            
 
             </div>
-            <!-- .inner -->
         </div>
 
         <div class="toolbar-section" id="signup">
@@ -134,12 +135,12 @@
             </div>
             <!-- .inner -->
         </div>
-        <!-- .toolbar-section#account -->
+
         <!-- Cart -->
         <div class="toolbar-section" id="cart">
             <app-cart></app-cart>
         </div>
-        <!-- .toolbar-section#cart -->
+
         <!-- Checkout -->
         <div class="toolbar-section" id="checkout">
             <form method="post" class="checkout-form container">
@@ -222,8 +223,5 @@
             </form>
             <!-- .checkout-form.container -->
         </div>
-        <!-- .toolbar-section#checkout -->
     </div>
-    <!-- .toolbar-dropdown -->
 </header>
-<!-- .navbar.navbar-sticky -->

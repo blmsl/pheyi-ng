@@ -16,7 +16,7 @@ export class AuthService {
   constructor(private afAuth : AngularFireAuth,
      private route: ActivatedRoute,
      private userService : UserService) {
-    this.user$ = afAuth.authState;
+     this.user$ = afAuth.authState;
    }
 
   storeReturnUrl(){
