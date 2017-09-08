@@ -1,8 +1,8 @@
-<section style="height:250vh; padding-left:20%; padding-right:20%; padding-top:10%; ">
+<section class="main-section">
 
   <h2>Shipping</h2>
   <div class="row" *ngIf="cart$ | async as cart">
-    <div class="col-6">
+    <div class="col-lg-6 col-md-12">
       <shipping-form *ngIf="!userShipping; else showShipping" [cart]="cart"></shipping-form>
       <ng-template #showShipping>
           <p>
@@ -20,11 +20,11 @@
           </div>
           <button 
           (click)="placeOrder()"
-          class="btn btn-primary col">Place order</button>      
+          class="btn btn-primary col">Pay & Place order</button>      
         </ng-template> 
     </div>
     
-    <div class="col-6" style="padding-top:3em;">
+    <div class="col-lg-6 col-md-12" style="padding-top:3em;">
       <shopping-cart-summary [cart]="cart" ></shopping-cart-summary>
     </div>
   </div>

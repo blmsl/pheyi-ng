@@ -11,3 +11,22 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
     transition: 0.3s;
 }
+
+.main-section{
+    height:250vh; 
+    padding-left:20%; 
+    padding-right:20%; 
+    padding-top:10%; 
+}
+
+@media (min-width:350px) and (max-width:750px){
+    .main-section{
+        height:250vh; 
+        padding-left:5%; 
+        padding-right:5%; 
+        padding-top:10%; 
+    }
+    .list-group-item {
+        font-size: 10pt !important;
+    }
+}

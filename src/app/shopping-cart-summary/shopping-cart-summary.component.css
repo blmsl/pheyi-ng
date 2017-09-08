@@ -1,0 +1,6 @@
+@media (min-width:350px) and (max-width:750px){
+    
+    .list-group-item {
+        font-size: 10pt !important;
+    }
+}
