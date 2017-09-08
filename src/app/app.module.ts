@@ -18,9 +18,8 @@ import { StoreComponent } from './store/store.component';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
 import { CartegoriesComponent } from './cartegories/cartegories.component';
-import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
- import { DetailsComponent } from './details/details.component';
+import { DetailsComponent } from './details/details.component';
 import { PayComponent } from './pay/pay.component';
 import { CartService } from "app/cart/shared/cart.service";
 import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.component';
@@ -113,7 +112,6 @@ const appRoutes: Routes = [
     NavComponent,
     FooterComponent,
     CartegoriesComponent,
-    OrdersComponent,
     SalesComponent,
     DetailsComponent,
     PayComponent,
