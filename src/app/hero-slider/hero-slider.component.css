@@ -172,7 +172,7 @@
 
 
 .slide-1{
-   background-image: url(https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/parallax%2Fc13.jpg?alt=media&token=673166f5-2c1d-4d7b-9181-1be10a9faafd) !important;
+   background-image: url(https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/parallax%2Fc13-compressed.jpg?alt=media&token=d486b915-1cf0-40ee-a392-9b0fc1527556) !important;
     background-size: cover !important; 
     background-position: 0 13% !important;
 }
@@ -188,7 +188,7 @@
 
 
 .slide-2{
-    background-image: url(https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/parallax%2Fc22%20copy.jpg?alt=media&token=009b70d6-0d0a-47a8-8eae-2ef8f7a55468);
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/parallax%2Fc22_copy.jpg?alt=media&token=9651d171-115a-4923-9132-e73fc7445c40);
     background-size: cover;
     background-position: 0 13% !important;
 }
@@ -203,7 +203,7 @@
         height: 510px;
     } */
     .slide-1{
-         background-image: url(https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/parallax%2Fc13.jpg?alt=media&token=673166f5-2c1d-4d7b-9181-1be10a9faafd) !important;
+         background-image: url(https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/parallax%2Fc13-compressed.jpg?alt=media&token=d486b915-1cf0-40ee-a392-9b0fc1527556) !important;
          background-size: cover !important; 
          background-position: 0 1% !important;
      }
