@@ -52,7 +52,7 @@
     .collection-parallax-1{
         min-height: 50vh; 
         background-attachment: fixed;
-        background-position: 20px 0px !important;
+        background-position: 0px 0px !important;
         background-repeat: no-repeat;
         background-size: cover;
     }
