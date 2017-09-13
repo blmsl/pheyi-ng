@@ -14,6 +14,7 @@ import { ShoppingCartService } from "app/shopping-cart.service";
 import { Subscription } from "rxjs/Subscription";
 import { ProductService } from "app/product.service";
 import { ShoppingCart } from "app/models/app-shopping-cart";
+
 declare var jquery: any;
 declare var $: any;
 
@@ -34,20 +35,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   user: string;
   authState;
-  sum: any;
+
 
   AlsoLike: Item[] = [];
 
   key: string;
-  sizeInInches;
-  sizeInCm;
-  ukSizes;
-  toggleState;
-
-  quantityValue : number = 1;
-  selectedSize : string = "";
-  selectedQuantity : number; 
-  private selectUndefinedOptionValue:any;
 
 
   showSpinner : boolean = true;
@@ -67,32 +59,23 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private productService : ProductService,
     private reviewSvc : ReviewsService) { 
 
-     
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
   async ngOnInit() {
-
     this.subscription = (await this.cartService.getCart()).subscribe(cart => this.cart = cart);
 
     //scroll to top on activation
     window.scrollTo(0,0);
-
-    this.toggleState = " "
-    this.db.list('/Sizes/women/inches').subscribe(snapshot => {
-      this.ukSizes = snapshot;
-    })
-    this.sum = 0;
-
 
     //get key from route params
     this.route.params.subscribe(
       (params: Params) => {
         this.key = params['key'];
 
-        //get the count 
+        //get reviewList
         this.reviewList = this.reviewSvc.getReviewsList({ orderByChild : 'dressKey', equalTo: this.key});
         
 
@@ -118,48 +101,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
         });        
       }
     );
-
   }
-
-  // addItemToCart() {
-  //   this.cartService.addToCart(this.item);
-  // }
 
   removeFromCart(){
     this.cartService.removeFromCart(this.item)
-  }
-  // getQuantity() {
-  //   if(!this.cart) return 0;
-
-  //   let item = this.cart.items[this.item.$key];
-  //   return item ? item.quantity : 0;
-  // }
-
-  toggleSize($uk_size) {
-    this.toggleState = "loading ...."
-
-    //inches
-    this.db.list('/Sizes/women/inches', {
-      query: {
-        orderByChild: 'UK',
-        equalTo: parseInt($uk_size)
-      }
-    }).subscribe(snapshot => {
-      this.sizeInInches = snapshot;
-    })
-
-    //cm
-    this.db.list('/Sizes/women/cm', {
-      query: {
-        orderByChild: 'UK',
-        equalTo: parseInt($uk_size)
-      }
-    }).subscribe(snapshot => {
-      this.sizeInCm = snapshot;
-      this.toggleState = '';
-
-    })
-
   }
 
   openCart(){

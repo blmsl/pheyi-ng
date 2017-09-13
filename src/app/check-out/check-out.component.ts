@@ -46,11 +46,13 @@ export class CheckOutComponent implements OnInit, OnDestroy{
    this.cart$ =  await this.shoppingCartService.getCart();
    
   }
+  
   ngOnDestroy(){
     this.userSubscription.unsubscribe();    
   }
 
   async placeOrder() {
+
     this.cart$.subscribe(cart => {
       this.cart = cart;
       this.order = new Order(this.userId, this.userShipping, cart)
@@ -64,7 +66,6 @@ export class CheckOutComponent implements OnInit, OnDestroy{
         });
         
     
-    // this.router.navigate(['/order-success', result.key]);
   } 
  
   changeAddress(){

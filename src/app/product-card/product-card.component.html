@@ -1,17 +1,87 @@
-<div *ngIf="product?.title" class="card" style="width: 20rem;">
-  <img class="card-img-top" *ngIf="product?.imageURL" [src]="product?.imageURL" alt="{{product?.title}}">
-  <div class="card-body" *ngIf="product?.title">
-    <h4 class="card-title">{{product?.title}}</h4>
-    <p class="card-text">{{product?.price}}</p>
-    <div *ngIf="showActions && shoppingCart">
-      <button 
-        *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"
-        (click)="addToCart()" 
-        class="btn btn-secondary">Add to cart</button>
+<div *ngIf="product?.title" class="card">
+  <div class="row">
+    <div class="col-md-8">
+        <ngb-carousel>
+            <ng-template ngbSlide>
+              <img class="card-img-top" [src]="product?.imageURL" alt="">
+              <div class="carousel-caption">
+                <!-- <p>Front</p> -->
+              </div>
+         
+            </ng-template>
+            <ng-template ngbSlide>
+               <img class="card-img-top" [src]="product?.backImageURL" alt="">
+               <div class="carousel-caption">
+                 <!-- <p>Back</p> -->
+               </div>
+             </ng-template>
+          </ngb-carousel>
     </div>
-    <ng-template #updateQuantity>
-       <product-quantity [product]="product"  [shopping-cart]="shoppingCart"></product-quantity>
-    </ng-template>
+    <div class="col-md-4 text-center card-cart">
+        <h4 class="card-title">{{product?.title}}</h4>
+        <p class="card-text" style="font-size:16pt;">{{product?.price | currency:'NGN':true}}</p>
+       
+        <div>
+          <p>Available Sizes in UK format:</p>
+          <div *ngIf="!group.value" class="alert alert-dark" role="alert" style="font-size:9pt">
+              Please select your prefered size.
+            </div>
+          <md-button-toggle-group (change)="toggleSize(group.value)" [(ngModel)] = "size" selected  #group="mdButtonToggleGroup">
+              <md-button-toggle value="8" [checked]="group.value === 8">
+                8
+              </md-button-toggle>
+              <md-button-toggle value="12" [checked]="group.value === 12">
+                12
+              </md-button-toggle>
+             
+            </md-button-toggle-group>
+            <div class="example-selected-value">
+
+              <div *ngIf="group.value" style="padding-top:1em;">
+                  {{toggleState}}
+    
+                  <span *ngFor="let size of sizeInInches" style="display: block">
+                       Size in Inches<br>
+                         <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
+                         <b>Burst: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
+                    </span><br>
+    
+                  <span *ngFor="let size of sizeInCm">
+                        Size in Centimeters(cm)<br>
+                       
+                         <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
+                         <b>Burst: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div *ngIf="showActions && shoppingCart && group.value">
+          <button 
+            *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"
+            (click)="addToCart()" 
+            class="btn btn-primary col">Add to cart</button>
+        </div>
+
+        <div class="product-share">
+            <div class="social-bar">
+              <a href="#" class="sb-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
+                    <i class="socicon-facebook"></i>
+                  </a>
+              <a href="#" class="sb-twitter" data-toggle="tooltip" data-placement="top" title="Twitter">
+                    <i class="socicon-twitter"></i>
+                  </a>
+              <a href="#" class="sb-instagram" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
+                    <i class="socicon-instagram"></i>
+                  </a>
+            </div>
+        <ng-template #updateQuantity>
+           <product-quantity  [product]="product"  [shopping-cart]="shoppingCart" [size]="group.value"></product-quantity>
+        </ng-template>
+    </div>
+  </div>
+ 
+  <div class="card-body" *ngIf="product?.title">
    
   </div>
 </div>

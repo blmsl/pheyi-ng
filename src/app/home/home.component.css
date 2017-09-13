@@ -5,10 +5,11 @@
 .collection-parallax-1{
     /*https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/collections%2FCollection_1.jpg?alt=media&token=840f58ca-5a64-4653-a93b-6ed6fb57123e*/
     /* The image used */
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/collections%2FCollection_1.jpg?alt=media&token=840f58ca-5a64-4653-a93b-6ed6fb57123e");
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/parallax%2Fc22%20copy.jpg?alt=media&token=009b70d6-0d0a-47a8-8eae-2ef8f7a55468");
+    /* background-image: url("https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/parallax%2Fc13.jpg?alt=media&token=673166f5-2c1d-4d7b-9181-1be10a9faafd"); */
 
     /* Set a specific height */
-    min-height: 100vh; 
+    min-height: 200vh; 
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
@@ -41,4 +42,14 @@
 /* On mouse-over, add a deeper shadow */
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+@media(min-width:350px) and (max-width:750px){
+    .collection-parallax-1{
+        min-width:100px;
+    }
+
+    .collection-parallax-1 h1{
+        font-size:25pt !important;
+    }
 }

@@ -2,6 +2,8 @@ export class Product {
     $key : string;
     title: string;
     imageURL : string;
+    sideImageURL : string;
+    backImageURL : string;
     description : string;
     price : number;
     category : string;

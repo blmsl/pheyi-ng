@@ -5,6 +5,7 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 import { ShoppingCart } from "app/models/app-shopping-cart";
 import { Observable } from "rxjs/Observable";
+import { ShoppingCartItem } from "app/models/app-shopping-cart-item";
 
 @Injectable()
 export class ShoppingCartService {
@@ -17,12 +18,12 @@ export class ShoppingCartService {
               .map(x=> new ShoppingCart(x.items))
   }
 
-  async addToCart(product : Product){
-    this.updateItem(product, 1);
+  async addToCart(product : Product, size : number){
+    this.updateItem(product, 1, size);
   }
 
   async removeFromCart(product : Product){
-    this.updateItem(product, -1);
+    this.updateItem(product, -1, 0);
   }
 
   async clearCart(){
@@ -30,16 +31,14 @@ export class ShoppingCartService {
    this.db.object('/shopping-carts/'+ cartId + '/items').remove();
   }
 
+  public getItem (cartId:string, productId:string){
+    return this.db.object('/shopping-carts/'+ cartId +'/items/' + productId);
+  }
+
   private create(){
     return this.db.list('/shopping-carts').push({
       dateCreated : new Date().getTime()
     })
-  }
-
- 
-
-  private getItem (cartId:string, productId:string){
-    return this.db.object('/shopping-carts/'+ cartId +'/items/' + productId);
   }
 
   private async getOrCreateCartId() : Promise<string>{
@@ -53,7 +52,7 @@ export class ShoppingCartService {
 
  
 
-  private async updateItem(product: Product, change : number){
+  private async updateItem(product: Product, change : number, size){
     let cartId = await this.getOrCreateCartId();
     let item$ = this.getItem(cartId, product.$key);
     item$.take(1).subscribe(item => {
@@ -64,7 +63,8 @@ export class ShoppingCartService {
           title : product.title,
           imageURL : product.imageURL,
           price : product.price,
-          quantity : quantity
+          quantity : quantity,
+          selectedSize : size
         });
     })
   }

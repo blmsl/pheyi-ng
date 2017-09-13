@@ -14,7 +14,8 @@ export class Order {
               product : {
                 title : i.title,
                 imageURL : i.imageURL,
-                price : i.price
+                price : i.price,
+                size : i.selectedSize
               },
               quantity : i.quantity,
               totalPrice : i.totalPrice

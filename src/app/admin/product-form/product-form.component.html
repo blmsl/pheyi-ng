@@ -17,7 +17,17 @@
               <span class="help-block" *ngIf="!imageUrl.valid && imageUrl.touched">
                   Please enter a valid URL of format 'https://...'
                 </span> 
-              <input #imageUrl="ngModel" [(ngModel)]="product.imageURL" name="imageURL"  type="url" class="form-control" placeholder="Image URL" required>
+              <input #imageUrl="ngModel" [(ngModel)]="product.imageURL" name="imageURL"  type="url" class="form-control" placeholder="Main Image URL" required>
+              <span class="help-block" *ngIf="!sideImageUrl.valid && sideImageUrl.touched">
+                  Please enter a valid URL of format 'https://...'
+                </span> 
+              <input #sideImageUrl="ngModel" [(ngModel)]="product.sideImageURL" name="sideImageURL"  type="url" class="form-control" placeholder="Side Image URL" required>
+              
+              <span class="help-block" *ngIf="!backImageUrl.valid && backImageUrl.touched">
+                  Please enter a valid URL of format 'https://...'
+                </span> 
+              <input #backImageUrl="ngModel" [(ngModel)]="product.backImageURL" name="backImageURL"  type="url" class="form-control" placeholder="Back Image URL" required>
+              
               
               <span class="help-block" *ngIf="!description.valid && description.touched">
                   describe this dress please

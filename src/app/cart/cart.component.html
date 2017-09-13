@@ -16,7 +16,7 @@
                     <h3 class="item-title">{{ item.title }}</h3>
                     <h4 class="item-price">{{ item.totalPrice | currency : 'NGN' : true}}</h4>
                     <div class="col-6">
-                        <product-quantity [product]="item" [shopping-cart]="cart"></product-quantity>
+                        <product-quantity [product]="item" [shopping-cart]="cart" [size]="item.selectedSize"></product-quantity>
                     </div>
                   </div>
     

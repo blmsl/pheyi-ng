@@ -12,12 +12,13 @@ import { Product } from "app/models/app-products";
 export class ProductQuantityComponent {
 
   @Input('product') product : Product;
+  @Input ('size') size : number
   @Input('shopping-cart') shoppingCart;
 
   constructor(private cartService : ShoppingCartService) { }
 
   addToCart(){
-    this.cartService.addToCart(this.product);
+    this.cartService.addToCart(this.product, this.size);
   }
 
   

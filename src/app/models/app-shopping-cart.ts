@@ -16,9 +16,8 @@ export class ShoppingCart {
     getQuantity(product : Product) {    
         let item = this.itemsMap[product.$key];
         return item ? item.quantity : 0;
-      }
-    
-
+    }
+ 
     get totalPrice(){
         let sum = 0;
         for(let productId in this.items){
@@ -33,4 +32,6 @@ export class ShoppingCart {
           count += this.itemsMap[productId].quantity
         return count;
     }
+
+    
 }

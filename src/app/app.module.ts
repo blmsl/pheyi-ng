@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2'
 import { ReactiveFormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 import { Routes, RouterModule } from '@angular/router'
@@ -40,7 +41,7 @@ import { DataTableModule } from 'angular-4-data-table';
 
 //---Angular Material Components
 import {
-      MdCheckboxModule
+  MdCheckboxModule, MdButtonToggleModule
   } from '@angular/material';
 import { MenuService } from "app/nav/menu-service.service";
 import { AuthService } from "app/auth.service";
@@ -139,13 +140,15 @@ const appRoutes: Routes = [
     HttpModule,
     DataTableModule,
     RouterModule.forRoot(appRoutes),
+    NgbModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
     ReactiveFormsModule,
     AngularFireModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     BrowserAnimationsModule,
-    MdCheckboxModule
+    MdCheckboxModule,
+    MdButtonToggleModule
   ],
   providers: [
     CartService,
