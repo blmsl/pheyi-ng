@@ -50,7 +50,11 @@
 }
 @media(min-width:350px) and (max-width:750px){
     .collection-parallax-1{
-        min-width:100px;
+        min-height: 50vh; 
+        background-attachment: fixed;
+        background-position: 20px 0px !important;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
     .collection-parallax-1 h1{
