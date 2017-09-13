@@ -169,12 +169,77 @@
 .hero-slider .btn{
     color:white;
 }
-@media screen and (max-width: 768px) {
-    .hero-slider .slide {
-        height: 510px;
-    }
 
+
+.slide-1{
+   background-image: url(https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/parallax%2Fc13.jpg?alt=media&token=673166f5-2c1d-4d7b-9181-1be10a9faafd) !important;
+    background-size: cover !important; 
+    background-position: 0 13% !important;
+}
+.slide-1-price{
+    bottom: 13%; right: 15px;
+}
+.call-to-action-1{
+    top: 20%; right:30%
+}
+.call-to-action-text-1{
+    color:white !important;
+}
+
+
+.slide-2{
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/parallax%2Fc22%20copy.jpg?alt=media&token=009b70d6-0d0a-47a8-8eae-2ef8f7a55468);
+    background-size: cover;
+    background-position: 0 13% !important;
+}
+.call-to-action-2{
+    top: 10%; right:-20%;
+}
+.call-to-action-2 span{
+    color:white !important;    
+}
+@media (min-width:350px) and (max-width: 768px) {
+    /* .hero-slider .slide {
+        height: 510px;
+    } */
+    .slide-1{
+         background-image: url(https://firebasestorage.googleapis.com/v0/b/pheyi-161501.appspot.com/o/parallax%2Fc13.jpg?alt=media&token=673166f5-2c1d-4d7b-9181-1be10a9faafd) !important;
+         background-size: cover !important; 
+         background-position: 0 1% !important;
+     }
     .hero-slider .owl-carousel .owl-controls .owl-nav {
         display: none !important;
+    }
+
+    .hero-slider .slide {
+        display: block;
+        width: 100%;
+        height: 790px;
+        background-repeat: no-repeat;
+        background-size: cover !important;
+    }
+
+    .call-to-action-1{
+        top: 40%;
+        right: 0;
+        bottom: 0;
+        /* background-color: black; */
+        padding:10%;
+        width:100%;
+        height:auto;
+        background: rgba(46,29,26, 0.95);
+    }
+    .call-to-action-2{
+        top: 60%;
+        right: 0;
+        bottom: 0;
+        padding:10%;
+        width:100%;
+        height:auto;
+        background: rgba(46,29,26, 0.75);
+    }
+
+    .slide-1-price{
+        top: 3%; right: 15px;
     }
 }
