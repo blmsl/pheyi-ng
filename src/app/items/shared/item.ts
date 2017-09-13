@@ -4,6 +4,7 @@ export class Item {
     imageURL : string;
     description : string;
     price : number;
+    availableSize : number;
     quantityInStock : number;
     isBestSeller : boolean = true;
     isNewArrival : boolean = true;

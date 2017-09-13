@@ -18,21 +18,19 @@
           </ngb-carousel>
     </div>
     <div class="col-md-4 text-center card-cart">
-        <h4 class="card-title">{{product?.title}}</h4>
-        <p class="card-text" style="font-size:16pt;">{{product?.price | currency:'NGN':true}}</p>
+        <h4 style="font-size:11pt; font-weight:bold;">{{product?.title}}</h4>
+        <p class="card-text" style="font-size:16pt; color:#827717;">{{product?.price | currency:'NGN':true}}</p>
        
         <div>
           <p>Available Sizes in UK format:</p>
           <div *ngIf="!group.value" class="alert alert-dark" role="alert" style="font-size:9pt">
-              Please select your prefered size.
+              Please click to select your prefered size.
             </div>
           <md-button-toggle-group (change)="toggleSize(group.value)" [(ngModel)] = "size" selected  #group="mdButtonToggleGroup">
-              <md-button-toggle value="8" [checked]="group.value === 8">
-                8
+              <md-button-toggle value="{{i}}" [checked]="group.value === 8" *ngFor="let i of product.availableSizes">
+               {{i}}
               </md-button-toggle>
-              <md-button-toggle value="12" [checked]="group.value === 12">
-                12
-              </md-button-toggle>
+             
              
             </md-button-toggle-group>
             <div class="example-selected-value">
@@ -43,14 +41,14 @@
                   <span *ngFor="let size of sizeInInches" style="display: block">
                        Size in Inches<br>
                          <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
-                         <b>Burst: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
+                         <b>Bust: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
                     </span><br>
     
                   <span *ngFor="let size of sizeInCm">
                         Size in Centimeters(cm)<br>
                        
                          <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
-                         <b>Burst: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
+                         <b>Bust: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
                     </span>
                 </div>
             </div>
