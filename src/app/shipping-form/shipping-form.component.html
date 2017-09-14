@@ -1,29 +1,58 @@
-<form #f="ngForm">
-    <div class="form-group">
-      <label for="">Name</label>
-      <input #name="ngModel" name="name" [(ngModel)]="shipping.name" type="text" class="form-control" required>
-      <span class="help-block" *ngIf="name.touched && name.invalid">
-        <div *ngIf="name.errors.required">Name is required.</div>
-      </span>
-    </div>
-    <div class="form-group">
-      <label for="">Address</label>
-      <input #address="ngModel" name="address" [(ngModel)]="shipping.address" type="text" class="form-control" placeholder="destination address"
-        required>
-      <span class="help-block" *ngIf="address.touched && address.invalid">
-        <div *ngIf="address.errors.required">Address is required.</div>
-      </span>
-    </div>
-     
-    <div class="form-group">
-      <label for="">City</label>
-      <input #city="ngModel" name="city" [(ngModel)]="shipping.city" type="text" class="form-control" required>
-      <span class="help-block" *ngIf="city.touched && city.invalid">
-        <div *ngIf="city.errors.required">City is required.</div>
-      </span>
-    </div>
-    <button 
-    [disabled]="!f.valid"
-    (click)="placeOrder()" 
-    class="btn btn-primary">Place Order</button>
-  </form>
+<div style="padding-top:3em;">
+    <div class="card" style="padding:1em; background: #f5f5f5; border:none; border-radius:0">
+        <div class="card-body">
+            <form #f="ngForm">
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input #name="ngModel" name="name" [(ngModel)]="shipping.name" type="text" class="form-control" placeholder="First & Lastname" required>
+                    <span class="help-block" *ngIf="name.touched && name.invalid">
+                      <div *ngIf="name.errors.required">Name is required.</div>
+                    </span>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Address</label>
+                    <input #address="ngModel" name="address" [(ngModel)]="shipping.address" type="text" class="form-control" placeholder="destination address"
+                      required>
+                    <span class="help-block" *ngIf="address.touched && address.invalid">
+                      <div *ngIf="address.errors.required">Address is required.</div>
+                    </span>
+                  </div>
+              
+                  <div class="form-group">
+                      <label for="">Phone</label>
+                      <input #phone="ngModel" name="address" [(ngModel)]="shipping.phone" type="text" class="form-control" placeholder="+XXX XXXXX"
+                        required>
+                      <span class="help-block" *ngIf="phone.touched && phone.invalid">
+                        <div *ngIf="phone.errors.required">Phone is required.</div>
+                      </span>
+                    </div>
+                   
+                  <div class="form-group">
+                    <label for="">City</label>
+                    <input #city="ngModel" name="city" [(ngModel)]="shipping.city" type="text" class="form-control" placeholder="destination city" required>
+                    <span class="help-block" *ngIf="city.touched && city.invalid">
+                      <div *ngIf="city.errors.required">City is required.</div>
+                    </span>
+                  </div>
+              
+                  <div class="form-group">
+                      <label for="country">Country</label>
+                      <select #country="ngModel" name="country" [(ngModel)]="shipping.country" class="form-control" required>
+                          <option *ngFor="let c of countries" [value]="c.name">{{c.name}}</option>
+                      </select>
+                      <span class="help-block" *ngIf="country.touched && country.invalid">
+                        <div *ngIf="country.errors.required">country is required.</div>
+                      </span>
+                    </div>
+              
+            
+            
+                <button 
+                [disabled]="!f.valid"
+                (click)="placeOrder()" 
+                class="btn btn-primary col" >+add delivery address</button>
+            </form>
+        </div>
+      </div>
+      
+</div>

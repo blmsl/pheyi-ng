@@ -3,6 +3,7 @@ import { ShoppingCart } from "app/models/app-shopping-cart";
 
 export class Order {
     datePlaced : number;
+    isPayed : boolean;
     items: any[];
 
     constructor(public userId : string, public shipping : any,  shoppingCart : ShoppingCart){

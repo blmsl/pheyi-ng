@@ -1,0 +1,7 @@
+.btn.disabled{
+    background-color:black !important;
+}
+
+select, .form-control{
+    -webkit-appearance: none !important;
+}

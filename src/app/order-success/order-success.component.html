@@ -1,14 +1,32 @@
 
 <section style="min-height:250vh; padding:10%; padding-top:30vh;">  
-      <div class="text-center">
-        <b>Your order with <br>reference Id: <br><br>{{ reference }}<br><br>  was successful</b> <br><br>
-       
-          A sales executive will contact you shortly to confirm your order.<br>
-       
+      <div class="text-center" *ngIf="status; else error">
         <h1>Thank you.</h1>
         <br>
-       <a routerLink="/" class="btn btn-primary">Go back home</a>
+        <div class="alert alert-success">
+          Your transaction was a success and we have recieved your payment.<br><br>
+          <b>Transaction ID: </b>
+          
+          <span class="badge badge-secondary" style="padding:1em;">
+              {{reference}}
+          </span>
+        </div><br>
+        A customer executive will call shortly to confirm your orders.<br>
+       <!-- <a routerLink="/" class="btn btn-primary">Go back home</a> -->
       </div>
+      <ng-template #error>
+          <div class="text-center">
+             
+              <h1>Opps!</h1>
+               There was an error with your transaction
+               <br><br>
+              <div class="alert alert-danger">
+               <b>Reason: </b> {{message}}
+              </div>
+              <br>
+             <a routerLink="/" class="btn btn-primary">Go back home</a>
+            </div>
+      </ng-template> 
 </section>
 
 

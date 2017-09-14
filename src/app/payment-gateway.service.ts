@@ -5,9 +5,10 @@ import { Router } from "@angular/router";
 
 @Injectable()
 export class PaymentGatewayService {
+  private verifyPaystackUrl: string;
 
-   private paystackHeaders: Headers 
-   private payStackUrl : string
+  private paystackHeaders: Headers
+  private payStackUrl : string
 
   constructor(private http : Http, router : Router) { 
     this.paystackHeaders  = new Headers({
@@ -15,6 +16,7 @@ export class PaymentGatewayService {
     });
 
     this.payStackUrl = `https://api.paystack.co/transaction/initialize`;
+    this.verifyPaystackUrl = 'https://api.paystack.co/transaction/verify/';
     
   }
 
@@ -29,6 +31,13 @@ export class PaymentGatewayService {
            JSON.stringify(payload),
            { headers : this.paystackHeaders })
     
+  }
+
+  confirmPaystackPayment(referenceId){
+    return this.http.get(this.verifyPaystackUrl + referenceId, {headers : this.paystackHeaders})
+      // .map(response => {
+      //   return (response.status) ? true : false;
+      // })
   }
 
 }

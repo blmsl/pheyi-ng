@@ -2,8 +2,8 @@
 
   <h2>Shipping</h2>
   <div class="row" *ngIf="cart$ | async as cart">
-    <div class="col-lg-6 col-md-12">
-      <shipping-form *ngIf="!userShipping; else showShipping" [cart]="cart"></shipping-form>
+    <div class="col-lg-6 col-md-12" >
+      <shipping-form *ngIf="checkShipping$ | async; else showShipping" [cart]="cart"></shipping-form>
       <ng-template #showShipping>
           <p>
             <b>Default shipping details: </b>   
@@ -12,7 +12,9 @@
               <p>
                  {{ userShipping?.name }}<br>
                  {{ userShipping?.address }}<br>
-                 {{ userShipping?.city }}
+                 {{ userShipping?.phone }}<br>
+                 {{ userShipping?.city }}<br>
+                 {{ userShipping?.country }}<br>
               </p>
               <button *ngIf="!showChangeAddress" (click)="changeAddress()" class="btn btn-secondary btn-sm">change shipping address</button>
               <button *ngIf="showChangeAddress" (click)="cancelChangeAddress()" class="btn btn-secondary btn-sm float-right">X</button>

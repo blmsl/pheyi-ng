@@ -10,6 +10,7 @@ import { ShippingAddress } from "app/ShippingAddress";
 })
 export class UpdateShippingFormComponent implements OnInit {
   shipping : any = {};
+  countries : string[] = [];
   userId : string;
 
   constructor(
@@ -17,13 +18,13 @@ export class UpdateShippingFormComponent implements OnInit {
     private authService : AuthService) { }
 
   ngOnInit() {
-    this.authService.user$.subscribe(user => this.userId = user.uid)
+    this.authService.user$.subscribe(user => this.userId = user.uid);
+    this.countries = this.shippingService.getCountries();
   }
 
   update(shipping : ShippingAddress){
     this.shippingService.update(this.userId, this.shipping);
-    alert('shipping details updated! Proceed with your order now.');
+    alert('Shipping details updated! You can proceed with your order now.');
   }
-
 
 }

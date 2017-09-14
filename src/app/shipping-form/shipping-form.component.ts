@@ -16,8 +16,10 @@ import { FirebaseObjectObservable, AngularFireDatabase } from "angularfire2/data
   styleUrls: ['./shipping-form.component.css']
 })
 export class ShippingFormComponent implements OnInit, OnDestroy {
-  @Input('cart') cart : ShoppingCart;
+  @Input('cart') cart: ShoppingCart;
+  
   shipping = {}; 
+  countries: string[] = [];  
   userSubscription : Subscription;
   shippingSubscription : Subscription;
   userId : string;
@@ -35,6 +37,7 @@ export class ShippingFormComponent implements OnInit, OnDestroy {
 
  ngOnInit() {
     this.userSubscription = this.authService.user$.subscribe(user => this.userId = user.uid); 
+    this.countries = this.shippingService.getCountries();
   }
   ngOnDestroy(){
     this.userSubscription.unsubscribe();    
@@ -42,10 +45,11 @@ export class ShippingFormComponent implements OnInit, OnDestroy {
 
 
   async placeOrder() {
-    let order = new Order(this.userId, this.shipping, this.cart)
-    let result = await this.orderService.placeOrder(order, this.shipping);
+    this.shippingService.update(this.userId, this.shipping);
+    // let order = new Order(this.userId, this.shipping, this.cart)
+    // let result = await this.orderService.placeOrder(order, this.shipping);
  
-    this.router.navigate(['/order-success', result.key]);
+    // this.router.navigate(['/order-success', result.key]);
   }  
 
 }

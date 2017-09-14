@@ -28,8 +28,24 @@ export class OrderService {
     return result;
   }
 
+  payForOrder(orderId){
+    this.getOrderById(orderId).subscribe(order => {
+      order.isPayed = true;
+
+      this.updateOrder(orderId, order);
+    });
+  }
+
+  updateOrder(orderId, order){
+    this.db.object('/orders/'+orderId).update(order);
+  }
+
   getOrders() { 
     return this.db.list('/orders');
+  }
+
+  getOrderById(orderId){
+    return this.db.object('/orders/'+orderId);
   }
 
   getOrdersByUser(userId: string) {

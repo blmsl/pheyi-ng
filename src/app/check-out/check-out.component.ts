@@ -9,6 +9,7 @@ import { AuthService } from "app/auth.service";
 import { Order } from "app/models/app-order";
 import { Router } from "@angular/router";
 import { PaymentGatewayService } from "app/payment-gateway.service";
+import { ShippingAddress } from "app/ShippingAddress";
 
 @Component({
   selector: 'app-check-out',
@@ -17,8 +18,11 @@ import { PaymentGatewayService } from "app/payment-gateway.service";
 })
 export class CheckOutComponent implements OnInit, OnDestroy{ 
   order: Order;
-  userShipping: any;
+  userShipping: ShippingAddress;
+
+  checkShipping$ : Observable<boolean>;
   cart$: Observable<ShoppingCart>;
+  
   userSubscription : Subscription;
   userId : string;
   email : string;
@@ -39,12 +43,11 @@ export class CheckOutComponent implements OnInit, OnDestroy{
       this.userId = user.uid;
       this.email = user.email;
 
-      this.shippingService.getSingle(this.userId)
-      .subscribe(shipping => {this.userShipping = shipping; console.log(this.userShipping)})
+      this.shippingService.getSingle(this.userId).subscribe(shipping => this.userShipping = shipping);
    }); 
 
    this.cart$ =  await this.shoppingCartService.getCart();
-   
+   this.checkShipping$ = await this.shippingService.checkShipping(this.userId);
   }
   
   ngOnDestroy(){
@@ -61,8 +64,10 @@ export class CheckOutComponent implements OnInit, OnDestroy{
     let result = await this.orderService.placeOrder(this.order, this.userShipping);
     this.paymentService.payWithPaystack(this.cart.totalPrice, result.key, this.email)
         .subscribe(response => {
-          this.shoppingCartService.clearCart();
+          // this.shoppingCartService.clearCart();
           window.location.href = (response.json().data.authorization_url); 
+        }, error =>{
+           alert(JSON.parse(error._body).message);
         });
         
     

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+import { ShoppingCartService } from "app/shopping-cart.service";
+import { PaymentGatewayService } from "app/payment-gateway.service";
 
 @Component({
   selector: 'app-order-success',
@@ -7,14 +9,47 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./order-success.component.css']
 })
 export class OrderSuccessComponent implements OnInit {
-  reference : string;
+  message: any;
+  reference: string;
+  status : boolean = true;
 
-  constructor(private route: ActivatedRoute) { 
-    route.queryParamMap.subscribe(params => this.reference = params.get('reference'))
+  constructor(
+    private route: ActivatedRoute, 
+    private paymentService : PaymentGatewayService,
+    private cartService : ShoppingCartService) { 
+
+    route.queryParamMap.subscribe(params => this.reference = params.get('reference'));
   }
 
   ngOnInit() {
-    console.log(this.reference);
+
+    this.paymentService.confirmPaystackPayment(this.reference)
+      .subscribe(
+
+        response => {
+          let payload = response.json().data;
+
+          if(payload.status === "success"){
+            this.status = true;
+            this.message = payload.status;
+
+            this.cartService.clearCart();
+    
+          }else{
+            this.status = false;
+          }
+        },
+
+        error =>{
+          this.status = false;
+          this.message = JSON.parse(error._body).message;
+        },
+
+        () => {
+          //TODO : finally
+        }
+    )
+      
   }
 
 }
