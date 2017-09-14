@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { ShoppingCartService } from "app/shopping-cart.service";
 import { PaymentGatewayService } from "app/payment-gateway.service";
+import { OrderService } from "app/order.service";
 
 @Component({
   selector: 'app-order-success',
@@ -16,6 +17,7 @@ export class OrderSuccessComponent implements OnInit {
   constructor(
     private route: ActivatedRoute, 
     private paymentService : PaymentGatewayService,
+    private orderService : OrderService,
     private cartService : ShoppingCartService) { 
 
     route.queryParamMap.subscribe(params => this.reference = params.get('reference'));
@@ -33,6 +35,7 @@ export class OrderSuccessComponent implements OnInit {
             this.status = true;
             this.message = payload.status;
 
+            this.orderService.payForOrder(this.reference);
             this.cartService.clearCart();
     
           }else{
