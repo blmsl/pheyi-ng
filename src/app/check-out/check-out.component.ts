@@ -10,6 +10,8 @@ import { Order } from "app/models/app-order";
 import { Router } from "@angular/router";
 import { PaymentGatewayService } from "app/payment-gateway.service";
 import { ShippingAddress } from "app/ShippingAddress";
+import { ProductService } from "app/product.service";
+import { Product } from "app/models/app-products";
 
 @Component({
   selector: 'app-check-out',
@@ -36,6 +38,7 @@ export class CheckOutComponent implements OnInit, OnDestroy{
     private orderService : OrderService,
     private router : Router,
     private shoppingCartService : ShoppingCartService,
+    private productService : ProductService,
     private paymentService : PaymentGatewayService){ }
   
   async ngOnInit(){
@@ -58,18 +61,42 @@ export class CheckOutComponent implements OnInit, OnDestroy{
 
     this.cart$.subscribe(cart => {
       this.cart = cart;
-      this.order = new Order(this.userId, this.userShipping, cart)
+
+      cart.items.forEach(item => {
+        //check if its soldOut
+        var i = 0;
+        this.productService.isSoldOut(item.$key).subscribe(status => {
+          if(status === true){
+            var product = new Product();
+            Object.assign(product, item);
+            
+            alert('Opps! '+ item.title+ ' has just been sold out!. Dont worry we have removed it from your cart.')
+            this.shoppingCartService.removeFromCart(product);
+            cart.items.splice(i, 1);
+          }
+          i = i+1;
+        })
+
+      })
+
+      //place order if at least one item is in stock
+      if(cart.items.length !== 0){
+
+        let opt = confirm('please confirm you want to proceed with payment');
+        if(opt){
+
+            this.order = new Order(this.userId, this.userShipping, cart)
+        }    
+      }
     });
 
     let result = await this.orderService.placeOrder(this.order, this.userShipping);
     this.paymentService.payWithPaystack(this.cart.totalPrice, result.key, this.email)
         .subscribe(response => {
-          // this.shoppingCartService.clearCart();
           window.location.href = (response.json().data.authorization_url); 
         }, error =>{
            alert(JSON.parse(error._body).message);
-        });
-        
+        });       
     
   } 
  

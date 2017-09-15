@@ -36,6 +36,11 @@ export class OrderService {
     });
   }
 
+  removeItemFromOrder(key, orderId){
+    this.getOrderById(orderId).subscribe(order => {
+      
+    })
+  }
   updateOrder(orderId, order){
     this.db.object('/orders/'+orderId).update(order);
   }

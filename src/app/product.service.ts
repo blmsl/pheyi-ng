@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from "angularfire2/database";
 import { Product } from "app/models/app-products";
 import { AngularFireAuth } from "angularfire2/auth";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class ProductService {
@@ -27,5 +28,11 @@ export class ProductService {
 
   delete(productId){
      return this.db.object('/items/' + productId).remove();
+  }
+
+  isSoldOut(productId) : Observable<boolean>{
+    return this.get(productId).map(item => {
+      return item ? item.isSoldOut : false; 
+    })
   }
 }
