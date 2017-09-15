@@ -40,36 +40,36 @@ exports.fcmSend = functions.database.ref('/messages/{userId}/{messageId}').onWri
 //when successful order is made update quantity in stock
 exports.onOrder = functions.database.ref('/orders/{pushId}').onWrite(event => {
 
-    // if (event.data.val().isPayed && !event.data.val().isSold) {
+    if (event.data.val().isPayed) {
 
-    //     let root = event.data.adminRef.root        
-    //     let orderItems = event.data.val();
+        let root = event.data.adminRef.root        
+        let orderItems = event.data.val();
         
-    //     for(var i=0; i<orderItems.items.length; i++){
+        for(var i=0; i<orderItems.items.length; i++){
 
-    //         let itemQtyInStore = 0, itemQty = 0;
+            let itemQtyInStore = 0, itemQty = 0;
 
-    //         let itemKey = orderItems.items[i].itemKey;
-    //         itemQty = orderItems.items[i].quantity;
+            let itemKey = orderItems.items[i].product.itemKey;
+            itemQty = orderItems.items[i].quantity;
 
-    //         let itemRef = root.child('items').child(itemKey.toString());
-    //         itemRef.once('value', function(snapshot){
-    //              let itemInStore = snapshot.val();
-    //              itemQtyInStore = itemInStore.quantityInStock;
-    //              let itemQtyLeft = itemQtyInStore - itemQty;
+            let itemRef = root.child('items').child(itemKey);
+            itemRef.once('value', function(snapshot){
+                 let itemInStore = snapshot.val();
+                 itemQtyInStore = itemInStore.quantityInStock;
+                 let itemQtyLeft = itemQtyInStore - itemQty;
 
-    //              if(itemQtyLeft === 0){
-    //                  return itemRef.update({quantityInStock : itemQtyLeft, isSoldOut : true});                
-    //              }
-    //              return itemRef.update({quantityInStock : itemQtyLeft});
-    //         })
-    //     }
+                 if(itemQtyLeft === 0){
+                     return itemRef.update({quantityInStock : itemQtyLeft, isSoldOut : true});                
+                 }
+                 return itemRef.update({quantityInStock : itemQtyLeft});
+            })
+        }
      
-    //    return event.data.ref.update({isSold : true});
+       return event.data.ref.update({isSold : true});
         
-    // } else {
-    //     return;
-    // }
+    } else {
+        return;
+    }
 
 })
 

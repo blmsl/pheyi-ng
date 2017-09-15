@@ -54,7 +54,7 @@
             </div>
         </div>
         <br>
-        <div *ngIf="showActions && shoppingCart && group.value">
+        <div *ngIf="showActions && shoppingCart && group.value && !product?.isSoldOut">
           <button 
             *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"
             (click)="addToCart()" 
