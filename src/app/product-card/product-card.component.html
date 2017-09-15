@@ -1,85 +1,90 @@
 <div *ngIf="product?.title" class="card">
   <div class="row">
     <div class="col-md-8">
-        <ngb-carousel>
-            <ng-template ngbSlide>
-              <img class="card-img-top" [src]="product?.imageURL" alt="">
-              <div class="carousel-caption">
-                <!-- <p>Front</p> -->
-              </div>
-         
-            </ng-template>
-            <ng-template ngbSlide>
-               <img class="card-img-top" [src]="product?.backImageURL" alt="">
-               <div class="carousel-caption">
-                 <!-- <p>Back</p> -->
-               </div>
-             </ng-template>
-          </ngb-carousel>
+      <ngb-carousel>
+        <ng-template ngbSlide>
+          <img class="card-img-top" [src]="product?.imageURL" alt="">
+          <div class="carousel-caption">
+            <!-- <p>Front</p> -->
+          </div>
+
+        </ng-template>
+        <ng-template ngbSlide>
+          <img class="card-img-top" [src]="product?.backImageURL" alt="">
+          <div class="carousel-caption">
+            <!-- <p>Back</p> -->
+          </div>
+        </ng-template>
+      </ngb-carousel>
     </div>
     <div class="col-md-4 text-center card-cart">
-        <h4 style="font-size:11pt; font-weight:bold;">{{product?.title}}</h4>
-        <p class="card-text" style="font-size:16pt; color:#827717;">{{product?.price | currency:'NGN':true}}</p>
-       
+      <h4 style="font-size:11pt; font-weight:bold;">{{product?.title}}</h4>
+      <p class="card-text" style="font-size:16pt; color:#827717;">{{product?.price | currency:'NGN':true}}</p>
+      <div *ngIf="product?.isSoldOut === false; else soldOut">
         <div>
           <p>Available Sizes in UK format:</p>
           <div *ngIf="!group.value" class="alert alert-dark" role="alert" style="font-size:9pt">
-              Please click to select your prefered size.
-            </div>
-          <md-button-toggle-group (change)="toggleSize(group.value)" [(ngModel)] = "size" selected  #group="mdButtonToggleGroup">
-              <md-button-toggle value="{{i}}" [checked]="group.value === 8" *ngFor="let i of product.availableSizes">
-               {{i}}
-              </md-button-toggle>
-             
-             
-            </md-button-toggle-group>
-            <div class="example-selected-value">
+            Please click to select your prefered size.
+          </div>
+          <md-button-toggle-group (change)="toggleSize(group.value)" [(ngModel)]="size" selected #group="mdButtonToggleGroup">
+            <md-button-toggle value="{{i}}" [checked]="group.value === 8" *ngFor="let i of product.availableSizes">
+              {{i}}
+            </md-button-toggle>
 
-              <div *ngIf="group.value" style="padding-top:1em;">
-                  {{toggleState}}
-    
-                  <span *ngFor="let size of sizeInInches" style="display: block">
+
+          </md-button-toggle-group>
+          <div class="example-selected-value">
+
+            <div *ngIf="group.value" style="padding-top:1em;">
+              {{toggleState}}
+
+              <span *ngFor="let size of sizeInInches" style="display: block">
                        Size in Inches<br>
                          <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
                          <b>Bust: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
                     </span><br>
-    
-                  <span *ngFor="let size of sizeInCm">
+
+              <span *ngFor="let size of sizeInCm">
                         Size in Centimeters(cm)<br>
                        
                          <b>UK-</b>{{size.UK}} <b>US-</b>{{size.US}} <b>EUR-</b>{{size.EUR}}
                          <b>Bust: </b>{{size.burst}}  <b>Waist: </b>{{size.waist}} <b>hips: </b>{{size.hips}}
                     </span>
-                </div>
             </div>
+           
+          </div>
         </div>
         <br>
-        <div *ngIf="showActions && shoppingCart && group.value && !product?.isSoldOut">
-          <button 
-            *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"
-            (click)="addToCart()" 
-            class="btn btn-primary col">Add to cart</button>
+        <div *ngIf="showActions && shoppingCart && group.value">
+          <button *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-primary col">Add to cart</button>
         </div>
 
+
         <div class="product-share">
-            <div class="social-bar">
-              <a href="#" class="sb-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
+          <div class="social-bar">
+            <a href="#" class="sb-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
                     <i class="socicon-facebook"></i>
                   </a>
-              <a href="#" class="sb-twitter" data-toggle="tooltip" data-placement="top" title="Twitter">
+            <a href="#" class="sb-twitter" data-toggle="tooltip" data-placement="top" title="Twitter">
                     <i class="socicon-twitter"></i>
                   </a>
-              <a href="#" class="sb-instagram" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
+            <a href="#" class="sb-instagram" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
                     <i class="socicon-instagram"></i>
                   </a>
-            </div>
-        <ng-template #updateQuantity>
-           <product-quantity  [product]="product"  [shopping-cart]="shoppingCart" [size]="group.value"></product-quantity>
-        </ng-template>
+          </div>
+          <ng-template #updateQuantity>
+            <product-quantity [product]="product" [shopping-cart]="shoppingCart" [size]="group.value"></product-quantity>
+          </ng-template>
+        </div>
+
+      </div>
+      <ng-template #soldOut>
+        <h2 style="color:red">Sold out</h2>
+        <a class="btn btn-sm btn-info" href="#">Notify me when available</a>
+      </ng-template>
+    </div>
+
+    <div class="card-body" *ngIf="product?.title">
+
     </div>
   </div>
- 
-  <div class="card-body" *ngIf="product?.title">
-   
-  </div>
-</div>
