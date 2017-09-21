@@ -6,6 +6,7 @@ const App = require('actions-on-google').ApiAiApp;
 let functions = require('firebase-functions');
 let admin = require('firebase-admin');
 
+
 admin.initializeApp(functions.config().firebase);
 
 //push notifications
@@ -40,8 +41,11 @@ exports.fcmSend = functions.database.ref('/messages/{userId}/{messageId}').onWri
 //when successful order is made update quantity in stock
 exports.onOrder = functions.database.ref('/orders/{pushId}').onWrite(event => {
 
-    if (event.data.val().isPayed) {
 
+    if (event.data.val().isPayed) {
+   
+
+        //manage order
         let root = event.data.adminRef.root        
         let orderItems = event.data.val();
         
