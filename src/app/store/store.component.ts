@@ -22,8 +22,7 @@ export class StoreComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService, 
-    private categoryService: CategoryService) 
-  {
+    private categoryService: CategoryService) {
   }
 
   ngOnInit(): void {
@@ -49,8 +48,6 @@ export class StoreComponent implements OnInit {
     this.filteredProducts = (this.category) ?
     this.products.filter(p => p.category === this.category) :
     this.products;
-  }
-
-  
+  } 
 
 }

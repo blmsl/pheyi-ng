@@ -14,6 +14,7 @@ import { ShoppingCartService } from "app/shopping-cart.service";
 import { Subscription } from "rxjs/Subscription";
 import { ProductService } from "app/product.service";
 import { ShoppingCart } from "app/models/app-shopping-cart";
+import { Title } from "@angular/platform-browser";
 
 declare var jquery: any;
 declare var $: any;
@@ -57,7 +58,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private cartSvc: CartService,
     private cartService : ShoppingCartService,
     private productService : ProductService,
-    private reviewSvc : ReviewsService) { 
+    private reviewSvc : ReviewsService,
+    private titleService : Title
+  ) { 
 
   }
 
@@ -87,6 +90,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
           this.isSoldOut = item.isSoldOut;
           this.showSpinner = false;
           this.showContent = true;
+
+          this.titleService.setTitle("Pheyi | "+this.item.title + " at pheyi.ng");
         }
       );
              
@@ -110,7 +115,5 @@ export class DetailsComponent implements OnInit, OnDestroy {
   openCart(){
     var toggleCart = $('a[href=#cart]').trigger("click");
   }
-
-  
 
 }

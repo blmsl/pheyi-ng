@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from "app/auth.service";
 import { Router } from "@angular/router";
 import { UserService } from "app/user.service";
+import { Title }     from '@angular/platform-browser';
 // import { MessagingService } from './messaging.service'
 
 
