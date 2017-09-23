@@ -27,17 +27,16 @@
 
             <a routerLink="/shopping/{{p.$key}}/{{p.title}}" class="category-tile">
               <div class="inner">
-                <div class="column">
-                  <h3 class="space-bottom-half">{{p.title}}</h3>
-                  <p class="text-sm text-gray"> ₦{{p.price | number}}</p>
-                  <p>
-                    <!-- <span class="badge badge-pill badge-primary">Primary</span> -->
-                  </p>
-                </div>
+                
                 <div class="column">
                   <div class="category-thumb">
                     <img src="{{p.imageURL}}" alt="Category">
                   </div>
+                 <div style="padding-top:1em;">  
+                  <h6 class="space-bottom-half" style="font-weight:lighter; color:black">{{p.title}}</h6>
+                  <h3 style="color:#5d4037"> ₦{{p.price | number}}</h3>
+                  
+                 </div>
                 </div>
               </div>
             </a>
