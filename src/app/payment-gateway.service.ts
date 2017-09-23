@@ -12,7 +12,8 @@ export class PaymentGatewayService {
 
   constructor(private http : Http, router : Router) { 
     this.paystackHeaders  = new Headers({
-      'Authorization': 'Bearer sk_test_d5bc45fd1e80406abf8d152f5d3c6ff2efe2bca3'
+      // 'Authorization': 'Bearer sk_test_d5bc45fd1e80406abf8d152f5d3c6ff2efe2bca3'
+      'Authorization': 'Bearer sk_live_5ae20693da3d8cd9fbe6b975db7ac30db8465e46'
     });
 
     this.payStackUrl = `https://api.paystack.co/transaction/initialize`;
