@@ -15,6 +15,7 @@ import { Title }     from '@angular/platform-browser';
 export class AppComponent {
   
   constructor(private auth: AuthService,  router: Router, private userService : UserService){
+    
     this.auth.user$.subscribe(user => {
       if(!user) return;
 
