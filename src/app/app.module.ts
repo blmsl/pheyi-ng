@@ -64,6 +64,7 @@ import { AdminOrdersComponent } from "app/admin/admin-orders/admin-orders.compon
 import { MyOrdersComponent } from "app/my-orders/my-orders.component";
 import { UpdateShippingFormComponent } from './update-shipping-form/update-shipping-form.component';
 import { PaymentGatewayService } from "app/payment-gateway.service";
+import { ItemsComponent } from 'app/items/items.component';
 
 
 
@@ -103,6 +104,7 @@ const appRoutes: Routes = [
   };
 
 @NgModule({
+
   declarations: [
     AppComponent,
     HomeComponent,
@@ -133,6 +135,7 @@ const appRoutes: Routes = [
     AdminOrdersComponent,
     MyOrdersComponent,
     UpdateShippingFormComponent,
+    ItemsComponent
   ],
   imports: [
     BrowserModule,
@@ -150,6 +153,7 @@ const appRoutes: Routes = [
     MdCheckboxModule,
     MdButtonToggleModule
   ],
+
   providers: [
     CartService,
     AdminService,

@@ -198,6 +198,22 @@
 .call-to-action-2 span{
     color:white !important;    
 }
+
+.star {
+    visibility: hidden;
+}
+
+.fadeIn {
+    -webkit-animation: animat_show 0.8s;
+    animation: animat_show 0.8s;
+    visibility: visible !important;
+}
+
+@-webkit-keyframes animat_show{
+    0%{opacity:0}
+    100%{opacity:1}
+}
+
 @media (min-width:320px) and (max-width: 768px) {
     /* .hero-slider .slide {
         height: 510px;
