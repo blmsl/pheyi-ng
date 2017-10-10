@@ -43,7 +43,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-
         //get all best sellers
         this.itemSvc.getItemsList({
             orderByChild: 'isBestSeller',
@@ -73,7 +72,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
 
         // if the image in the window of browser when the page is loaded, show that image
-
         $(document).ready(function(){
             this.showImages('.star');
         });
