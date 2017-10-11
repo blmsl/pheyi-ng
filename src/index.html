@@ -27,7 +27,16 @@
 
     <!--Mobile Specific Meta Tag-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-starturl" content="/" />
+    <meta name="theme-color" content="#665C5A" />
 
+    <link rel="manifest" href="/manifest.json">
+    
+    
+    
+    
 
     <!--Favicon-->
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -58,13 +67,24 @@
        0% { transform: rotate(0deg); }
        100% { transform: rotate(360deg); }
    }
+   .noscript {
+      width:100%;
+      height:100%; /* will cover the text displayed when javascript is enabled*/
+      z-index:100000; /* higher than other z-index */
+      position:absolute;
+   }
+   .noscript #div100{
+       display:block;
+       height:100%;
+       background-color:white; 
+   }
    </style>
 </head>
 <body>
   <app-root>
     <!-- Page Pre-Loader -->
         <div>
-            <!-- <div class="loader"></div> -->
+            <div class="loader"></div>
           <!-- <span>
             <img src="assets/loading.gif" alt="Preloader">
 
@@ -72,6 +92,27 @@
         </div>
 
   </app-root>
+
+  <noscript class="noscript">
+    <div id="div100">
+        Please enable javascript in your browser .... blah blah
+    </div>
+ </noscript>
+
+  <script>
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('/service-worker.js')
+
+        .then((registration) => {
+          console.log('SW Registered')
+        })
+        .catch(err => {
+          console.log(err, 'SW Error')
+        })
+    }
+  
+  </script>
+
 </body>
 
 

@@ -6,6 +6,7 @@ import {MdButtonToggleModule} from '@angular/material';
 import { AngularFireDatabase } from "angularfire2/database";
 import { ActivatedRoute } from "@angular/router";
 import { ShoppingCartItem } from "app/models/app-shopping-cart-item";
+import { NotifyService } from 'app/notify.service';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class ProductCardComponent implements OnInit {
   constructor(
     private cartService : ShoppingCartService, 
     private db: AngularFireDatabase,
-    private route : ActivatedRoute
+    private route : ActivatedRoute,
+    private notify : NotifyService
   ) { }
 
   async ngOnInit() {
@@ -70,6 +72,13 @@ export class ProductCardComponent implements OnInit {
 
     })
 
+  }
+
+  savePhone(form){
+    let phone = form.phone;
+   
+    this.notify.addPhone(phone);
+    alert('Thank you. We\'ll notify you when available.');
   }
 
 }

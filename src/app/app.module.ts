@@ -65,6 +65,9 @@ import { MyOrdersComponent } from "app/my-orders/my-orders.component";
 import { UpdateShippingFormComponent } from './update-shipping-form/update-shipping-form.component';
 import { PaymentGatewayService } from "app/payment-gateway.service";
 import { ItemsComponent } from 'app/items/items.component';
+import { NotifyService } from 'app/notify.service';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -142,6 +145,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     DataTableModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
@@ -171,7 +175,9 @@ const appRoutes: Routes = [
     ShoppingCartService,
     OrderService,
     PaymentGatewayService,
-    Title
+    Title,
+    NotifyService
+
     
   ],
   bootstrap: [AppComponent]
