@@ -1,100 +1,48 @@
-import { BrowserModule, Title } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule, ApplicationRef } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { AngularFireModule } from 'angularfire2'
-import { ReactiveFormsModule } from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MdButtonToggleModule, MdCheckboxModule } from '@angular/material';
+import { BrowserModule, Title } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
+import { AngularFireModule } from 'angularfire2';
 
-
-import { Routes, RouterModule } from '@angular/router'
-
+import { AdminModule } from './admin/admin.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { CartComponent } from './cart/cart.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { StoreComponent } from './store/store.component';
-import { NavComponent } from './nav/nav.component';
-import { FooterComponent } from './footer/footer.component';
-import { CartegoriesComponent } from './cartegories/cartegories.component';
-import { SalesComponent } from './sales/sales.component';
-import { DetailsComponent } from './details/details.component';
-import { PayComponent } from './pay/pay.component';
-import { CartService } from "app/cart/shared/cart.service";
-import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.component';
-import { AdminComponent } from './admin/admin.component';
-import { AdminSidenavComponent } from './ui/admin-sidenav/admin-sidenav.component';
-import { AdminService } from './admin/shared/admin.service';
-import { PaymentSpinnerComponent } from './ui/payment-spinner/payment-spinner.component';
-import { ReviewsComponent } from './reviews/reviews.component';
-import { ReviewsService } from "app/reviews/shared/reviews.service";
-import { PushnotificationComponent } from './pushnotification/pushnotification.component';
-import { AngularFireDatabaseModule } from "angularfire2/database";
-import { AngularFireAuthModule } from "angularfire2/auth";
-import { MessagingService } from "app/messaging.service";
-import { ShippingService } from "app/shipping.service";
-import { HeroSliderComponent } from './hero-slider/hero-slider.component';
+import { HomeComponent } from './core/components/home/home.component';
+import { LoginComponent } from './core/components/login/login.component';
+import { RegisterComponent } from './core/components/register/register.component';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { ShoppingModule } from './shopping/shopping.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeroSliderComponent } from 'app/core/components/hero-slider/hero-slider.component';
 
-import { DataTableModule } from 'angular-4-data-table';
 
 //---Angular Material Components
-import {
-  MdCheckboxModule, MdButtonToggleModule
-  } from '@angular/material';
-import { MenuService } from "app/nav/menu-service.service";
-import { AuthService } from "app/auth.service";
-import { AuthGuard } from "app/auth-guard.service";
-import { UserService } from "app/user.service";
-import { AdminAuthGuard } from "app/admin-auth-guard.service";
-import { ProductFormComponent } from './admin/product-form/product-form.component';
-import { CategoryService } from "app/category.service";
-import { ProductService } from "app/product.service";
-import { ItemsService } from "app/items/shared/items.service";
-import { ShoppingCartService } from "app/shopping-cart.service";
-import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
-import { ProductCardComponent } from './product-card/product-card.component';
-import { CheckOutComponent } from './check-out/check-out.component';
-import { OrderService } from "app/order.service";
-import { OrderSuccessComponent } from './order-success/order-success.component';
-import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
-import { ShippingFormComponent } from './shipping-form/shipping-form.component';
-import { AdminOrdersComponent } from "app/admin/admin-orders/admin-orders.component";
-import { MyOrdersComponent } from "app/my-orders/my-orders.component";
-import { UpdateShippingFormComponent } from './update-shipping-form/update-shipping-form.component';
-import { PaymentGatewayService } from "app/payment-gateway.service";
-import { ItemsComponent } from 'app/items/items.component';
-import { NotifyService } from 'app/notify.service';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
-
 
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent},
-  { path: 'shopping/:key/:dress', component:DetailsComponent},
 
-  { path: 'check-out', component: CheckOutComponent , canActivate: [AuthGuard]},  
-  { path: 'order-success/:trxref/:reference', component: OrderSuccessComponent , canActivate: [AuthGuard]},  
-  { path: 'pay_callback/:ref/', component:PayComponent, canActivate: [AuthGuard]},
+  { path: '', loadChildren:'app/core/core.module#CoreModule'},
+  { path: 'login',loadChildren:'app/core/core.module#CoreModule'},
+  { path: 'register', loadChildren:'app/core/core.module#CoreModule'},
+  { path: '**', loadChildren:'app/core/core.module#CoreModule'},
+
+  { path: 'shopping/:key/:dress', loadChildren:'app/shopping/shopping.module#ShoppingModule'},
+  { path: 'check-out', loadChildren:'app/shopping/shopping.module#ShoppingModule'},  
+  { path: 'order-success/:trxref/:reference', loadChildren:'app/shopping/shopping.module#ShoppingModule'},  
+  { path: 'pay_callback/:ref/', loadChildren:'app/shopping/shopping.module#ShoppingModule'},
+  { path: 'store', loadChildren:'app/shopping/shopping.module#ShoppingModule'},
+  { path: 'cartegories', loadChildren:'app/shopping/shopping.module#ShoppingModule' },
+  { path: 'my-orders', loadChildren:'app/shopping/shopping.module#ShoppingModule'},
+  { path: 'sales', loadChildren:'app/shopping/shopping.module#ShoppingModule'},
+
+  { path: 'admin-orders', loadChildren:'app/admin/admin.module#AdminModule'},
   
-  
-  
-  { path: 'store', component: StoreComponent},
-  { path: 'cartegories', component : CartegoriesComponent, canActivate: [AuthGuard] },
-  { path: 'admin-orders', component: AdminOrdersComponent, canActivate : [AuthGuard, AdminAuthGuard]},
-  { path: 'my-orders', component: MyOrdersComponent, canActivate : [AuthGuard]},
-
-  { path: 'sales', component: SalesComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-  { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-  { path: 'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-  { path: 'admin', component:AdminComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-
-  { path: '**', component: HomeComponent},
-
+  { path: 'admin/products/new', loadChildren:'app/admin/admin.module#AdminModule'},
+  { path: 'admin/products/:id', loadChildren:'app/admin/admin.module#AdminModule'},
+  { path: 'admin', loadChildren:'app/admin/admin.module#AdminModule'},
 ]
 
  export const firebaseConfig = {
@@ -111,74 +59,30 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    CartComponent,
-    LoginComponent,
-    RegisterComponent,
-    StoreComponent,
-    NavComponent,
-    FooterComponent,
-    CartegoriesComponent,
-    SalesComponent,
-    DetailsComponent,
-    PayComponent,
-    LoadingSpinnerComponent,
-    AdminComponent,
-    AdminSidenavComponent,
-    PaymentSpinnerComponent,
-    ReviewsComponent,
-    PushnotificationComponent,
     HeroSliderComponent,
-    ProductFormComponent,
-    ProductQuantityComponent,
-    ProductCardComponent,
-    CheckOutComponent,
-    OrderSuccessComponent,
-    ShoppingCartSummaryComponent,
-    ShippingFormComponent,
-    AdminOrdersComponent,
-    MyOrdersComponent,
-    UpdateShippingFormComponent,
-    ItemsComponent
+    
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
+
+    SharedModule,
+    CoreModule,
+
+   
     HttpModule,
-    DataTableModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-    NgbModule.forRoot(),
+    
+    AngularFireModule,    
     AngularFireModule.initializeApp(firebaseConfig),
-    ReactiveFormsModule,
-    AngularFireModule,
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    BrowserAnimationsModule,
+
+   
     MdCheckboxModule,
     MdButtonToggleModule
   ],
 
   providers: [
-    CartService,
-    AdminService,
-    ReviewsService,
-    MessagingService,
-    ShippingService,
-    MenuService,
-    AuthService,
-    AuthGuard,
-    AdminAuthGuard,
-    UserService,
-    CategoryService,
-    ProductService,
-    ItemsService,
-    ShoppingCartService,
-    OrderService,
-    PaymentGatewayService,
-    Title,
-    NotifyService
-
-    
+    Title,  
+    // ApplicationRef 
   ],
   bootstrap: [AppComponent]
 })

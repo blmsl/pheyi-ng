@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { PaymentGatewayService } from './payment-gateway.service';
+import { PaymentGatewayService } from './shared/services/payment-gateway.service';
 
 describe('PaymentGatewayService', () => {
   beforeEach(() => {

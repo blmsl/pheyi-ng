@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "app/auth.service";
+import { AuthService } from "app/shared/services/auth.service";
 import { Router } from "@angular/router";
-import { UserService } from "app/user.service";
+import { UserService } from "app/shared/services/user.service";
 import { Title }     from '@angular/platform-browser';
-// import { MessagingService } from './messaging.service'
+// import { MessagingService } from './shared/services/messaging.service'
 
 
 @Component({
