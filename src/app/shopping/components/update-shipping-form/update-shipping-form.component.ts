@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ShippingService } from "app/shared/services/shipping.service";
 import { AuthService } from "app/shared/services/auth.service";
-import { ShippingAddress } from "app/ShippingAddress";
+import { ShippingAddress } from 'shared/models/ShippingAddress';
 
 @Component({
   selector: 'update-shipping-form',

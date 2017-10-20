@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ShippingAddress } from "app/ShippingAddress";
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database";
 import { Observable } from "rxjs/Observable";
 import { Http } from "@angular/http";
+import { ShippingAddress } from 'shared/models/ShippingAddress';
 
 @Injectable()
 export class ShippingService {

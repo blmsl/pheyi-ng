@@ -2,8 +2,8 @@ import { ShoppingCartService } from './shopping-cart.service';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import { ShippingService } from "app/shared/services/shipping.service";
-import { ShippingAddress } from "app/ShippingAddress";
 import { AuthService } from "app/shared/services/auth.service";
+import { ShippingAddress } from 'shared/models/ShippingAddress';
 
 @Injectable()
 export class OrderService {

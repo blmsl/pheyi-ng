@@ -7,11 +7,11 @@ import { Subscription } from "rxjs/Subscription";
 import { AuthService } from "app/shared/services/auth.service";
 import { Router } from "@angular/router";
 import { PaymentGatewayService } from "app/shared/services/payment-gateway.service";
-import { ShippingAddress } from "app/ShippingAddress";
 import { ProductService } from "app/shared/services/product.service";
 import { Order } from 'shared/models/app-order';
 import { ShoppingCart } from 'shared/models/app-shopping-cart';
 import { Product } from 'shared/models/app-products';
+import { ShippingAddress } from 'shared/models/ShippingAddress';
 
 @Component({
   selector: 'app-check-out',

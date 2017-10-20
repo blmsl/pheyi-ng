@@ -1,5 +1,4 @@
 import { HeroSliderComponent } from 'app/core/components/hero-slider/hero-slider.component';
-import { FooterComponent } from 'app/core/components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AdminService } from 'app/shared/services/admin.service';
@@ -31,27 +30,25 @@ import { ItemsService } from 'app/shopping/components/items/shared/items.service
 import { AdminSidenavComponent } from 'shared/components/ui/admin-sidenav/admin-sidenav.component';
 import { LoadingSpinnerComponent } from 'shared/components/ui/loading-spinner/loading-spinner.component';
 import { PaymentSpinnerComponent } from 'shared/components/ui/payment-spinner/payment-spinner.component';
-import { MenuService } from 'app/core/components/nav/menu-service.service';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { NavComponent } from 'app/core/components/nav/nav.component';
 import { CartComponent } from 'app/shopping/components/cart/cart.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { NavComponent } from 'shared/components/nav/nav.component';
+import { FooterComponent } from 'shared/components/footer/footer.component';
+import { MenuService } from 'shared/components/nav/menu-service.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    BrowserModule,    
-    BrowserAnimationsModule,
-    
+  
     FormsModule,
     DataTableModule,
     ReactiveFormsModule,
     RouterModule,
 
     NgbModule.forRoot().ngModule,
-   
     MdCheckboxModule,
     MdButtonToggleModule,
 
@@ -77,6 +74,7 @@ import { BrowserModule } from '@angular/platform-browser';
     AdminSidenavComponent,
     LoadingSpinnerComponent,
     PaymentSpinnerComponent,
+
     NavComponent,
     CartComponent,
     FooterComponent,
@@ -89,8 +87,8 @@ import { BrowserModule } from '@angular/platform-browser';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
 
-    CommonModule,    
-    BrowserAnimationsModule,
+    CommonModule,
+    
     RouterModule
   ],
 

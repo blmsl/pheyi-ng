@@ -7,8 +7,8 @@ import { ShoppingCartService } from "app/shared/services/shopping-cart.service";
 import { ShoppingCart } from "app/shared/models/app-shopping-cart";
 import { Order } from "app/shared/models/app-order";
 import { ShippingService } from "app/shared/services/shipping.service";
-import { ShippingAddress } from "app/ShippingAddress";
 import { FirebaseObjectObservable, AngularFireDatabase } from "angularfire2/database";
+import { ShippingAddress } from 'shared/models/ShippingAddress';
 
 @Component({
   selector: 'shipping-form',

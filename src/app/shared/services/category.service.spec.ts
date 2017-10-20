@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CategoryService } from './shared/services/category.service';
+import { CategoryService } from './category.service';
 
 describe('CategoryService', () => {
   beforeEach(() => {

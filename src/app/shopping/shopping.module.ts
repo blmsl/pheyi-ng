@@ -1,3 +1,4 @@
+import { CoreModule } from '../core/core.module';
 import { SharedModule } from './../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -29,6 +30,7 @@ import { PaymentSpinnerComponent } from 'shared/components/ui/payment-spinner/pa
     SharedModule,
 
     RouterModule.forChild([
+      
       { path: 'shopping/:key/:dress', component:DetailsComponent},
       { path: 'check-out', component: CheckOutComponent , canActivate: [AuthGuard]},  
       { path: 'order-success/:trxref/:reference', component: OrderSuccessComponent , canActivate: [AuthGuard]},  
