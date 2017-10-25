@@ -6,7 +6,7 @@
 <section class="container padding-top-3x">
     <!-- Bestsellers -->
     <h3 class="text-center">Bestsellers</h3>
-   <app-loading-spinner *ngIf="showSpinner" [showLoading]=true text="populating bestsellers..."></app-loading-spinner>
+   <!-- <app-loading-spinner *ngIf="showSpinner" [showLoading]=true text="populating bestsellers..."></app-loading-spinner> -->
     
     <div class="row padding-top">
         <!-- Item -->
@@ -34,10 +34,9 @@
             </div>
             <!-- .shop-item -->
         </div>
-        <!-- .col-md-4.col-sm-6 -->
-
+        
     </div>
-    <!-- .row -->
+    
 </section>
 <!-- .container -->
 
@@ -103,7 +102,7 @@
 <!-- New Arrivals -->
 <section class="container padding-top-3x space-top-half">
     <h3 class="text-center">Just In </h3>
-   <app-loading-spinner *ngIf="showSpinnerJustIn" [showLoading]=true text="populating new arrivals..."></app-loading-spinner>
+   <!-- <app-loading-spinner *ngIf="showSpinnerJustIn" [showLoading]=true text="populating new arrivals..."></app-loading-spinner> -->
     
     <div class="row padding-top">
         <div *ngFor="let item of newArrivals; let i=index" class="col-lg-6 col-sm-6">
@@ -137,7 +136,7 @@
 </section>
 
 <!--Parallax 1-->
-<section class="card">
+<section >
 
     <div class="collection-parallax-1 animated fadeIn">
          <h1 class="text-center text-white" style="padding-top:35vh; font-size:46pt">#SuperWoman</h1>

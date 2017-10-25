@@ -49,10 +49,12 @@ export class StoreComponent implements OnInit {
     this.products.filter(p => p.category === this.category) :
     this.products;
 
+    this.filteredProducts.reverse();
     this.filteredProducts.forEach(product => {
       var title = product.title.replace(/\s+/g, '-');
       this.productTitles.push(title);
     })
+
   } 
 
 }

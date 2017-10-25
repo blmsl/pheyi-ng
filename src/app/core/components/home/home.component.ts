@@ -47,9 +47,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.itemSvc.getItemsList({
             orderByChild: 'isBestSeller',
             equalTo: true,
-            limitToLast: 3
+            limitToLast: 6
         }).subscribe(bestSellers => {
             this.bestSellers = bestSellers;
+            this.bestSellers.reverse();
+            
             bestSellers.forEach(bestSeller => {
                 var title = bestSeller.title.replace(/\s+/g, '-');
                 this.itemTitleBestSellers.push(title);
