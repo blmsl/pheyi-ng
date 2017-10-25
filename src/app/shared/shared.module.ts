@@ -1,3 +1,4 @@
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { HeroSliderComponent } from 'app/core/components/hero-slider/hero-slider.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -55,6 +56,8 @@ import { MenuService } from 'shared/components/nav/menu-service.service';
     AngularFireModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    LazyLoadImageModule,
+    
  
   ],
   declarations: [
@@ -89,7 +92,9 @@ import { MenuService } from 'shared/components/nav/menu-service.service';
 
     CommonModule,
     
-    RouterModule
+    RouterModule,
+    LazyLoadImageModule
+    
   ],
 
   providers : [
