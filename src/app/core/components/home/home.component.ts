@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.itemSvc.getItemsList({
             orderByChild: 'isBestSeller',
             equalTo: true,
-            limitToLast: 6
+            limitToLast: 8
         }).subscribe(bestSellers => {
             this.bestSellers = bestSellers;
             this.bestSellers.reverse();

@@ -52,6 +52,7 @@
         "prod": "environments/environment.prod.ts"
       }
     }
+
   ],
   "e2e": {
     "protractor": {

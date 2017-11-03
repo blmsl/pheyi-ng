@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, ApplicationRef } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -22,14 +23,6 @@ import { CommonModule } from '@angular/common';
 
 //---Angular Material Components
 
- export const firebaseConfig = {
-    apiKey: "AIzaSyBKiBU8NnUOzbv1tEj3B0axhkp9s6tnS-A",
-    authDomain: "pheyi-161501.firebaseapp.com",
-    databaseURL: "https://pheyi-161501.firebaseio.com",
-    projectId: "pheyi-161501",
-    storageBucket: "pheyi-161501.appspot.com",
-    messagingSenderId: "465238772491"
-  };
 
 @NgModule({
 
@@ -51,7 +44,7 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     
     AngularFireModule,    
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase),
 
     MdCheckboxModule,
     MdButtonToggleModule

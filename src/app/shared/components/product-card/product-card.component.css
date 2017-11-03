@@ -3,6 +3,8 @@ ngb-carousel {
     outline: none;
     border : 1px solid gray;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width:375px;
+    height:auto;
 }
 md-button-toggle{
     border:0.5px solid gray;
@@ -30,4 +32,14 @@ md-button-toggle{
     .card-cart{
         padding-top:1em !important;
     } 
+    ngb-carousel {
+        display: block;
+        outline: none;
+        border : 1px solid gray;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        width:140%;
+        height:auto;
+        margin-left:-21%;
+        margin-top:-3em;
+    }
 }

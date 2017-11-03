@@ -10,11 +10,7 @@
     "orientation": "portrait",
 
     "icons":[
-        {
-            "src" : "/assets/mstile-150x150.png",
-            "sizes": "150x150",
-            "type": "image/png"
-        },
+       
         {
             "src" : "/assets/android-chrome-192x192.png",
             "sizes": "192x192",

@@ -5,34 +5,40 @@
 <!-- Best Sellers Grid -->
 <section class="container padding-top-3x">
     <!-- Bestsellers -->
-    <h3 class="text-center">Bestsellers</h3>
-   <!-- <app-loading-spinner *ngIf="showSpinner" [showLoading]=true text="populating bestsellers..."></app-loading-spinner> -->
+    <h3 class="text-center">Featured Pieces</h3>
+   <app-loading-spinner *ngIf="showSpinner" [showLoading]=true text=" "></app-loading-spinner>
     
     <div class="row padding-top">
-        <!-- Item -->
-        <div *ngFor="let item of bestSellers; let i=index " class="col-md-4 col-sm-6 col-lg-4">
-            <div class="shop-item">
-                <div class="shop-thumbnail">
-                    <span class="item-rating text-warning">
-                        <i class="material-icons star"></i>
-                        <i class="material-icons star"></i>
-                        <i class="material-icons star"></i>
-                        <i class="material-icons star_half"></i>
-                        <i class="material-icons star_border"></i>
-                    </span>
-                    <a routerLink="/shopping/{{item.$key}}/{{itemTitleBestSellers[i]}}" class="item-link"></a>
-                    <!-- <img class="star" src="{{ item.imageURL }}" alt="Shop item"> -->
-                    <!-- <img class="star"  src="assets/shop/{{ itemTitleBestSellers[i] }}-1.jpg" alt="Shop item"> -->
+        <div *ngFor="let item of bestSellers; let i=index " class="col-md-3 col-sm-6 col-lg-3">
+            <div class="shop-item container-image">
+                <div class="shop-thumbnail"> 
+                    <!-- <span class="shop-label text-danger">Sale</span> --> 
+                    <a routerLink="/shopping/{{item.$key}}/{{itemTitleBestSellers[i]}}" class="item-link hidden-lg"></a>
                     <img [defaultImage]="defaultImage" [lazyLoad]="item.imageURL" [offset]="offset">
                 </div>
-                <div class="shop-item-details">
-                    <h3 class="shop-item-title"><a style="color:black" href="#">{{item.title}}</a></h3>
-                    <!--<span style="color:black" class="shop-item-price">
-                        ₦{{item.price | number}}
-                    </span>-->
-                </div>
+                <!-- <div class="shop-item-details" style="text-align:center">
+                    <h4 class="shop-item-title">
+                        <a style="color:black; padding-left:10px; padding-right:10px;" href="#">{{item.title}}</a>
+                    </h4>
+                </div> -->
+                <!-- <div style="text-align:center">
+                    <h1 class="shop-item-title" style="color:#5c5757; font-size:16pt; font-weight:bold">₦{{item.price | number}}</h1>
+                </div> -->
+                <div class="middle">
+                        <a routerLink="/shopping/{{item.$key}}/{{itemTitleBestSellers[i]}}" class="btn btn-primary text visible-lg">
+                            shop now
+                        </a>
+                       
+                    </div>
             </div>
-            <!-- .shop-item -->
+            <!-- <div class="container-image shop-item">
+                    <img [defaultImage]="defaultImage" [lazyLoad]="item.imageURL" [offset]="offset" style="width:100%">
+                    
+                    <div class="middle">
+                      <div class="text">John Doe</div>
+                    </div>
+            </div> -->
+           
         </div>
         
     </div>
@@ -102,24 +108,31 @@
 <!-- New Arrivals -->
 <section class="container padding-top-3x space-top-half">
     <h3 class="text-center">Just In </h3>
-   <!-- <app-loading-spinner *ngIf="showSpinnerJustIn" [showLoading]=true text="populating new arrivals..."></app-loading-spinner> -->
+   <app-loading-spinner class="visible-lg" *ngIf="showSpinnerJustIn" [showLoading]=true text=" "></app-loading-spinner>
     
     <div class="row padding-top">
-        <div *ngFor="let item of newArrivals; let i=index" class="col-lg-6 col-sm-6">
-            <div class="shop-item">
-                <div class="shop-thumbnail">
-                    <!--<span class="shop-label text-danger">Sale</span>-->
-                    <a routerLink="/shopping/{{item.$key}}/{{itemTitleNewArrivals[i]}}" class="item-link"></a>
-                    <img class="star" [defaultImage]="defaultImage" [lazyLoad]="item.imageURL" alt="Shop item">
-
-                </div>
-                <div class="shop-item-details">
-                    <h3 class="shop-item-title"><a style="color:black" href="#">{{item.title}}</a></h3>
-                    <!--<span style="color:black" class="shop-item-price">
-                        ₦{{item.price | number}}
-                    </span>-->
-                </div>
-            </div>
+        <div *ngFor="let item of newArrivals; let i=index" class="col-lg-3 col-sm-6">
+                <div class="shop-item container-image">
+                        <div class="shop-thumbnail"> 
+                            <!-- <span class="shop-label text-danger">Sale</span> --> 
+                            <a routerLink="/shopping/{{item.$key}}/{{itemTitleBestSellers[i]}}" class="item-link hidden-lg"></a>
+                            <img [defaultImage]="defaultImage" [lazyLoad]="item.imageURL" [offset]="offset">
+                        </div>
+                        <!-- <div class="shop-item-details" style="text-align:center">
+                            <h4 class="shop-item-title">
+                                <a style="color:black; padding-left:10px; padding-right:10px;" href="#">{{item.title}}</a>
+                            </h4>
+                        </div> -->
+                        <!-- <div style="text-align:center">
+                            <h1 class="shop-item-title" style="color:#5c5757; font-size:16pt; font-weight:bold">₦{{item.price | number}}</h1>
+                        </div> -->
+                        <div class="middle">
+                                <a routerLink="/shopping/{{item.$key}}/{{itemTitleBestSellers[i]}}" class="btn btn-primary text visible-lg">
+                                    shop now
+                                </a>
+                               
+                            </div>
+                    </div>
             <!-- .shop-item -->
         </div>
         <!-- .col-lg-3.col-sm-6 -->
@@ -148,7 +161,7 @@
         <h3 class="text-center">#superWoman</h3>
         <div class="row padding-top">
             <!-- Item -->
-            <div *ngFor="let item of bestSellers; let i=index" class="col-md-4 col-sm-6 col-lg-4">
+            <div *ngFor="let item of bestSellers; let i=index" class="col-md-3 col-sm-6 col-lg-3">
                 <div class="shop-item">
                     <div class="shop-thumbnail">
                         <span class="item-rating text-warning">
