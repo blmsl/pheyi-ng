@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ShoppingCartService } from "app/shared/services/shopping-cart.service";
-import {MdButtonToggleModule} from '@angular/material';
+import {MatButtonToggleModule} from '@angular/material';
 import { AngularFireDatabase } from "angularfire2/database";
 import { ActivatedRoute } from "@angular/router";
 import { NotifyService } from 'app/shared/services/notify.service';

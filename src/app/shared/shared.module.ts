@@ -18,7 +18,7 @@ import { ShippingService } from 'shared/services/shipping.service';
 import { ShoppingCartService } from 'shared/services/shopping-cart.service';
 import { UserService } from 'shared/services/user.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MdCheckboxModule, MdButtonToggleModule } from '@angular/material';
+import { MatCheckboxModule, MatButtonToggleModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { DataTableModule } from 'angular-4-data-table';
@@ -50,15 +50,14 @@ import { MenuService } from 'shared/components/nav/menu-service.service';
     RouterModule,
 
     NgbModule.forRoot().ngModule,
-    MdCheckboxModule,
-    MdButtonToggleModule,
+    MatCheckboxModule,
+    MatButtonToggleModule,
 
     AngularFireModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     LazyLoadImageModule,
     
- 
   ],
   declarations: [
     ProductQuantityComponent,

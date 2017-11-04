@@ -26,13 +26,13 @@
           <div *ngIf="!group.value" class="alert alert-dark" role="alert" style="font-size:9pt">
             Please click to select your prefered size.
           </div>
-          <md-button-toggle-group (change)="toggleSize(group.value)" [(ngModel)]="size" selected #group="mdButtonToggleGroup">
-            <md-button-toggle value="{{i}}" [checked]="group.value === 8" *ngFor="let i of product.availableSizes">
+          <mat-button-toggle-group (change)="toggleSize(group.value)" [(ngModel)]="size" selected #group="matButtonToggleGroup">
+            <mat-button-toggle value="{{i}}" [checked]="group.value === 8" *ngFor="let i of product.availableSizes">
               {{i}}
-            </md-button-toggle>
+            </mat-button-toggle>
 
 
-          </md-button-toggle-group>
+          </mat-button-toggle-group>
           <div class="example-selected-value">
 
             <div *ngIf="group.value" style="padding-top:1em;">

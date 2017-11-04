@@ -1,8 +1,8 @@
+// import { MdCheckboxModule, MdButtonToggleModule } from '@angular/material';
 import { environment } from './../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, ApplicationRef } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { MdButtonToggleModule, MdCheckboxModule } from '@angular/material';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
@@ -19,9 +19,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeroSliderComponent } from 'app/core/components/hero-slider/hero-slider.component';
 import { AppRoutingModule } from 'app/app-routing.module';
 import { CommonModule } from '@angular/common';
+import { MatCheckboxModule, MatButtonToggleModule } from '@angular/material';
 
 
 //---Angular Material Components
+const APP_ID = 'angular-universal-firebase';
 
 
 @NgModule({
@@ -46,8 +48,8 @@ import { CommonModule } from '@angular/common';
     AngularFireModule,    
     AngularFireModule.initializeApp(environment.firebase),
 
-    MdCheckboxModule,
-    MdButtonToggleModule
+    MatCheckboxModule,
+    MatButtonToggleModule
   ],
 
   providers: [

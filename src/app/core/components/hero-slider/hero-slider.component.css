@@ -178,15 +178,15 @@
     background-position: 0 25% !important;
 }
 .slide-1-price{
-    bottom: 13%; right: 15px;
+    bottom: 23%; right: 15px;
 }
 .call-to-action-1{
     top: 0; right:70%;
     background: rgba(26,26,26, 0.75);
     padding:20px;
     padding-top:15%;
-    width:45%;
-    left:8%;
+    width:70%;
+    left:-12%;
     height:100%;
 }
 .call-to-action-text-1{
@@ -269,6 +269,6 @@
     }
 
     .slide-1-price{
-        top: 3%; right: 15px;
+        top: 10%; right: 60% !important;
     }
 }
