@@ -1,4 +1,4 @@
-<section style="min-height:200vh; padding-top:20vh; padding-left:10%; padding-right:10%; padding-bottom:10%">
+<section >
 
   <div class="row">
 
@@ -23,19 +23,18 @@
       <div class="row">
         <ng-container *ngFor="let p of filteredProducts; let i = index">
 
-          <div class="col">
+          <div class="col col-xs-6 col-md-6">
 
             <a routerLink="/shopping/{{p.$key}}/{{p.title}}" class="category-tile">
               <div class="inner">
                 
                 <div class="column">
                   <div class="category-thumb">
-                    <!-- <img src="{{p.imageURL}}" alt="Category"> -->
                     <img src="{{p.imageURL}}" alt="Category">
                   </div>
                  <div style="padding-top:1em;">  
-                  <h6 class="space-bottom-half" style="font-weight:lighter; color:black">{{p.title}}</h6>
-                  <h3 style="color:#5d4037"> ₦{{p.price | number}}</h3>
+                  <h6 class="space-bottom-half product-title" >{{p.title}}</h6>
+                  <h3 class="product-price"> ₦{{p.price | number}}</h3>
                   
                  </div>
                 </div>
@@ -47,7 +46,6 @@
           <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
 
         </ng-container>
-
       </div>
     </div>
   </div>

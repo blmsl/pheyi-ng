@@ -9,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class LoadingSpinnerComponent implements OnInit {
 
   @Input() showLoading : boolean = true;
-  @Input() text : string = "Loading...";
+  @Input() text : string = "Loading..";
 
   visibleText : string;
 
