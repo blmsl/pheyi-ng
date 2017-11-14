@@ -44,7 +44,8 @@
         "js/vendor/magnific-popup.min.js",
         "js/scripts.js",
         "js/jivo.js",
-        "js/google-analytics.js"
+        "js/google-analytics.js",
+        "../node_modules/angular-4-data-table/dist/index.js" 
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

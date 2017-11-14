@@ -3,7 +3,7 @@ import { AdminService } from "app/shared/services/admin.service";
 import { ProductService } from "app/shared/services/product.service";
 import { Subscription } from "rxjs/Subscription";
 import { Product } from "app/shared/models/app-products";
-import { DataTableResource } from "angular-4-data-table";
+import { DataTableResource } from "angular-4-data-table/src/index";
 
 @Component({
   selector: 'app-admin',
