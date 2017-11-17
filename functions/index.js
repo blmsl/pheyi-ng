@@ -2,7 +2,7 @@
 
 process.env.DEBUG = 'actions-on-google:*';
 
-const App = require('actions-on-google').ApiAiApp;
+// const App = require('actions-on-google').ApiAiApp;
 let functions = require('firebase-functions');
 let admin = require('firebase-admin');
 
