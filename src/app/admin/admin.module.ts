@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { DataTableModule } from 'angular-4-data-table';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from 'shared/services/auth-guard.service';
+import { AdminOrderComponent } from './components/admin-order/admin-order.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { AuthGuard } from 'shared/services/auth-guard.service';
     SharedModule,
     RouterModule.forChild([
       { path: 'admin-orders', component: AdminOrdersComponent, canActivate : [AuthGuard, AdminAuthGuard]},
+      { path: 'admin-orders/:id', component: AdminOrderComponent, canActivate : [AuthGuard, AdminAuthGuard]},
     
       { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       { path: 'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
@@ -30,6 +32,7 @@ import { AuthGuard } from 'shared/services/auth-guard.service';
     AdminComponent,    
     AdminOrdersComponent,
     ProductFormComponent,
+    AdminOrderComponent,
   ],
   providers:[
     AdminAuthGuard,

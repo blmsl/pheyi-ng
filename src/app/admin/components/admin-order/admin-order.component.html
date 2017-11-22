@@ -1,0 +1,106 @@
+<section>
+    <div class="py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-7">
+              <a routerLink="/admin-orders" class="btn btn-success">Back</a>
+            </div>
+            <div class="col-md-5">
+              <div>
+                <div class=" text-right p-2 display-block"> 
+                  <h1> {{order.shipping.name}}</h1>
+                  <p>{{user.email}}</p>
+                  <p> {{order.shipping.address}}<br>
+                       {{order.shipping.city}}<br>
+                       {{order.shipping.country}} <br>
+                       <b>{{order.shipping.phone}}</b>
+                      </p>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-5">
+              <ul class="list-group list-group-custom">
+                <li class="list-group-item list-group-custom border">
+                  <div class="row">
+                    <div class="col-md-7">
+                      <p> Amount </p>
+                      <h1 class="py-1"> N {{totalPriceOfOrder | number}} </h1>
+                    </div>
+                    <div class="col-md-4">
+                      <!-- <a class="btn btn-success btn-block m-5" href="">Success</a> -->
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <p class="py-1"> Reference </p>
+                    </div>
+                    <div class="col-md-8">
+                    <p class="py-1"><b> {{order.$key}} </b></p>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <p class="py-1"> Paid At </p>
+                    </div>
+                    <div class="col-md-8">
+                      <p class="py-1"><b> {{order.datePlaced | date}} </b></p>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <p class="py-1"> Status </p>
+                    </div>
+                    <div class="col-md-8">
+                      <p class="py-1">
+                        <a id="c_button-outline" href="#" class="btn pi-draggable disabled btn-block btn-outline-success border border-success" draggable="true"> Shipped </a>
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-7">
+              <div class="card">
+                <div class="card-header"> Products</div>
+                <div class="card-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Product</th>
+                        <th>Size</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="" *ngFor="let o of order.items">
+                        <td>
+                          <img class="img-fluid d-block" [src]="o.product.imageURL" width="70px" height="70px"> </td>
+                        <td class="py-4">{{o.product.title}}</td>
+                        <td class="py-4">{{o.product.size}}</td>
+                        <td class="py-4">{{o.quantity}}</td>
+                        <td>{{o.product.price}}
+                          <br> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</section>

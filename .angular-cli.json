@@ -45,7 +45,7 @@
         "js/scripts.js",
         "js/jivo.js",
         "js/google-analytics.js",
-        "../node_modules/angular-4-data-table/dist/index.js" 
+        "../node_modules/angular-4-data-table/dist/index.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
