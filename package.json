@@ -27,7 +27,7 @@
     "@angular/router": "^4.0.0",
     "@greg-md/ng-lazy-load": "^1.0.6",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.4",
-    "angular-4-data-table": "^0.2.3",
+    "angular-4-data-table": "^0.4.0",
     "angularfire2": "^4.0.0-rc.0",
     "core-js": "^2.5.1",
     "firebase": "^3.9.*",
